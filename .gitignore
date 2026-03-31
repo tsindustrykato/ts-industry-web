@@ -1,6 +1,9 @@
 # ZIP archives (large files)
 *.zip
 
+# Large PDF reference materials
+Reference materials/
+
 # OS files
 Thumbs.db
 .DS_Store
