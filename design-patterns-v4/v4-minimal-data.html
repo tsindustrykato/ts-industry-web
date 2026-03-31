@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="dark" lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TS Industry | Minimal Data / ミニマルデータ</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&family=Roboto+Mono:wght@400;700&family=Noto+Sans+JP:wght@100;300;400;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "background-dark": "#0B1224",
+                    "sub-base": "#0F1730",
+                },
+                fontFamily: {
+                    "display": ["Inter", "Noto Sans JP", "sans-serif"],
+                    "mono": ["Roboto Mono", "monospace"],
+                },
+            },
+        },
+    }
+</script>
+<style>
+    body {
+        background-color: #0B1224;
+        color: rgba(255,255,255,0.85);
+    }
+    .section-narrow {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .section-wide {
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .text-w100 { color: rgba(255,255,255,1); }
+    .text-w70 { color: rgba(255,255,255,0.7); }
+    .text-w40 { color: rgba(255,255,255,0.4); }
+    .text-w25 { color: rgba(255,255,255,0.25); }
+    .text-w15 { color: rgba(255,255,255,0.15); }
+    .text-w10 { color: rgba(255,255,255,0.10); }
+    .border-w5 { border-color: rgba(255,255,255,0.05); }
+    .border-w8 { border-color: rgba(255,255,255,0.08); }
+    .border-w10 { border-color: rgba(255,255,255,0.10); }
+    .border-w20 { border-color: rgba(255,255,255,0.20); }
+    .bg-w3 { background-color: rgba(255,255,255,0.03); }
+    .bg-w5 { background-color: rgba(255,255,255,0.05); }
+    .hover-border-w20:hover { border-color: rgba(255,255,255,0.20); }
+    .hover-border-w30:hover { border-color: rgba(255,255,255,0.30); }
+    .hover-text-w100:hover { color: rgba(255,255,255,1); }
+
+    /* Ultra-thin hero title */
+    .hero-title {
+        font-weight: 100;
+        font-size: clamp(56px, 10vw, 96px);
+        letter-spacing: 40px;
+        line-height: 1.1;
+        color: rgba(255,255,255,0.9);
+    }
+
+    /* Minimal divider */
+    .min-divider {
+        width: 40px;
+        height: 1px;
+        background: rgba(255,255,255,0.15);
+    }
+
+    /* Data row hover */
+    .data-row {
+        transition: background-color 0.2s ease;
+    }
+    .data-row:hover {
+        background-color: rgba(255,255,255,0.02);
+    }
+
+    /* Card minimal */
+    .card-minimal {
+        border: 1px solid rgba(255,255,255,0.05);
+        transition: border-color 0.3s ease;
+    }
+    .card-minimal:hover {
+        border-color: rgba(255,255,255,0.20);
+    }
+</style>
+</head>
+<body class="font-display overflow-x-hidden">
+
+<!-- Header (thin, minimal) -->
+<header class="fixed top-0 w-full z-50 border-b border-w5 bg-background-dark/90 backdrop-blur-sm">
+<div class="section-wide px-6 h-14 flex items-center justify-between">
+    <h1 class="text-sm font-bold tracking-[0.15em] uppercase text-w70">TS Industry</h1>
+    <nav class="hidden md:flex items-center gap-8">
+        <a class="text-[11px] tracking-widest uppercase text-w40 hover-text-w100 transition-colors font-mono" href="#home">ホーム</a>
+        <a class="text-[11px] tracking-widest uppercase text-w40 hover-text-w100 transition-colors font-mono" href="#services">サービス</a>
+        <a class="text-[11px] tracking-widest uppercase text-w40 hover-text-w100 transition-colors font-mono" href="#technology">技術</a>
+        <a class="text-[11px] tracking-widest uppercase text-w40 hover-text-w100 transition-colors font-mono" href="#results">実績</a>
+        <a class="text-[11px] tracking-widest uppercase text-w40 hover-text-w100 transition-colors font-mono" href="#contact">お問い合わせ</a>
+    </nav>
+</div>
+</header>
+
+<!-- Hero (pure flat, typographic) -->
+<section id="home" class="h-screen w-full flex items-center justify-center relative">
+    <div class="text-center">
+        <h2 class="hero-title font-display mb-8">精&nbsp;&nbsp;度</h2>
+        <div class="min-divider mx-auto mb-6"></div>
+        <p class="text-[11px] font-mono tracking-[0.5em] uppercase text-w25">Precision Archive / TS Industry</p>
+    </div>
+
+    <!-- Minimal scroll indicator -->
+    <div class="absolute bottom-16 left-1/2 -translate-x-1/2">
+        <div class="w-[1px] h-10 bg-gradient-to-b from-white/15 to-transparent"></div>
+    </div>
+</section>
+
+<!-- Spacer -->
+<div class="h-[120px]"></div>
+
+<!-- CA Blade Technical Section (data table, no image) -->
+<section id="technology" class="px-6">
+    <div class="section-narrow">
+        <p class="text-[10px] font-mono tracking-[0.5em] uppercase text-w25 mb-4">01 / Technical Specification</p>
+        <h3 class="text-2xl font-bold tracking-tight mb-2">CA Blade 技術仕様</h3>
+        <p class="text-[13px] text-w40 mb-12 max-w-lg leading-relaxed">航空宇宙用複合材料の多層切断に対応する超硬ブレード技術。</p>
+
+        <!-- Data Table -->
+        <div class="border border-w5 rounded-sm">
+            <div class="data-row flex justify-between items-center px-6 py-5 border-b border-w5">
+                <div>
+                    <span class="text-[10px] font-mono text-w25 block mb-1">01</span>
+                    <span class="text-xs text-w40 tracking-widest uppercase">耐久性係数 / Durability Coefficient</span>
+                </div>
+                <span class="text-2xl font-mono font-bold text-w100">+40%</span>
+            </div>
+            <div class="data-row flex justify-between items-center px-6 py-5 border-b border-w5">
+                <div>
+                    <span class="text-[10px] font-mono text-w25 block mb-1">02</span>
+                    <span class="text-xs text-w40 tracking-widest uppercase">表面粗さ / Surface Roughness</span>
+                </div>
+                <span class="text-2xl font-mono font-bold text-w100">Ra 0.08μm</span>
+            </div>
+            <div class="data-row flex justify-between items-center px-6 py-5">
+                <div>
+                    <span class="text-[10px] font-mono text-w25 block mb-1">03</span>
+                    <span class="text-xs text-w40 tracking-widest uppercase">硬度 / Hardness Rating</span>
+                </div>
+                <span class="text-2xl font-mono font-bold text-w100">HV 3200</span>
+            </div>
+        </div>
+
+        <div class="mt-6 flex justify-end">
+            <a href="#" class="text-[11px] font-mono text-w25 hover-text-w100 transition-colors tracking-widest uppercase flex items-center gap-2">
+                Full specs
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Spacer -->
+<div class="h-[120px]"></div>
+
+<!-- Services (stripped, no icons) -->
+<section id="services" class="px-6">
+    <div class="section-narrow">
+        <p class="text-[10px] font-mono tracking-[0.5em] uppercase text-w25 mb-4">02 / Services</p>
+        <h3 class="text-2xl font-bold tracking-tight mb-12">サービス</h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="card-minimal p-6 rounded-sm cursor-pointer">
+                <h4 class="text-sm font-bold mb-1.5 text-w100 tracking-tight">抜き型・木型</h4>
+                <p class="text-[12px] text-w40 leading-relaxed">高精度な抜き型・木型の設計から製造まで対応</p>
+            </div>
+            <div class="card-minimal p-6 rounded-sm cursor-pointer">
+                <h4 class="text-sm font-bold mb-1.5 text-w100 tracking-tight">ウォータージェット</h4>
+                <p class="text-[12px] text-w40 leading-relaxed">超高圧水流による熱影響のない精密切断加工</p>
+            </div>
+            <div class="card-minimal p-6 rounded-sm cursor-pointer">
+                <h4 class="text-sm font-bold mb-1.5 text-w100 tracking-tight">精密部品加工</h4>
+                <p class="text-[12px] text-w40 leading-relaxed">CNC加工・ワイヤーカットによるミクロン精度</p>
+            </div>
+            <div class="card-minimal p-6 rounded-sm cursor-pointer">
+                <h4 class="text-sm font-bold mb-1.5 text-w100 tracking-tight">品質検査</h4>
+                <p class="text-[12px] text-w40 leading-relaxed">三次元測定機による全数検査・ISO 9001認証</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Spacer -->
+<div class="h-[120px]"></div>
+
+<!-- Stats (massive numbers, minimal) -->
+<section id="results" class="px-6">
+    <div class="section-wide">
+        <p class="text-[10px] font-mono tracking-[0.5em] uppercase text-w25 mb-16 text-center">03 / Performance</p>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center">
+                <div class="text-6xl md:text-[80px] font-mono font-bold text-w100 leading-none mb-3">
+                    40<span class="text-4xl text-w40">+</span>
+                </div>
+                <p class="text-[10px] font-mono text-w25 tracking-widest uppercase">年 / Years</p>
+            </div>
+            <div class="text-center">
+                <div class="text-6xl md:text-[80px] font-mono font-bold text-w100 leading-none mb-3">
+                    3K<span class="text-4xl text-w40">+</span>
+                </div>
+                <p class="text-[10px] font-mono text-w25 tracking-widest uppercase">件 / Annual</p>
+            </div>
+            <div class="text-center">
+                <div class="text-6xl md:text-[80px] font-mono font-bold text-w100 leading-none mb-3">
+                    .01
+                </div>
+                <p class="text-[10px] font-mono text-w25 tracking-widest uppercase">mm / Precision</p>
+            </div>
+            <div class="text-center">
+                <div class="text-6xl md:text-[80px] font-mono font-bold text-w100 leading-none mb-3">
+                    98<span class="text-4xl text-w40">%</span>
+                </div>
+                <p class="text-[10px] font-mono text-w25 tracking-widest uppercase">満足度 / Satisfaction</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Spacer -->
+<div class="h-[120px]"></div>
+
+<!-- Contact (minimal) -->
+<section id="contact" class="px-6">
+    <div class="section-narrow text-center">
+        <p class="text-[10px] font-mono tracking-[0.5em] uppercase text-w25 mb-4">04 / Contact</p>
+        <h3 class="text-2xl font-bold tracking-tight mb-3">お問い合わせ</h3>
+        <p class="text-[13px] text-w40 mb-10 leading-relaxed">精密加工のご相談・お見積りはこちらから</p>
+
+        <div class="flex items-center justify-center gap-6">
+            <a href="#" class="border border-w10 hover-border-w30 px-8 py-3.5 text-[11px] font-mono tracking-widest uppercase text-w70 hover-text-w100 transition-all">
+                お問い合わせ
+            </a>
+            <span class="text-w15 text-xs">/</span>
+            <a href="#" class="text-[11px] font-mono tracking-widest text-w25 hover-text-w100 transition-colors uppercase">
+                06-XXXX-XXXX
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Spacer -->
+<div class="h-[120px]"></div>
+
+<!-- Footer (absolute minimum) -->
+<footer class="border-t border-w5 py-8 px-6">
+    <div class="section-narrow flex items-center justify-between">
+        <div>
+            <p class="text-[11px] font-bold text-w40 tracking-wider uppercase">TS Industry</p>
+            <p class="text-[10px] text-w15 mt-0.5">株式会社ティーエスインダストリー / 〒577-0000 大阪府東大阪市</p>
+        </div>
+        <p class="text-[10px] font-mono text-w15">&copy; 2024</p>
+    </div>
+</footer>
+
+</body>
+</html>

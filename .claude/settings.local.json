@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(unzip -l design-patterns-v4.zip)",
+      "Bash(mkdir -p design-patterns-v4)",
+      "Bash(unzip -o design-patterns-v4.zip -d design-patterns-v4/)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(findstr :3000)",
+      "Bash(wmic process:*)",
+      "Bash(powershell \"Get-Process -Id 24588 | Select-Object Path, CommandLine\")",
+      "Bash(npx serve:*)",
+      "Bash(findstr :3001)",
+      "Bash(powershell \"Get-Process -Id 13664 | Select-Object Path\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3001/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3001/patterns-v5/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3001/patterns-v5/index.html)"
+    ]
+  }
+}

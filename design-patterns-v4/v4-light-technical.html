@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TS Industry | The Precision Archive — Light Technical</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&family=Roboto+Mono:wght@400;700&family=Noto+Sans+JP:wght@100;300;400;700&family=Noto+Serif+JP:wght@400;700;900&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#1A56DB",
+                    "accent-orange": "#E55A00",
+                    "accent-orange-light": "#FF6B00",
+                    "bg-light": "#F5F6F8",
+                    "bg-white": "#FFFFFF",
+                    "text-heading": "#0B1224",
+                    "text-body": "#3D4555",
+                    "text-secondary": "#6B7280",
+                    "border-light": "#E2E5EA",
+                    "hero-dark": "#0B1224",
+                    "sub-base-dark": "#161D2F",
+                },
+                fontFamily: {
+                    "display": ["Inter", "Noto Sans JP", "sans-serif"],
+                    "serif-jp": ["Noto Serif JP", "serif"],
+                    "sans-jp": ["Noto Sans JP", "sans-serif"],
+                    "mono": ["Roboto Mono", "monospace"],
+                },
+                borderRadius: {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "9999px"
+                },
+            },
+        },
+    }
+</script>
+<style>
+    /* Light mode subtle grid */
+    .light-grid {
+        background-image: radial-gradient(circle, rgba(11,18,36,0.04) 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+
+    /* Dark grid for hero */
+    .dark-grid {
+        background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+
+    /* Orange border glow on hover for light mode */
+    .card-hover {
+        transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        border-color: #E55A00;
+    }
+
+    /* Clean shadow for cards */
+    .card-shadow {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .card-shadow:hover {
+        box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+
+    /* Smooth scroll */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* Hero parallax effect */
+    @keyframes heroShift {
+        0% { transform: scale(1.02); }
+        100% { transform: scale(1.08); }
+    }
+    .hero-bg-animate {
+        animation: heroShift 25s ease-in-out infinite alternate;
+    }
+
+    /* Thin separator */
+    .thin-separator {
+        height: 1px;
+        background: linear-gradient(to right, transparent, #E2E5EA, transparent);
+    }
+</style>
+</head>
+<body class="bg-bg-light font-sans-jp text-text-body overflow-x-hidden">
+
+<!-- Header -->
+<header class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-border-light backdrop-blur-md bg-white/95">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="size-8 text-primary">
+                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"/>
+                </svg>
+            </div>
+            <h1 class="text-xl font-black tracking-tighter uppercase italic font-display text-text-heading">TS Industry</h1>
+        </div>
+        <nav class="hidden md:flex items-center gap-10">
+            <a class="text-xs font-bold tracking-widest text-text-body hover:text-accent-orange transition-colors" href="#">技術情報</a>
+            <div class="group relative">
+                <a class="text-xs font-bold tracking-widest text-text-body hover:text-accent-orange transition-colors flex items-center gap-1" href="#">
+                    加工サービス <span class="material-symbols-outlined text-sm">expand_more</span>
+                </a>
+                <div class="absolute top-full -left-20 pt-6 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300">
+                    <div class="bg-white border border-border-light p-6 rounded-sm w-[400px] shadow-xl grid grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <div class="h-20 w-full bg-gray-100 rounded-sm overflow-hidden">
+                                <img class="w-full h-full object-cover" alt="精密金属加工" src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=400&h=200&fit=crop"/>
+                            </div>
+                            <p class="text-[10px] font-bold text-accent-orange">抜き型・木型</p>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="h-20 w-full bg-gray-100 rounded-sm overflow-hidden">
+                                <img class="w-full h-full object-cover" alt="ウォータージェット加工" src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400&h=200&fit=crop"/>
+                            </div>
+                            <p class="text-[10px] font-bold text-accent-orange">ウォータージェット</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="text-xs font-bold tracking-widest text-text-body hover:text-accent-orange transition-colors" href="#">会社概要</a>
+            <a class="text-xs font-bold tracking-widest text-text-body hover:text-accent-orange transition-colors" href="#">採用情報</a>
+        </nav>
+        <button class="bg-primary hover:bg-primary/90 text-white px-6 py-2 text-xs font-bold tracking-widest rounded-sm transition-all">
+            お問い合わせ
+        </button>
+    </div>
+</header>
+
+<!-- Hero / Main Visual (Dark band) -->
+<section class="relative h-screen w-full flex items-center justify-center overflow-hidden bg-hero-dark">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0">
+        <img class="w-full h-full object-cover opacity-30 hero-bg-animate" alt="精密加工" src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1920&h=1080&fit=crop"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-hero-dark via-hero-dark/40 to-hero-dark/70"></div>
+        <div class="absolute inset-0 dark-grid"></div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 w-full max-w-7xl px-6 flex flex-col md:flex-row items-end justify-between">
+        <div class="max-w-2xl mb-12 md:mb-0">
+            <h2 class="text-6xl md:text-8xl lg:text-9xl font-black italic tracking-tighter leading-none mb-6 text-white font-display">
+                THE<br/>PRECISION<br/>ARCHIVE
+            </h2>
+            <div class="flex items-center gap-4">
+                <div class="h-[1px] w-20 bg-accent-orange"></div>
+                <p class="text-sm tracking-[0.4em] uppercase font-light text-slate-400 font-display">先端素材技術 v.2.04</p>
+            </div>
+        </div>
+        <div class="text-right">
+            <p class="text-accent-orange text-sm tracking-[0.5em] font-light mb-4 font-mono">01 / PRECISION</p>
+            <button class="flex items-center gap-4 text-xs font-bold tracking-widest uppercase group text-white font-display">
+                技術を探求する
+                <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
+        <p class="text-[10px] tracking-widest text-slate-500 font-mono uppercase">Scroll</p>
+        <div class="w-[1px] h-16 bg-gradient-to-b from-accent-orange to-transparent"></div>
+    </div>
+
+    <!-- Bottom transition gradient from dark to light -->
+    <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-bg-light z-20"></div>
+</section>
+
+<!-- Sidebar Quick Guide -->
+<aside class="fixed right-0 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col gap-8 px-6">
+    <div class="flex flex-col items-end group cursor-pointer">
+        <span class="text-[10px] tracking-widest font-bold mb-1 opacity-40 text-text-body group-hover:opacity-100 transition-opacity">ご相談</span>
+        <div class="w-8 h-[1px] bg-accent-orange group-hover:w-12 transition-all"></div>
+    </div>
+    <div class="flex flex-col items-end group cursor-pointer text-accent-orange">
+        <span class="text-[10px] tracking-widest font-bold mb-1">お見積り</span>
+        <div class="w-12 h-[1px] bg-accent-orange"></div>
+    </div>
+    <div class="flex flex-col items-end group cursor-pointer">
+        <span class="text-[10px] tracking-widest font-bold mb-1 opacity-40 text-text-body group-hover:opacity-100 transition-opacity">実績</span>
+        <div class="w-8 h-[1px] bg-accent-orange group-hover:w-12 transition-all"></div>
+    </div>
+</aside>
+
+<!-- CA Blade Technical Section -->
+<section class="light-grid bg-bg-white border-y border-border-light py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6">
+        <!-- Section label -->
+        <div class="mb-16">
+            <p class="text-accent-orange text-xs font-bold tracking-[0.3em] uppercase mb-2 font-display">Technical Report</p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="relative group">
+                <div class="absolute -inset-4 border border-accent-orange/10 rounded-sm group-hover:border-accent-orange/30 transition-colors"></div>
+                <img class="w-full aspect-square object-cover shadow-lg rounded-sm" alt="CAブレード精密刃先" src="https://images.unsplash.com/photo-1530124566582-a45a7c2ec644?w=800&h=800&fit=crop"/>
+                <div class="absolute top-4 left-4 bg-white/95 backdrop-blur px-3 py-1 text-[10px] font-mono border border-border-light text-text-secondary">
+                    参照: CA-BLADE_001
+                </div>
+            </div>
+            <div class="space-y-10">
+                <div>
+                    <h3 class="text-4xl font-black tracking-tight mb-2 text-text-heading font-display">
+                        CA Blade <span class="text-accent-orange font-light">技術報告書</span>
+                    </h3>
+                    <p class="text-text-secondary text-sm leading-relaxed max-w-md font-light">
+                        航空宇宙グレードの多層複合材を高精度で切断するために設計された、極限の耐久性と切れ味を実現する独自開発刃物。
+                    </p>
+                </div>
+                <div class="space-y-6">
+                    <div class="border-b border-border-light pb-4 flex justify-between items-end">
+                        <span class="text-xs uppercase tracking-widest text-text-secondary">耐久性係数</span>
+                        <span class="text-2xl font-mono text-accent-orange font-bold">+40%</span>
+                    </div>
+                    <div class="border-b border-border-light pb-4 flex justify-between items-end">
+                        <span class="text-xs uppercase tracking-widest text-text-secondary">表面粗さ</span>
+                        <span class="text-2xl font-mono font-bold text-text-heading">Ra <span class="text-accent-orange">0.08</span>μm</span>
+                    </div>
+                    <div class="border-b border-border-light pb-4 flex justify-between items-end">
+                        <span class="text-xs uppercase tracking-widest text-text-secondary">硬度</span>
+                        <span class="text-2xl font-mono font-bold text-text-heading">HV <span class="text-accent-orange">3200</span></span>
+                    </div>
+                </div>
+                <button class="flex items-center gap-2 bg-bg-light hover:bg-gray-200 border border-border-light px-6 py-3 text-xs font-bold uppercase tracking-widest transition-all text-text-heading rounded-sm">
+                    <span class="material-symbols-outlined text-sm">download</span>
+                    技術仕様書をダウンロード
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services / Material Index -->
+<section class="py-24 max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+        <div>
+            <p class="text-accent-orange text-xs font-bold tracking-[0.3em] uppercase mb-2 font-display">Capabilities</p>
+            <h3 class="text-4xl md:text-5xl font-black tracking-tighter text-text-heading font-display">加工技術一覧</h3>
+        </div>
+        <p class="text-text-secondary text-sm max-w-xs text-right italic font-light">
+            多様な高精度素材に対する包括的な加工実績アーカイブ。
+        </p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- Card 1: 抜き型/木型 -->
+        <div class="card-hover card-shadow group bg-white border border-border-light p-8 rounded-sm transition-all cursor-pointer relative">
+            <div class="absolute top-0 left-0 right-0 h-[3px] bg-accent-orange rounded-t-sm"></div>
+            <div class="size-12 bg-bg-light rounded-full flex items-center justify-center mb-6 text-primary group-hover:text-accent-orange transition-colors">
+                <span class="material-symbols-outlined">layers</span>
+            </div>
+            <h4 class="text-lg font-bold mb-2 tracking-tight text-text-heading">抜き型・木型</h4>
+            <p class="text-xs text-text-secondary leading-relaxed font-light">
+                独自素材CAブレードによる高精度・高耐久の抜き型製造。他社製トラブルにも対応。
+            </p>
+        </div>
+        <!-- Card 2: ウォータージェット -->
+        <div class="card-hover card-shadow group bg-white border border-border-light p-8 rounded-sm transition-all cursor-pointer relative">
+            <div class="absolute top-0 left-0 right-0 h-[3px] bg-accent-orange rounded-t-sm"></div>
+            <div class="size-12 bg-bg-light rounded-full flex items-center justify-center mb-6 text-primary group-hover:text-accent-orange transition-colors">
+                <span class="material-symbols-outlined">precision_manufacturing</span>
+            </div>
+            <h4 class="text-lg font-bold mb-2 tracking-tight text-text-heading">ウォータージェット</h4>
+            <p class="text-xs text-text-secondary leading-relaxed font-light">
+                超高圧水流による精密切断。熱影響ゼロで金属・石材・ガラス等あらゆる素材に対応。
+            </p>
+        </div>
+        <!-- Card 3: 精密部品加工 -->
+        <div class="card-hover card-shadow group bg-white border border-border-light p-8 rounded-sm transition-all cursor-pointer relative">
+            <div class="absolute top-0 left-0 right-0 h-[3px] bg-accent-orange rounded-t-sm"></div>
+            <div class="size-12 bg-bg-light rounded-full flex items-center justify-center mb-6 text-primary group-hover:text-accent-orange transition-colors">
+                <span class="material-symbols-outlined">diamond</span>
+            </div>
+            <h4 class="text-lg font-bold mb-2 tracking-tight text-text-heading">精密部品加工</h4>
+            <p class="text-xs text-text-secondary leading-relaxed font-light">
+                航空宇宙グレードCFRP、チタン合金など高難度素材の精密切断・加工。
+            </p>
+        </div>
+        <!-- Card 4: 品質検査 -->
+        <div class="card-hover card-shadow group bg-white border border-border-light p-8 rounded-sm transition-all cursor-pointer relative">
+            <div class="absolute top-0 left-0 right-0 h-[3px] bg-accent-orange rounded-t-sm"></div>
+            <div class="size-12 bg-bg-light rounded-full flex items-center justify-center mb-6 text-primary group-hover:text-accent-orange transition-colors">
+                <span class="material-symbols-outlined">verified</span>
+            </div>
+            <h4 class="text-lg font-bold mb-2 tracking-tight text-text-heading">品質検査</h4>
+            <p class="text-xs text-text-secondary leading-relaxed font-light">
+                三次元測定機による全数検査体制。±0.01mmの精度保証を徹底。
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Numbers / Stats Section -->
+<section class="bg-white py-20 border-y border-border-light light-grid">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="mb-12 text-center">
+            <p class="text-accent-orange text-xs font-bold tracking-[0.3em] uppercase mb-2 font-display">Performance Data</p>
+        </div>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-12">
+            <div class="text-center group">
+                <p class="text-[10px] uppercase tracking-widest font-bold text-text-secondary mb-4">創業</p>
+                <div class="text-4xl md:text-6xl font-mono font-bold text-text-heading group-hover:text-accent-orange transition-colors">
+                    <span class="text-accent-orange">40</span>年+
+                </div>
+            </div>
+            <div class="text-center group relative">
+                <div class="absolute left-0 top-4 bottom-4 w-[1px] bg-border-light hidden lg:block"></div>
+                <p class="text-[10px] uppercase tracking-widest font-bold text-text-secondary mb-4">年間実績</p>
+                <div class="text-4xl md:text-6xl font-mono font-bold text-text-heading group-hover:text-accent-orange transition-colors">
+                    <span class="text-accent-orange">3,000</span>件+
+                </div>
+            </div>
+            <div class="text-center group relative">
+                <div class="absolute left-0 top-4 bottom-4 w-[1px] bg-border-light hidden lg:block"></div>
+                <p class="text-[10px] uppercase tracking-widest font-bold text-text-secondary mb-4">加工精度</p>
+                <div class="text-4xl md:text-6xl font-mono font-bold text-text-heading group-hover:text-accent-orange transition-colors">
+                    ±<span class="text-accent-orange">0.01</span>mm
+                </div>
+            </div>
+            <div class="text-center group relative">
+                <div class="absolute left-0 top-4 bottom-4 w-[1px] bg-border-light hidden lg:block"></div>
+                <p class="text-[10px] uppercase tracking-widest font-bold text-text-secondary mb-4">顧客満足度</p>
+                <div class="text-4xl md:text-6xl font-mono font-bold text-text-heading group-hover:text-accent-orange transition-colors">
+                    <span class="text-accent-orange">98</span>%
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-24 bg-bg-light light-grid">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+        <h3 class="text-3xl md:text-4xl font-black tracking-tight text-text-heading mb-4 font-display">精密加工のご相談</h3>
+        <p class="text-text-secondary text-sm mb-8 font-light leading-relaxed">
+            他社製の型でお困りの方もお気軽にご相談ください。<br/>
+            40年の経験と独自技術で、最適なソリューションをご提案いたします。
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button class="bg-accent-orange hover:bg-accent-orange/90 text-white px-10 py-4 text-sm font-bold tracking-widest rounded-sm transition-all">
+                お問い合わせ
+            </button>
+            <button class="bg-white hover:bg-gray-50 border border-border-light text-text-heading px-10 py-4 text-sm font-bold tracking-widest rounded-sm transition-all shadow-sm">
+                お見積り依頼
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Footer (Dark) -->
+<footer class="bg-hero-dark py-16 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="space-y-6">
+            <div class="flex items-center gap-3">
+                <div class="size-6 text-primary">
+                    <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"/>
+                    </svg>
+                </div>
+                <h2 class="text-lg font-black tracking-tighter uppercase italic font-display text-white">TS Industry</h2>
+            </div>
+            <div class="text-xs text-slate-500 leading-relaxed font-light space-y-1">
+                <p>TS Industry / 株式会社ティーエスインダストリー</p>
+                <p>〒577-0000 大阪府東大阪市</p>
+                <p>TEL: 06-XXXX-XXXX</p>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-8">
+            <div>
+                <h5 class="text-[10px] font-bold uppercase text-accent-orange tracking-widest mb-4">サービス</h5>
+                <ul class="space-y-2 text-xs text-slate-400 font-light">
+                    <li><a class="hover:text-white transition-colors" href="#">抜き型・木型</a></li>
+                    <li><a class="hover:text-white transition-colors" href="#">ウォータージェット</a></li>
+                    <li><a class="hover:text-white transition-colors" href="#">技術報告書</a></li>
+                    <li><a class="hover:text-white transition-colors" href="#">加工実績</a></li>
+                </ul>
+            </div>
+            <div>
+                <h5 class="text-[10px] font-bold uppercase text-accent-orange tracking-widest mb-4">企業情報</h5>
+                <ul class="space-y-2 text-xs text-slate-400 font-light">
+                    <li><a class="hover:text-white transition-colors" href="#">会社概要</a></li>
+                    <li><a class="hover:text-white transition-colors" href="#">採用情報</a></li>
+                    <li><a class="hover:text-white transition-colors" href="#">お問い合わせ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="flex flex-col items-end justify-between">
+            <div class="flex gap-4">
+                <a class="size-8 rounded-sm border border-white/10 flex items-center justify-center hover:bg-accent-orange hover:border-accent-orange transition-all text-white" href="#">
+                    <span class="material-symbols-outlined text-sm">alternate_email</span>
+                </a>
+                <a class="size-8 rounded-sm border border-white/10 flex items-center justify-center hover:bg-accent-orange hover:border-accent-orange transition-all text-white" href="#">
+                    <span class="material-symbols-outlined text-sm">share</span>
+                </a>
+            </div>
+            <p class="text-[10px] text-slate-600 font-mono">&copy; 2024 TS INDUSTRY ARCHIVE</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

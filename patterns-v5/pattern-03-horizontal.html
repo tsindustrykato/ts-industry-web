@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pattern 03 — Horizontal Scroll Gallery | TS Industry</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&family=Roboto+Mono:wght@400;500;700&family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        'navy': { 50:'#f0f4f8',100:'#d9e2ec',200:'#bcccdc',300:'#9fb3c8',400:'#829ab1',500:'#627d98',600:'#486581',700:'#334e68',800:'#243b53',900:'#102a43',950:'#0a1628' },
+      },
+      fontFamily: { 'sans':['Inter','Noto Sans JP','sans-serif'], 'mono':['Roboto Mono','monospace'] },
+    },
+  },
+}
+</script>
+<style>
+html { scroll-behavior: smooth; }
+
+/* Progress bar */
+#progress-bar { transform-origin: left; transform: scaleX(0); }
+
+/* Header */
+.header-scrolled { background: rgba(255,255,255,0.97)!important; backdrop-filter: blur(8px); box-shadow: 0 1px 0 rgba(0,0,0,0.06); }
+.header-scrolled .nav-link { color: #334e68; }
+.header-scrolled .nav-link:hover { color: #102a43; }
+.header-scrolled .logo-light { display: none; }
+.header-scrolled .logo-dark { display: block; }
+.header-scrolled .menu-bar { background: #334e68; }
+
+/* Grain texture overlay */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Typewriter animation */
+.typewriter { overflow: hidden; white-space: nowrap; border-right: 2px solid rgba(255,255,255,0.6); width: 0; animation: typewriter 2.5s steps(20) 0.5s forwards, blink 0.7s step-end infinite; }
+.typewriter-line2 { animation-delay: 3s; }
+@keyframes typewriter { to { width: 100%; } }
+@keyframes blink { 50% { border-color: transparent; } }
+.typewriter-done { border-right-color: transparent; animation: none; width: 100%; }
+
+/* Fade animations */
+.fade-up { opacity:0; transform:translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.fade-up.visible { opacity:1; transform:translateY(0); }
+.fade-left { opacity:0; transform:translateX(-40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.fade-left.visible { opacity:1; transform:translateX(0); }
+.fade-right { opacity:0; transform:translateX(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.fade-right.visible { opacity:1; transform:translateX(0); }
+.delay-1 { transition-delay:0.15s; }
+.delay-2 { transition-delay:0.3s; }
+.delay-3 { transition-delay:0.45s; }
+
+/* Horizontal scroll containers */
+.h-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: #486581 #d9e2ec;
+}
+.h-scroll::-webkit-scrollbar { height: 6px; }
+.h-scroll::-webkit-scrollbar-track { background: #d9e2ec; border-radius: 3px; }
+.h-scroll::-webkit-scrollbar-thumb { background: #486581; border-radius: 3px; }
+.h-scroll::-webkit-scrollbar-thumb:hover { background: #334e68; }
+.h-scroll-item { scroll-snap-align: start; flex-shrink: 0; }
+
+/* Equipment scroll */
+.equip-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  gap: 0;
+  scrollbar-width: none;
+}
+.equip-scroll::-webkit-scrollbar { display: none; }
+.equip-item { scroll-snap-align: start; flex-shrink: 0; }
+
+/* Counter number */
+.counter-num { font-variant-numeric: tabular-nums; }
+
+/* Stats plus sign */
+.stat-suffix { font-size: 0.6em; vertical-align: super; opacity: 0.6; }
+</style>
+</head>
+<body class="bg-white text-navy-700 font-sans antialiased">
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar" class="fixed top-0 left-0 w-full h-[3px] bg-navy-600 z-[60]"></div>
+
+<!-- HEADER -->
+<header id="header" class="fixed top-[3px] w-full z-50 transition-all duration-500">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
+    <a href="/" class="flex items-center">
+      <img src="../assets/images/会社ロゴ 反転透過-450x100pix-300dpi.png" alt="TS Industry" class="h-8 logo-light">
+      <img src="../assets/images/会社ロゴ 反転透過 黒文字-450x100pix-300dpi.png" alt="TS Industry" class="h-8 logo-dark hidden">
+    </a>
+    <nav class="hidden lg:flex items-center gap-10">
+      <a href="/dieboard/" class="nav-link text-[13px] font-medium text-white/80 hover:text-white tracking-wide transition-colors">抜き型・木型</a>
+      <a href="/waterjet/" class="nav-link text-[13px] font-medium text-white/80 hover:text-white tracking-wide transition-colors">ウォータージェット</a>
+      <a href="/about/" class="nav-link text-[13px] font-medium text-white/80 hover:text-white tracking-wide transition-colors">会社概要</a>
+      <a href="/recruit/" class="nav-link text-[13px] font-medium text-white/80 hover:text-white tracking-wide transition-colors">採用情報</a>
+      <a href="/contact/" class="text-[13px] font-semibold text-navy-900 bg-white hover:bg-navy-50 px-6 py-2.5 tracking-wide transition-colors">お問い合わせ</a>
+    </nav>
+    <button id="menu-toggle" class="lg:hidden flex flex-col gap-1.5 p-2" aria-label="メニュー">
+      <span class="menu-bar block w-6 h-0.5 bg-white transition-all"></span>
+      <span class="menu-bar block w-6 h-0.5 bg-white transition-all"></span>
+      <span class="menu-bar block w-4 h-0.5 bg-white transition-all ml-auto"></span>
+    </button>
+  </div>
+  <div id="mobile-menu" class="lg:hidden hidden bg-white border-t border-navy-100">
+    <nav class="max-w-[1400px] mx-auto px-6 py-6 flex flex-col gap-4">
+      <a href="/dieboard/" class="text-sm font-medium text-navy-700 py-2 border-b border-navy-50">抜き型・木型</a>
+      <a href="/waterjet/" class="text-sm font-medium text-navy-700 py-2 border-b border-navy-50">ウォータージェット</a>
+      <a href="/about/" class="text-sm font-medium text-navy-700 py-2 border-b border-navy-50">会社概要</a>
+      <a href="/recruit/" class="text-sm font-medium text-navy-700 py-2 border-b border-navy-50">採用情報</a>
+      <a href="/contact/" class="text-sm font-semibold text-white bg-navy-900 text-center py-3 mt-2">お問い合わせ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO — Full screen with grain texture + typewriter -->
+<section class="relative h-screen min-h-[600px] flex items-center overflow-hidden bg-navy-950 grain">
+  <div class="absolute inset-0">
+    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebb6d51?w=1920&q=80" alt="" class="w-full h-full object-cover opacity-30">
+    <div class="absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-950/80 to-navy-950/40"></div>
+  </div>
+  <div class="relative z-10 max-w-[1400px] mx-auto px-6 md:px-10 w-full">
+    <div class="max-w-2xl">
+      <p class="text-[11px] font-semibold text-navy-400 tracking-[0.2em] uppercase mb-8 font-mono fade-up">TS Industry — Since 1993</p>
+      <div class="mb-6">
+        <h1 class="text-[2.5rem] md:text-[3.5rem] lg:text-[4rem] font-bold text-white leading-[1.1] tracking-tight">
+          <span class="typewriter inline-block" id="hero-line1">精密な型づくりと、</span><br>
+          <span class="typewriter typewriter-line2 inline-block" id="hero-line2">ウォータージェット。</span>
+        </h1>
+      </div>
+      <p class="text-[15px] text-navy-300 leading-relaxed mb-10 max-w-md opacity-0" id="hero-sub">
+        独自素材と30年の技術力で、ものづくりの現場を支える。
+      </p>
+      <div class="flex gap-3 opacity-0" id="hero-btns">
+        <a href="#services" class="text-[13px] font-semibold text-navy-900 bg-white hover:bg-navy-50 px-7 py-3 tracking-wide transition-colors">事業内容</a>
+        <a href="/contact/" class="text-[13px] font-semibold text-white border border-white/25 hover:border-white/50 px-7 py-3 tracking-wide transition-colors">お問い合わせ</a>
+      </div>
+    </div>
+  </div>
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 opacity-60">
+    <span class="text-[10px] text-navy-400 font-mono tracking-widest uppercase">Scroll</span>
+    <div class="w-px h-8 bg-gradient-to-b from-navy-400 to-transparent animate-pulse"></div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="py-24 md:py-32">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
+      <div class="fade-left">
+        <p class="text-[11px] font-semibold text-navy-400 tracking-[0.2em] uppercase mb-6 font-mono">About Us</p>
+        <h2 class="text-2xl md:text-[1.75rem] font-bold text-navy-900 leading-snug mb-6">困ったときの、相談先。</h2>
+        <p class="text-[15px] text-navy-500 leading-[1.9] mb-4">
+          株式会社ティーエスインダストリーは、トムソン型（抜き型・木型）の設計・製造と、大型ウォータージェット加工を行う名古屋の専門メーカーです。
+        </p>
+        <p class="text-[15px] text-navy-500 leading-[1.9]">
+          独自開発のCAブレードをはじめとする素材技術と、30年以上の経験。お客様の現場での使いやすさと作業効率を第一に考え、他社製の型のトラブル対応も承っています。
+        </p>
+      </div>
+      <div class="fade-right">
+        <div class="aspect-[4/3] overflow-hidden bg-navy-100">
+          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop&q=80" alt="加工現場" class="w-full h-full object-cover">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 SERVICES -->
+<section id="services" class="py-24 md:py-32 bg-navy-950 text-white">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+    <div class="mb-16 fade-up">
+      <p class="text-[11px] font-semibold text-navy-400 tracking-[0.2em] uppercase mb-4 font-mono">Services</p>
+      <h2 class="text-2xl md:text-3xl font-bold">2つの事業</h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4 fade-up">
+      <a href="/dieboard/" class="group relative overflow-hidden block aspect-[4/3] md:aspect-[3/4] lg:aspect-[4/3]">
+        <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&h=600&fit=crop&q=80" alt="抜き型" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10">
+          <p class="text-[10px] font-mono text-navy-300 tracking-[0.15em] uppercase mb-2">Die Board</p>
+          <h3 class="text-2xl md:text-3xl font-bold mb-3">抜き型・木型</h3>
+          <p class="text-sm text-white/60 leading-relaxed mb-4 max-w-sm">独自素材CAブレードによる高精度な型製造。ムラ取り作業の大幅削減を実現。</p>
+          <span class="text-[13px] font-medium text-white/80 group-hover:text-white inline-flex items-center gap-2 transition-colors">
+            詳しく見る <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </span>
+        </div>
+      </a>
+      <a href="/waterjet/" class="group relative overflow-hidden block aspect-[4/3] md:aspect-[3/4] lg:aspect-[4/3]">
+        <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&h=600&fit=crop&q=80" alt="ウォータージェット" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10">
+          <p class="text-[10px] font-mono text-navy-300 tracking-[0.15em] uppercase mb-2">Water Jet</p>
+          <h3 class="text-2xl md:text-3xl font-bold mb-3">ウォータージェット</h3>
+          <p class="text-sm text-white/60 leading-relaxed mb-4 max-w-sm">超高圧水流による精密切断。熱影響ゼロで金属・石材・ガラスなど幅広い素材に対応。</p>
+          <span class="text-[13px] font-medium text-white/80 group-hover:text-white inline-flex items-center gap-2 transition-colors">
+            詳しく見る <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNOLOGY — HORIZONTAL SCROLL -->
+<section class="py-24 md:py-32 overflow-hidden">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+    <div class="flex items-end justify-between mb-12 fade-up">
+      <div>
+        <p class="text-[11px] font-semibold text-navy-400 tracking-[0.2em] uppercase mb-4 font-mono">Technology</p>
+        <h2 class="text-2xl md:text-3xl font-bold text-navy-900">独自の素材技術</h2>
+      </div>
+      <div class="hidden md:flex items-center gap-3">
+        <button id="tech-prev" class="w-10 h-10 border border-navy-200 hover:border-navy-400 flex items-center justify-center transition-colors">
+          <span class="material-symbols-outlined text-navy-600 text-[20px]">arrow_back</span>
+        </button>
+        <button id="tech-next" class="w-10 h-10 border border-navy-200 hover:border-navy-400 flex items-center justify-center transition-colors">
+          <span class="material-symbols-outlined text-navy-600 text-[20px]">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-[1400px] mx-auto pl-6 md:pl-10">
+    <div class="h-scroll fade-up" id="tech-scroll">
+      <!-- Card 1: CA Blade -->
+      <div class="h-scroll-item w-[340px] md:w-[420px] bg-navy-50 group">
+        <div class="aspect-[16/10] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=500&fit=crop&q=80" alt="CAブレード" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        </div>
+        <div class="p-8">
+          <p class="text-[10px] font-mono text-navy-400 tracking-[0.15em] uppercase mb-3">01 — CA Blade</p>
+          <h3 class="text-lg font-bold text-navy-900 mb-3">CAブレード</h3>
+          <p class="text-[13px] text-navy-500 leading-[1.9]">背部のミシン目形状が抜き圧で潰れ、切れムラを自動吸収。ムラ取り作業をほぼゼロに。従来の刃に比べ、段取り時間を大幅に削減します。</p>
+          <div class="mt-6 pt-5 border-t border-navy-100">
+            <a href="/cablade/" class="text-[13px] font-medium text-navy-700 hover:text-navy-900 inline-flex items-center gap-2 transition-colors">
+              詳細を見る <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2: Un-Affect -->
+      <div class="h-scroll-item w-[340px] md:w-[420px] bg-navy-50 group">
+        <div class="aspect-[16/10] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=500&fit=crop&q=80" alt="アン・アフェクトシステム" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        </div>
+        <div class="p-8">
+          <p class="text-[10px] font-mono text-navy-400 tracking-[0.15em] uppercase mb-3">02 — Un-Affect System</p>
+          <h3 class="text-lg font-bold text-navy-900 mb-3">アン・アフェクトシステム</h3>
+          <p class="text-[13px] text-navy-500 leading-[1.9]">高低紙の貼り付けを効率化し、ムラ取り時間を50%削減。高品質基準の製品に最適。現場の作業負荷を軽減しつつ、高い品質を維持します。</p>
+          <div class="mt-6 pt-5 border-t border-navy-100">
+            <a href="/unaffect/" class="text-[13px] font-medium text-navy-700 hover:text-navy-900 inline-flex items-center gap-2 transition-colors">
+              詳細を見る <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Card 3: DP2 -->
+      <div class="h-scroll-item w-[340px] md:w-[420px] bg-navy-50 group">
+        <div class="aspect-[16/10] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebb6d51?w=800&h=500&fit=crop&q=80" alt="DP2ステンレス面板" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        </div>
+        <div class="p-8">
+          <p class="text-[10px] font-mono text-navy-400 tracking-[0.15em] uppercase mb-3">03 — DP2 Plate</p>
+          <h3 class="text-lg font-bold text-navy-900 mb-3">DP2ステンレス面板</h3>
+          <p class="text-[13px] text-navy-500 leading-[1.9]">刃先との硬度バランスが最適な硬質面板。紙粉を抑え、刃も面板も長持ち。ランニングコストの低減と安定した打抜品質を両立。</p>
+          <div class="mt-6 pt-5 border-t border-navy-100">
+            <a href="/dp2/" class="text-[13px] font-medium text-navy-700 hover:text-navy-900 inline-flex items-center gap-2 transition-colors">
+              詳細を見る <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Spacer for last card visibility -->
+      <div class="h-scroll-item w-6 md:w-10 flex-shrink-0"></div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPMENT SHOWCASE — Horizontal strip -->
+<section class="py-24 md:py-32 bg-navy-50 overflow-hidden">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-10 mb-12">
+    <div class="flex items-end justify-between fade-up">
+      <div>
+        <p class="text-[11px] font-semibold text-navy-400 tracking-[0.2em] uppercase mb-4 font-mono">Equipment</p>
+        <h2 class="text-2xl md:text-3xl font-bold text-navy-900">設備紹介</h2>
+      </div>
+      <p class="hidden md:block text-[13px] text-navy-400 font-mono">← スクロールしてご覧ください →</p>
+    </div>
+  </div>
+  <div class="equip-scroll" id="equip-scroll">
+    <!-- Equipment 1 -->
+    <div class="equip-item w-[85vw] md:w-[60vw] lg:w-[45vw] relative group">
+      <div class="aspect-[16/9] overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1200&h=675&fit=crop&q=80" alt="レーザー加工機" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+      </div>
+      <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10">
+        <p class="text-[10px] font-mono text-white/50 tracking-[0.15em] uppercase mb-2">01</p>
+        <h3 class="text-xl md:text-2xl font-bold text-white mb-2">レーザー加工機</h3>
+        <p class="text-sm text-white/60 max-w-sm">高精度のレーザーカットで木型ベースを正確に切り出し。複雑な形状にも対応。</p>
+      </div>
+    </div>
+    <!-- Equipment 2 -->
+    <div class="equip-item w-[85vw] md:w-[60vw] lg:w-[45vw] relative group">
+      <div class="aspect-[16/9] overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&h=675&fit=crop&q=80" alt="ウォータージェット加工機" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+      </div>
+      <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10">
+        <p class="text-[10px] font-mono text-white/50 tracking-[0.15em] uppercase mb-2">02</p>
+        <h3 class="text-xl md:text-2xl font-bold text-white mb-2">大型ウォータージェット</h3>
+        <p class="text-sm text-white/60 max-w-sm">3000mm×2000mmの大型加工エリア。超高圧水流であらゆる素材を精密に切断。</p>
+      </div>
+    </div>
+    <!-- Equipment 3 -->
+    <div class="equip-item w-[85vw] md:w-[60vw] lg:w-[45vw] relative group">
+      <div class="aspect-[16/9] overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1200&h=675&fit=crop&q=80" alt="CAD/CAMシステム" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+      </div>
+      <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10">
+        <p class="text-[10px] font-mono text-white/50 tracking-[0.15em] uppercase mb-2">03</p>
+        <h3 class="text-xl md:text-2xl font-bold text-white mb-2">CAD/CAMシステム</h3>
+        <p class="text-sm text-white/60 max-w-sm">最新のCAD/CAMで設計から加工データまで一貫対応。短納期・高精度を実現。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS / NUMBERS -->
+<section class="py-28 md:py-36 bg-navy-950 text-white overflow-hidden">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+    <div class="text-center mb-16 fade-up">
+      <p class="text-[11px] font-semibold text-navy-400 tracking-[0.2em] uppercase mb-4 font-mono">Numbers</p>
+      <h2 class="text-2xl md:text-3xl font-bold">数字で見るTS Industry</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6 fade-up" id="stats-section">
+      <div class="text-center">
+        <p class="text-[5rem] md:text-[6rem] lg:text-[7rem] font-bold font-mono leading-none counter-num" data-target="30">0</p>
+        <p class="text-lg md:text-xl font-medium text-navy-300 mt-2">年<span class="stat-suffix">+</span></p>
+        <p class="text-[13px] text-navy-500 mt-3 font-mono">Years of Experience</p>
+      </div>
+      <div class="text-center">
+        <p class="text-[5rem] md:text-[6rem] lg:text-[7rem] font-bold font-mono leading-none counter-num" data-target="25">0</p>
+        <p class="text-lg md:text-xl font-medium text-navy-300 mt-2">名</p>
+        <p class="text-[13px] text-navy-500 mt-3 font-mono">Skilled Engineers</p>
+      </div>
+      <div class="text-center">
+        <p class="text-[5rem] md:text-[6rem] lg:text-[7rem] font-bold font-mono leading-none counter-num" data-target="2">0</p>
+        <p class="text-lg md:text-xl font-medium text-navy-300 mt-2">拠点</p>
+        <p class="text-[13px] text-navy-500 mt-3 font-mono">Locations Nationwide</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 md:py-24 bg-navy-50 border-y border-navy-100">
+  <div class="max-w-3xl mx-auto px-6 md:px-10 text-center fade-up">
+    <h2 class="text-xl md:text-2xl font-bold text-navy-900 mb-4">お気軽にご相談ください</h2>
+    <p class="text-[14px] text-navy-500 mb-8 leading-relaxed">抜き型のトラブル対応から、ウォータージェット加工のお見積りまで。</p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a href="/contact/" class="inline-flex items-center justify-center gap-2 bg-navy-900 hover:bg-navy-800 text-white text-[13px] font-semibold px-8 py-3.5 tracking-wide transition-colors">
+        <span class="material-symbols-outlined text-[16px]">mail</span> お問い合わせ
+      </a>
+      <a href="tel:0527681922" class="inline-flex items-center justify-center gap-2 border border-navy-200 hover:border-navy-300 text-navy-700 text-[13px] font-semibold px-8 py-3.5 tracking-wide transition-colors">
+        <span class="material-symbols-outlined text-[16px]">call</span> 052-768-1922
+      </a>
+      <a href="/recruit/" class="inline-flex items-center justify-center gap-2 border border-navy-200 hover:border-navy-300 text-navy-700 text-[13px] font-semibold px-8 py-3.5 tracking-wide transition-colors">採用情報</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-navy-950 text-navy-400 py-16">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-12 gap-10 mb-14">
+      <div class="md:col-span-5">
+        <img src="../assets/images/会社ロゴ 反転透過-450x100pix-300dpi.png" alt="TS Industry" class="h-7 mb-5 opacity-80">
+        <p class="text-[13px] leading-relaxed mb-4">株式会社ティーエスインダストリー</p>
+        <div class="text-[12px] space-y-3 text-navy-500">
+          <p><span class="text-navy-600 text-[10px] tracking-wider uppercase font-mono">本社</span><br>〒463-0023 愛知県名古屋市守山区今尻町2015</p>
+          <p><span class="text-navy-600 text-[10px] tracking-wider uppercase font-mono">神奈川営業所</span><br>〒243-0022 神奈川県厚木市酒井2087-10 メゾン三田102</p>
+        </div>
+      </div>
+      <div class="md:col-span-3 md:col-start-7">
+        <h4 class="text-[10px] font-semibold text-navy-500 tracking-[0.15em] uppercase mb-5 font-mono">サービス</h4>
+        <ul class="space-y-3 text-[13px]">
+          <li><a href="/dieboard/" class="hover:text-white transition-colors">抜き型・木型</a></li>
+          <li><a href="/waterjet/" class="hover:text-white transition-colors">ウォータージェット</a></li>
+          <li><a href="/cablade/" class="hover:text-white transition-colors">CAブレード</a></li>
+          <li><a href="/dp2/" class="hover:text-white transition-colors">DP2面板</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <h4 class="text-[10px] font-semibold text-navy-500 tracking-[0.15em] uppercase mb-5 font-mono">企業情報</h4>
+        <ul class="space-y-3 text-[13px]">
+          <li><a href="/about/" class="hover:text-white transition-colors">会社概要</a></li>
+          <li><a href="/recruit/" class="hover:text-white transition-colors">採用情報</a></li>
+          <li><a href="/contact/" class="hover:text-white transition-colors">お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-navy-800/50 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-[11px] text-navy-600 font-mono">&copy; 2025 TS Industry Co., Ltd.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// === Progress bar ===
+const progressBar = document.getElementById('progress-bar');
+function updateProgress() {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+  progressBar.style.transform = `scaleX(${progress})`;
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+
+// === Header scroll ===
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => header.classList.toggle('header-scrolled', window.scrollY > 80), { passive: true });
+
+// === Mobile menu ===
+document.getElementById('menu-toggle').addEventListener('click', () => {
+  document.getElementById('mobile-menu').classList.toggle('hidden');
+});
+
+// === Hero typewriter completion → show subtitle & buttons ===
+setTimeout(() => {
+  document.getElementById('hero-sub').style.transition = 'opacity 0.8s ease';
+  document.getElementById('hero-sub').style.opacity = '1';
+}, 3500);
+setTimeout(() => {
+  document.getElementById('hero-btns').style.transition = 'opacity 0.8s ease';
+  document.getElementById('hero-btns').style.opacity = '1';
+}, 4000);
+// Remove cursor blink after typing completes
+setTimeout(() => {
+  document.getElementById('hero-line1').classList.add('typewriter-done');
+}, 3000);
+setTimeout(() => {
+  document.getElementById('hero-line2').classList.add('typewriter-done');
+}, 5500);
+
+// === Intersection observer for fade animations ===
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-up,.fade-left,.fade-right').forEach(el => observer.observe(el));
+
+// === Technology horizontal scroll nav buttons ===
+const techScroll = document.getElementById('tech-scroll');
+const techPrev = document.getElementById('tech-prev');
+const techNext = document.getElementById('tech-next');
+if (techPrev && techNext) {
+  const scrollAmount = 440;
+  techPrev.addEventListener('click', () => techScroll.scrollBy({ left: -scrollAmount, behavior: 'smooth' }));
+  techNext.addEventListener('click', () => techScroll.scrollBy({ left: scrollAmount, behavior: 'smooth' }));
+}
+
+// === Counter animation ===
+let counterDone = false;
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !counterDone) {
+      counterDone = true;
+      document.querySelectorAll('.counter-num').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const duration = 2000;
+        const start = performance.now();
+        const animate = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(target * eased);
+          if (progress < 1) requestAnimationFrame(animate);
+        };
+        requestAnimationFrame(animate);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+counterObserver.observe(document.getElementById('stats-section'));
+
+// === Equipment scroll — drag to scroll on desktop ===
+const equipScroll = document.getElementById('equip-scroll');
+let isDown = false, startX, scrollLeft;
+equipScroll.addEventListener('mousedown', (e) => {
+  isDown = true;
+  equipScroll.style.cursor = 'grabbing';
+  startX = e.pageX - equipScroll.offsetLeft;
+  scrollLeft = equipScroll.scrollLeft;
+});
+equipScroll.addEventListener('mouseleave', () => { isDown = false; equipScroll.style.cursor = 'grab'; });
+equipScroll.addEventListener('mouseup', () => { isDown = false; equipScroll.style.cursor = 'grab'; });
+equipScroll.addEventListener('mousemove', (e) => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - equipScroll.offsetLeft;
+  const walk = (x - startX) * 1.5;
+  equipScroll.scrollLeft = scrollLeft - walk;
+});
+equipScroll.style.cursor = 'grab';
+</script>
+</body>
+</html>

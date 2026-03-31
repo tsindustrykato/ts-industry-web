@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TS Industry Design v5 — 6 Patterns</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        'navy': { 50:'#f0f4f8',100:'#d9e2ec',200:'#bcccdc',300:'#9fb3c8',400:'#829ab1',500:'#627d98',600:'#486581',700:'#334e68',800:'#243b53',900:'#102a43',950:'#0a1628' },
+      },
+      fontFamily: { 'sans':['Inter','Noto Sans JP','sans-serif'], 'mono':['Roboto Mono','monospace'] },
+    },
+  },
+}
+</script>
+</head>
+<body class="bg-navy-950 text-white font-sans antialiased">
+
+<header class="max-w-[1200px] mx-auto px-6 pt-16 pb-12">
+  <p class="text-[11px] font-mono text-navy-500 tracking-[0.2em] uppercase mb-4">TS Industry Design System</p>
+  <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">V5 Patterns</h1>
+  <p class="text-[15px] text-navy-400 max-w-lg leading-relaxed">
+    ベースデザインに追加コンテンツ＋動きを加えた6パターン。<br>
+    各パターンで異なるアニメーションと構成を採用。
+  </p>
+</header>
+
+<main class="max-w-[1200px] mx-auto px-6 pb-20">
+  <div class="grid md:grid-cols-2 gap-5">
+
+    <a href="pattern-01-counter.html" class="group block bg-navy-900 border border-navy-800 hover:border-navy-600 transition-all duration-300 overflow-hidden">
+      <div class="h-48 bg-gradient-to-br from-navy-800 to-navy-950 flex items-center justify-center relative overflow-hidden">
+        <span class="text-[5rem] font-bold font-mono text-navy-800 group-hover:text-navy-700 transition-colors">01</span>
+      </div>
+      <div class="p-6">
+        <h2 class="text-lg font-bold mb-1">Counter & Parallax</h2>
+        <p class="text-[12px] text-navy-500 font-mono mb-3">カウンター＋パララックス</p>
+        <p class="text-[13px] text-navy-400 leading-relaxed mb-4">数字カウントアップアニメーション、パララックスヒーロー、左右フェードイン。「選ばれる理由」セクション追加。</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Counter</span>
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Parallax</span>
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Fade LR</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="pattern-02-reveal.html" class="group block bg-navy-900 border border-navy-800 hover:border-navy-600 transition-all duration-300 overflow-hidden">
+      <div class="h-48 bg-gradient-to-br from-navy-800 to-navy-950 flex items-center justify-center">
+        <span class="text-[5rem] font-bold font-mono text-navy-800 group-hover:text-navy-700 transition-colors">02</span>
+      </div>
+      <div class="p-6">
+        <h2 class="text-lg font-bold mb-1">Clip Reveal & Process</h2>
+        <p class="text-[12px] text-navy-500 font-mono mb-3">クリップリビール＋プロセスフロー</p>
+        <p class="text-[13px] text-navy-400 leading-relaxed mb-4">画像がスライドして出現するクリップアニメーション。「ご依頼の流れ」「品質ステートメント」追加。</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Clip-path</span>
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Process</span>
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Scale-in</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="pattern-03-horizontal.html" class="group block bg-navy-900 border border-navy-800 hover:border-navy-600 transition-all duration-300 overflow-hidden">
+      <div class="h-48 bg-gradient-to-br from-navy-800 to-navy-950 flex items-center justify-center">
+        <span class="text-[5rem] font-bold font-mono text-navy-800 group-hover:text-navy-700 transition-colors">03</span>
+      </div>
+      <div class="p-6">
+        <h2 class="text-lg font-bold mb-1">Horizontal Scroll Gallery</h2>
+        <p class="text-[12px] text-navy-500 font-mono mb-3">横スクロールギャラリー</p>
+        <p class="text-[13px] text-navy-400 leading-relaxed mb-4">技術カードの横スクロール、タイプライター風ヒーロー、スクロール進捗バー。設備紹介セクション追加。</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">H-Scroll</span>
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Typewriter</span>
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Progress</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="pattern-04-split.html" class="group block bg-navy-900 border border-navy-800 hover:border-navy-600 transition-all duration-300 overflow-hidden">
+      <div class="h-48 bg-gradient-to-br from-navy-800 to-navy-950 flex items-center justify-center">
+        <span class="text-[5rem] font-bold font-mono text-navy-800 group-hover:text-navy-700 transition-colors">04</span>
+      </div>
+      <div class="p-6">
+        <h2 class="text-lg font-bold mb-1">Split Screen & Tilt Cards</h2>
+        <p class="text-[12px] text-navy-500 font-mono mb-3">分割画面＋ティルトカード</p>
+        <p class="text-[13px] text-navy-400 leading-relaxed mb-4">左右分割ヒーロー、事業を交互全幅レイアウト、ホバーで傾くカード。大きな引用テキスト追加。</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Split</span>
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Tilt</span>
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Line-draw</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="pattern-05-marquee.html" class="group block bg-navy-900 border border-navy-800 hover:border-navy-600 transition-all duration-300 overflow-hidden">
+      <div class="h-48 bg-gradient-to-br from-navy-800 to-navy-950 flex items-center justify-center">
+        <span class="text-[5rem] font-bold font-mono text-navy-800 group-hover:text-navy-700 transition-colors">05</span>
+      </div>
+      <div class="p-6">
+        <h2 class="text-lg font-bold mb-1">Marquee & Ticker</h2>
+        <p class="text-[12px] text-navy-500 font-mono mb-3">マーキー＋ティッカー</p>
+        <p class="text-[13px] text-navy-400 leading-relaxed mb-4">流れる縁取り文字のマーキー、グレスケ→カラーのホバー、固定背景パララックス画像帯。</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Marquee</span>
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Grayscale</span>
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Fixed BG</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="pattern-06-minimal.html" class="group block bg-navy-900 border border-navy-800 hover:border-navy-600 transition-all duration-300 overflow-hidden">
+      <div class="h-48 bg-gradient-to-br from-navy-800 to-navy-950 flex items-center justify-center">
+        <span class="text-[5rem] font-bold font-mono text-navy-800 group-hover:text-navy-700 transition-colors">06</span>
+      </div>
+      <div class="p-6">
+        <h2 class="text-lg font-bold mb-1">Minimal Refined Motion</h2>
+        <p class="text-[12px] text-navy-500 font-mono mb-3">ミニマル洗練モーション</p>
+        <p class="text-[13px] text-navy-400 leading-relaxed mb-4">テキストのみのヒーロー、エディトリアル風リンク、30年タイムライン。スイスデザイン的な余白美。</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Minimal</span>
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Timeline</span>
+          <span class="text-[10px] text-navy-500 border border-navy-700 px-2 py-0.5 font-mono">Editorial</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</main>
+
+<footer class="max-w-[1200px] mx-auto px-6 py-8 border-t border-navy-800/50">
+  <p class="text-[11px] text-navy-600 font-mono">TS Industry Design System v5 — 6 Animation Patterns</p>
+</footer>
+
+</body>
+</html>

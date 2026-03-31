@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html class="dark" lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TS Industry | Warm Forge / ウォームフォージ</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&family=Roboto+Mono:wght@400;700&family=Noto+Sans+JP:wght@100;300;400;700&family=Noto+Serif+JP:wght@300;400;700;900&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#8B6914",
+                    "accent-gold": "#D4A853",
+                    "accent-gold-dim": "#A07D3A",
+                    "background-dark": "#0D0A06",
+                    "sub-base": "#1A1510",
+                    "warm-800": "#2A2318",
+                    "warm-700": "#3D3425",
+                    "warm-600": "#524832",
+                },
+                fontFamily: {
+                    "display": ["Inter", "Noto Sans JP", "sans-serif"],
+                    "serif-jp": ["Noto Serif JP", "serif"],
+                    "mono": ["Roboto Mono", "monospace"],
+                },
+            },
+        },
+    }
+</script>
+<style>
+    .forge-grid {
+        background-image: radial-gradient(circle, rgba(212,168,83,0.04) 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+    .gold-glow:hover {
+        box-shadow: 0 0 20px rgba(212,168,83,0.25), 0 0 40px rgba(212,168,83,0.08);
+        border-color: rgba(212,168,83,0.5);
+    }
+    .gold-glow-subtle:hover {
+        box-shadow: 0 0 15px rgba(212,168,83,0.15);
+    }
+    .sidebar-line {
+        border-right: 1px solid #D4A853;
+    }
+    .warm-text-primary { color: #E8DCC8; }
+    .warm-text-secondary { color: #A89F8F; }
+    .warm-text-tertiary { color: #7A7265; }
+    .warm-text-muted { color: #5C5549; }
+    .warm-border { border-color: rgba(212,168,83,0.10); }
+    .warm-border-hover:hover { border-color: rgba(212,168,83,0.35); }
+    .hero-overlay {
+        background: linear-gradient(to top, #0D0A06 0%, rgba(13,10,6,0.7) 40%, rgba(30,20,5,0.4) 70%, rgba(13,10,6,0.5) 100%);
+    }
+    .forge-divider {
+        background: linear-gradient(90deg, transparent, rgba(212,168,83,0.3), transparent);
+        height: 1px;
+    }
+    @keyframes ember-pulse {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+    }
+    .ember-pulse { animation: ember-pulse 3s ease-in-out infinite; }
+    .stat-num {
+        background: linear-gradient(180deg, #D4A853 0%, #A07D3A 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+</style>
+</head>
+<body class="bg-background-dark font-display text-[#E8DCC8] overflow-x-hidden">
+
+<!-- Header -->
+<header class="fixed top-0 w-full z-50 transition-all duration-300 border-b border-[rgba(212,168,83,0.08)] backdrop-blur-md bg-background-dark/85">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+        <div class="size-8 text-accent-gold">
+            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"></path>
+            </svg>
+        </div>
+        <h1 class="text-xl font-black tracking-tighter uppercase italic">TS Industry</h1>
+    </div>
+    <nav class="hidden md:flex items-center gap-10">
+        <a class="text-xs font-bold tracking-widest uppercase hover:text-accent-gold transition-colors warm-text-secondary" href="#home">ホーム</a>
+        <a class="text-xs font-bold tracking-widest uppercase hover:text-accent-gold transition-colors warm-text-secondary" href="#services">サービス</a>
+        <a class="text-xs font-bold tracking-widest uppercase hover:text-accent-gold transition-colors warm-text-secondary" href="#technology">技術</a>
+        <a class="text-xs font-bold tracking-widest uppercase hover:text-accent-gold transition-colors warm-text-secondary" href="#results">実績</a>
+        <a class="text-xs font-bold tracking-widest uppercase hover:text-accent-gold transition-colors warm-text-secondary" href="#contact">お問い合わせ</a>
+    </nav>
+    <button class="bg-accent-gold hover:bg-accent-gold-dim text-background-dark px-6 py-2.5 text-xs font-black uppercase tracking-widest transition-all">
+        お見積り依頼
+    </button>
+</div>
+</header>
+
+<!-- Hero -->
+<section id="home" class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+        <img class="w-full h-full object-cover opacity-50" alt="Molten metal pouring in foundry" src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=1920&q=80"/>
+        <div class="hero-overlay absolute inset-0"></div>
+    </div>
+    <!-- Warm ambient glow -->
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-gold/5 rounded-full blur-[120px] ember-pulse"></div>
+    <div class="absolute bottom-1/3 right-1/4 w-64 h-64 bg-accent-gold/3 rounded-full blur-[100px]"></div>
+
+    <div class="relative z-10 w-full max-w-7xl px-6 flex flex-col md:flex-row items-end justify-between">
+        <div class="max-w-3xl mb-12 md:mb-0">
+            <p class="text-accent-gold text-xs font-mono tracking-[0.5em] uppercase mb-8 opacity-80">Est. 1984 / Higashi-Osaka</p>
+            <h2 class="font-serif-jp text-6xl md:text-8xl lg:text-9xl font-black italic tracking-tighter leading-[0.9] mb-8">
+                鍛造の、<br/><span class="text-accent-gold">精髄。</span>
+            </h2>
+            <div class="flex items-center gap-6">
+                <div class="h-[1px] w-24 bg-gradient-to-r from-accent-gold to-transparent"></div>
+                <p class="text-sm tracking-[0.3em] uppercase font-light warm-text-secondary">Essence of Forging — Advanced Precision v.4.0</p>
+            </div>
+        </div>
+        <div class="text-right">
+            <p class="text-accent-gold text-sm tracking-[0.5em] font-light mb-4 font-mono">01 / FORGE</p>
+            <button class="flex items-center gap-4 text-xs font-bold tracking-widest uppercase group warm-text-secondary hover:text-accent-gold transition-colors">
+                技術を探る
+                <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
+        <div class="w-[1px] h-16 bg-gradient-to-b from-accent-gold to-transparent"></div>
+    </div>
+</section>
+
+<!-- Sidebar Quick Guide -->
+<aside class="fixed right-0 top-1/2 -translate-y-1/2 z-40 hidden xl:flex flex-col gap-8 px-6">
+    <div class="flex flex-col items-end group cursor-pointer">
+        <span class="text-[10px] uppercase tracking-widest font-bold mb-1 opacity-50 group-hover:opacity-100 transition-opacity warm-text-tertiary group-hover:text-accent-gold">ご相談</span>
+        <div class="w-8 h-[1px] bg-accent-gold/40 group-hover:w-12 group-hover:bg-accent-gold transition-all"></div>
+    </div>
+    <div class="flex flex-col items-end group cursor-pointer text-accent-gold">
+        <span class="text-[10px] uppercase tracking-widest font-bold mb-1">お見積り</span>
+        <div class="w-12 h-[1px] bg-accent-gold"></div>
+    </div>
+    <div class="flex flex-col items-end group cursor-pointer">
+        <span class="text-[10px] uppercase tracking-widest font-bold mb-1 opacity-50 group-hover:opacity-100 transition-opacity warm-text-tertiary group-hover:text-accent-gold">実績</span>
+        <div class="w-8 h-[1px] bg-accent-gold/40 group-hover:w-12 group-hover:bg-accent-gold transition-all"></div>
+    </div>
+</aside>
+
+<!-- Forge Divider -->
+<div class="forge-divider"></div>
+
+<!-- CA Blade Technical Section -->
+<section id="technology" class="forge-grid bg-sub-base border-y border-[rgba(212,168,83,0.06)] py-28 relative overflow-hidden">
+    <!-- Ambient warm glow -->
+    <div class="absolute top-0 right-0 w-72 h-72 bg-accent-gold/5 rounded-full blur-[100px]"></div>
+
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+            <div class="relative group">
+                <div class="absolute -inset-4 border border-accent-gold/15 rounded-xl group-hover:border-accent-gold/35 transition-colors duration-500"></div>
+                <img class="w-full aspect-square object-cover rounded shadow-2xl" alt="Precision cutting blade macro detail" src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=80"/>
+                <div class="absolute top-4 left-4 bg-background-dark/90 backdrop-blur px-3 py-1.5 text-[10px] font-mono border border-accent-gold/20 uppercase text-accent-gold">
+                    Ref: CA-BLADE_001
+                </div>
+                <div class="absolute bottom-4 right-4 bg-background-dark/90 backdrop-blur px-3 py-1.5 text-[10px] font-mono border border-accent-gold/20 uppercase warm-text-tertiary">
+                    超硬合金 / Carbide Alloy
+                </div>
+            </div>
+            <div class="space-y-10">
+                <div>
+                    <p class="text-accent-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3 font-mono">Technical Report</p>
+                    <h3 class="text-4xl font-black tracking-tight mb-3 uppercase">CA Blade <span class="text-accent-gold font-light italic">技術仕様</span></h3>
+                    <p class="warm-text-secondary text-sm leading-relaxed max-w-md">航空宇宙用複合材料の多層切断に対応する、極限の耐久性と精密さを追求した超硬ブレード技術。</p>
+                </div>
+                <div class="space-y-6">
+                    <div class="border-b border-accent-gold/10 pb-4 flex justify-between items-end">
+                        <div>
+                            <span class="text-[10px] uppercase tracking-widest warm-text-muted font-mono block mb-1">01</span>
+                            <span class="text-xs uppercase tracking-widest warm-text-tertiary">耐久性係数 / Durability</span>
+                        </div>
+                        <span class="text-3xl font-mono text-accent-gold font-bold">+40<span class="text-lg">%</span></span>
+                    </div>
+                    <div class="border-b border-accent-gold/10 pb-4 flex justify-between items-end">
+                        <div>
+                            <span class="text-[10px] uppercase tracking-widest warm-text-muted font-mono block mb-1">02</span>
+                            <span class="text-xs uppercase tracking-widest warm-text-tertiary">表面粗さ / Surface</span>
+                        </div>
+                        <span class="text-3xl font-mono font-bold">Ra 0.08<span class="text-lg warm-text-secondary">μm</span></span>
+                    </div>
+                    <div class="border-b border-accent-gold/10 pb-4 flex justify-between items-end">
+                        <div>
+                            <span class="text-[10px] uppercase tracking-widest warm-text-muted font-mono block mb-1">03</span>
+                            <span class="text-xs uppercase tracking-widest warm-text-tertiary">硬度 / Hardness</span>
+                        </div>
+                        <span class="text-3xl font-mono font-bold">HV <span class="text-accent-gold">3200</span></span>
+                    </div>
+                </div>
+                <button class="flex items-center gap-3 border border-accent-gold/30 hover:border-accent-gold hover:bg-accent-gold/5 px-6 py-3.5 text-xs font-bold uppercase tracking-widest transition-all text-accent-gold group">
+                    <span class="material-symbols-outlined text-sm">download</span>
+                    技術仕様書をダウンロード
+                    <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Forge Divider -->
+<div class="forge-divider"></div>
+
+<!-- Services / Material Index -->
+<section id="services" class="py-28 max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+        <div>
+            <p class="text-accent-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3 font-mono">Capabilities / 加工技術</p>
+            <h3 class="text-5xl font-black uppercase tracking-tighter">サービス一覧</h3>
+        </div>
+        <p class="warm-text-tertiary text-sm max-w-sm text-right font-light leading-relaxed">40年の経験と最先端技術で、<br/>多様な素材加工ニーズに応えます。</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- Service Card 1 -->
+        <div class="gold-glow group bg-sub-base border border-[rgba(212,168,83,0.08)] p-8 rounded-xl transition-all duration-500 cursor-pointer relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-b from-accent-gold/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="relative z-10">
+                <div class="size-12 bg-accent-gold/8 border border-accent-gold/15 rounded-lg flex items-center justify-center mb-6 text-accent-gold group-hover:bg-accent-gold/15 transition-all">
+                    <span class="material-symbols-outlined">layers</span>
+                </div>
+                <h4 class="text-lg font-bold mb-2 tracking-tight">抜き型・木型</h4>
+                <p class="text-xs warm-text-tertiary leading-relaxed mb-6">高精度な抜き型・木型の設計から製造まで。多品種少量生産に柔軟に対応いたします。</p>
+                <div class="h-[2px] w-0 bg-gradient-to-r from-accent-gold to-accent-gold-dim group-hover:w-full transition-all duration-700"></div>
+            </div>
+        </div>
+        <!-- Service Card 2 -->
+        <div class="gold-glow group bg-sub-base border border-[rgba(212,168,83,0.08)] p-8 rounded-xl transition-all duration-500 cursor-pointer relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-b from-accent-gold/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="relative z-10">
+                <div class="size-12 bg-accent-gold/8 border border-accent-gold/15 rounded-lg flex items-center justify-center mb-6 text-accent-gold group-hover:bg-accent-gold/15 transition-all">
+                    <span class="material-symbols-outlined">precision_manufacturing</span>
+                </div>
+                <h4 class="text-lg font-bold mb-2 tracking-tight">ウォータージェット</h4>
+                <p class="text-xs warm-text-tertiary leading-relaxed mb-6">超高圧水流による精密切断。熱影響なしで多様な素材を高精度に加工します。</p>
+                <div class="h-[2px] w-0 bg-gradient-to-r from-accent-gold to-accent-gold-dim group-hover:w-full transition-all duration-700"></div>
+            </div>
+        </div>
+        <!-- Service Card 3 -->
+        <div class="gold-glow group bg-sub-base border border-[rgba(212,168,83,0.08)] p-8 rounded-xl transition-all duration-500 cursor-pointer relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-b from-accent-gold/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="relative z-10">
+                <div class="size-12 bg-accent-gold/8 border border-accent-gold/15 rounded-lg flex items-center justify-center mb-6 text-accent-gold group-hover:bg-accent-gold/15 transition-all">
+                    <span class="material-symbols-outlined">settings</span>
+                </div>
+                <h4 class="text-lg font-bold mb-2 tracking-tight">精密部品加工</h4>
+                <p class="text-xs warm-text-tertiary leading-relaxed mb-6">CNC加工からワイヤーカットまで。ミクロン単位の精度を実現する部品加工技術。</p>
+                <div class="h-[2px] w-0 bg-gradient-to-r from-accent-gold to-accent-gold-dim group-hover:w-full transition-all duration-700"></div>
+            </div>
+        </div>
+        <!-- Service Card 4 -->
+        <div class="gold-glow group bg-sub-base border border-[rgba(212,168,83,0.08)] p-8 rounded-xl transition-all duration-500 cursor-pointer relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-b from-accent-gold/3 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div class="relative z-10">
+                <div class="size-12 bg-accent-gold/8 border border-accent-gold/15 rounded-lg flex items-center justify-center mb-6 text-accent-gold group-hover:bg-accent-gold/15 transition-all">
+                    <span class="material-symbols-outlined">verified</span>
+                </div>
+                <h4 class="text-lg font-bold mb-2 tracking-tight">品質検査</h4>
+                <p class="text-xs warm-text-tertiary leading-relaxed mb-6">三次元測定機による全数検査体制。ISO 9001認証の品質管理システムで品質を保証。</p>
+                <div class="h-[2px] w-0 bg-gradient-to-r from-accent-gold to-accent-gold-dim group-hover:w-full transition-all duration-700"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Forge Divider -->
+<div class="forge-divider"></div>
+
+<!-- Numbers / Stats -->
+<section id="results" class="bg-sub-base py-24 border-y border-[rgba(212,168,83,0.06)] relative overflow-hidden">
+    <!-- Decorative forge glow -->
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-40 bg-accent-gold/5 rounded-full blur-[80px]"></div>
+
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <p class="text-accent-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-3 font-mono">Performance Data / 実績データ</p>
+            <h3 class="text-4xl font-black uppercase tracking-tighter">数字で見る<span class="text-accent-gold">実力</span></h3>
+        </div>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-12">
+            <div class="text-center group relative">
+                <div class="absolute inset-0 bg-accent-gold/3 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative py-8">
+                    <p class="text-[10px] uppercase tracking-widest font-bold warm-text-muted mb-5 font-mono">創業 / Since</p>
+                    <div class="text-5xl md:text-6xl font-mono font-bold stat-num mb-2">
+                        40<span class="text-3xl">年+</span>
+                    </div>
+                    <p class="text-[11px] warm-text-tertiary">1984年創業</p>
+                </div>
+            </div>
+            <div class="text-center group relative">
+                <div class="absolute inset-0 bg-accent-gold/3 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative py-8">
+                    <p class="text-[10px] uppercase tracking-widest font-bold warm-text-muted mb-5 font-mono">年間実績 / Annual</p>
+                    <div class="text-5xl md:text-6xl font-mono font-bold stat-num mb-2">
+                        3,000<span class="text-3xl">件+</span>
+                    </div>
+                    <p class="text-[11px] warm-text-tertiary">年間加工実績</p>
+                </div>
+            </div>
+            <div class="text-center group relative">
+                <div class="absolute inset-0 bg-accent-gold/3 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative py-8">
+                    <p class="text-[10px] uppercase tracking-widest font-bold warm-text-muted mb-5 font-mono">精度 / Precision</p>
+                    <div class="text-5xl md:text-6xl font-mono font-bold mb-2">
+                        <span class="stat-num">±0.01</span><span class="text-2xl warm-text-secondary">mm</span>
+                    </div>
+                    <p class="text-[11px] warm-text-tertiary">加工精度</p>
+                </div>
+            </div>
+            <div class="text-center group relative">
+                <div class="absolute inset-0 bg-accent-gold/3 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative py-8">
+                    <p class="text-[10px] uppercase tracking-widest font-bold warm-text-muted mb-5 font-mono">満足度 / Satisfaction</p>
+                    <div class="text-5xl md:text-6xl font-mono font-bold stat-num mb-2">
+                        98<span class="text-3xl">%</span>
+                    </div>
+                    <p class="text-[11px] warm-text-tertiary">顧客満足度</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section id="contact" class="py-28 relative overflow-hidden">
+    <div class="absolute inset-0 forge-grid"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent-gold/5 rounded-full blur-[120px]"></div>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
+        <p class="text-accent-gold text-[10px] font-bold tracking-[0.4em] uppercase mb-4 font-mono">Contact / お問い合わせ</p>
+        <h3 class="font-serif-jp text-4xl md:text-5xl font-bold tracking-tight mb-6">精密加工のご相談は<br/>お気軽にどうぞ</h3>
+        <p class="warm-text-tertiary text-sm leading-relaxed mb-10 max-w-lg mx-auto">
+            試作から量産まで、お客様の加工ニーズに最適なソリューションをご提案いたします。まずはお気軽にご相談ください。
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button class="bg-accent-gold hover:bg-accent-gold-dim text-background-dark px-8 py-4 text-xs font-black uppercase tracking-widest transition-all flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">mail</span>
+                お問い合わせフォーム
+            </button>
+            <button class="border border-accent-gold/30 hover:border-accent-gold text-accent-gold px-8 py-4 text-xs font-bold uppercase tracking-widest transition-all flex items-center gap-2 hover:bg-accent-gold/5">
+                <span class="material-symbols-outlined text-sm">phone</span>
+                06-XXXX-XXXX
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Forge Divider -->
+<div class="forge-divider"></div>
+
+<!-- Footer -->
+<footer class="bg-background-dark py-16 border-t border-[rgba(212,168,83,0.06)]">
+<div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
+    <div class="space-y-6">
+        <div class="flex items-center gap-3">
+            <div class="size-6 text-accent-gold">
+                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"></path>
+                </svg>
+            </div>
+            <h2 class="text-lg font-black tracking-tighter uppercase italic">TS Industry</h2>
+        </div>
+        <div class="space-y-1">
+            <p class="text-xs warm-text-tertiary leading-relaxed font-bold">株式会社ティーエスインダストリー</p>
+            <p class="text-xs warm-text-muted leading-relaxed">TS INDUSTRY CO., LTD.</p>
+            <p class="text-xs warm-text-muted leading-relaxed mt-3">〒577-0000</p>
+            <p class="text-xs warm-text-muted leading-relaxed">大阪府東大阪市</p>
+        </div>
+    </div>
+    <div class="grid grid-cols-2 gap-8">
+        <div>
+            <h5 class="text-[10px] font-bold uppercase text-accent-gold tracking-widest mb-4 font-mono">ナビゲーション</h5>
+            <ul class="space-y-2.5 text-xs warm-text-tertiary">
+                <li><a class="hover:text-accent-gold transition-colors" href="#">ホーム</a></li>
+                <li><a class="hover:text-accent-gold transition-colors" href="#">サービス</a></li>
+                <li><a class="hover:text-accent-gold transition-colors" href="#">技術情報</a></li>
+                <li><a class="hover:text-accent-gold transition-colors" href="#">加工実績</a></li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="text-[10px] font-bold uppercase text-accent-gold tracking-widest mb-4 font-mono">お問い合わせ</h5>
+            <ul class="space-y-2.5 text-xs warm-text-tertiary">
+                <li><a class="hover:text-accent-gold transition-colors" href="#">サポート</a></li>
+                <li><a class="hover:text-accent-gold transition-colors" href="#">お見積り依頼</a></li>
+                <li><a class="hover:text-accent-gold transition-colors" href="#">採用情報</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="flex flex-col items-end justify-between">
+        <div class="flex gap-3">
+            <a class="size-9 rounded-full border border-accent-gold/20 flex items-center justify-center hover:bg-accent-gold hover:border-accent-gold text-accent-gold hover:text-background-dark transition-all" href="#">
+                <span class="material-symbols-outlined text-sm">alternate_email</span>
+            </a>
+            <a class="size-9 rounded-full border border-accent-gold/20 flex items-center justify-center hover:bg-accent-gold hover:border-accent-gold text-accent-gold hover:text-background-dark transition-all" href="#">
+                <span class="material-symbols-outlined text-sm">share</span>
+            </a>
+        </div>
+        <p class="text-[10px] warm-text-muted font-mono">&copy; 2024 TS INDUSTRY / WARM FORGE</p>
+    </div>
+</div>
+</footer>
+
+</body>
+</html>
