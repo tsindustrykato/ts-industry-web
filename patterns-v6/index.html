@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TS Industry サイト刷新 v6 — 信頼感BtoB 4パターン</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ===== v6 比較インデックス — 落ち着いた無彩色トーンで統一 ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #F5F4F1;        /* 紙のようなオフホワイト */
+  --ink: #1B1B1B;       /* 文字色 */
+  --sub: #6E6A63;       /* サブテキスト */
+  --line: #D8D5CE;      /* ヘアライン */
+  --accent: #2B4459;    /* 深藍（リンクのみ） */
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.8;
+}
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+/* ヘッダー */
+.head { padding: 88px 0 56px; border-bottom: 1px solid var(--line); }
+.head__label {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--sub); margin-bottom: 28px;
+}
+.head__title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 500; letter-spacing: 0.06em; line-height: 1.5;
+  margin-bottom: 20px;
+}
+.head__desc { font-size: 14px; color: var(--sub); max-width: 620px; font-weight: 300; }
+
+/* 前提メモ */
+.note { padding: 28px 0; border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px 40px; }
+.note span { font-size: 12.5px; color: var(--sub); font-weight: 300; }
+.note span::before { content: "— "; color: var(--line); }
+
+/* パターン一覧 */
+.list { padding: 24px 0 96px; }
+.card {
+  display: block; text-decoration: none; color: inherit;
+  padding: 44px 0; border-bottom: 1px solid var(--line);
+  transition: background 0.25s;
+}
+.card:hover { background: #EFEDE8; }
+.card__grid { display: grid; grid-template-columns: 64px 1fr 320px; gap: 32px; align-items: start; }
+.card__no {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px; font-weight: 400; letter-spacing: 0.1em;
+  color: var(--sub); padding-top: 6px;
+}
+.card__title { font-size: 21px; font-weight: 500; letter-spacing: 0.04em; margin-bottom: 6px; }
+.card__copy {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 14px; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 14px;
+}
+.card__concept { font-size: 13.5px; color: var(--sub); font-weight: 300; max-width: 560px; }
+.card__spec { font-size: 12px; color: var(--sub); font-weight: 300; }
+.card__spec dt {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+  margin-top: 14px; margin-bottom: 2px; color: #9B968D;
+}
+.card__spec dt:first-child { margin-top: 6px; }
+.card__open {
+  margin-top: 18px; font-size: 12.5px; letter-spacing: 0.12em;
+  color: var(--accent); border-bottom: 1px solid var(--accent);
+  display: inline-block; padding-bottom: 2px;
+}
+
+/* スウォッチ（色見本 — 小さな正方形のみ、アイコンではない） */
+.sw { display: inline-flex; gap: 6px; vertical-align: middle; margin-left: 8px; }
+.sw i { width: 14px; height: 14px; display: inline-block; border: 1px solid rgba(0,0,0,0.12); }
+
+footer { padding: 32px 0 64px; font-size: 11.5px; color: var(--sub); font-weight: 300; }
+
+@media (max-width: 768px) {
+  .card__grid { grid-template-columns: 1fr; gap: 14px; }
+  .card__no { padding-top: 0; }
+  .head { padding: 56px 0 40px; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="head">
+    <p class="head__label">TS Industry — Site Renewal Proposal v6</p>
+    <h1 class="head__title">コーポレートサイト刷新<br>方向性検討 4パターン</h1>
+    <p class="head__desc">
+      「価格ではなく精度・品質」「信頼してお任せいただけるBtoB」を軸に、
+      トーンの異なる4方向のタタキ台を用意しました。
+      いずれも木型製造を主役に、カラフルな配色やアイコンの多用を避けた構成です。
+    </p>
+  </header>
+
+  <div class="note" style="border-bottom:none; padding-bottom:0;">
+    <span style="color:var(--accent); font-weight:500;">方向性は「B 重厚」に決定 — <a href="../draft-b/index.html" style="color:var(--accent);">制作ドラフト（写真入り）はこちら</a></span>
+  </div>
+  <div class="note">
+    <span>写真はすべて仮置き（撮影後に差し替え）</span>
+    <span>文言は方向性確認用の仮テキスト</span>
+    <span>各ページ単一HTML完結・レスポンシブ簡易対応済み</span>
+  </div>
+
+  <main class="list">
+
+    <a class="card" href="pattern-a-seihin.html">
+      <div class="card__grid">
+        <span class="card__no">A</span>
+        <div>
+          <h2 class="card__title">静謐 — 和モダン×職人気質</h2>
+          <p class="card__copy">「百分の一ミリに、誠実であること。」</p>
+          <p class="card__concept">生成りの紙肌に墨の明朝、縦書きの一文。老舗工房の静けさで「価格でなく精度で選ばれる」姿勢を語る、余白と罫線だけで品格を作る構成。</p>
+          <span class="card__open">パターンを見る</span>
+        </div>
+        <dl class="card__spec">
+          <dt>Palette</dt>
+          <dd>生成り × 墨 × 深藍
+            <span class="sw"><i style="background:#F7F5F0"></i><i style="background:#1A1A18"></i><i style="background:#2B4459"></i></span>
+          </dd>
+          <dt>Type</dt>
+          <dd>Shippori Mincho ＋ Noto Sans JP</dd>
+          <dt>参考になる業種</dt>
+          <dd>老舗工房・伝統工芸・料亭</dd>
+        </dl>
+      </div>
+    </a>
+
+    <a class="card" href="pattern-b-juukou.html">
+      <div class="card__grid">
+        <span class="card__no">B</span>
+        <div>
+          <h2 class="card__title">重厚 — ダーク×プレミアム精密</h2>
+          <p class="card__copy">「精度は、約束である。」</p>
+          <p class="card__concept">高級工作機械ブランドの緊張感を纏う墨黒基調。金のヘアラインと大きなセクション番号、映画クレジットのような端正なタイポグラフィで「精度最優先」を静かに語る。</p>
+          <span class="card__open">パターンを見る</span>
+        </div>
+        <dl class="card__spec">
+          <dt>Palette</dt>
+          <dd>墨黒 × 生成り文字 × 真鍮
+            <span class="sw"><i style="background:#121214"></i><i style="background:#E9E6DF"></i><i style="background:#B89B6A"></i></span>
+          </dd>
+          <dt>Type</dt>
+          <dd>Cormorant Garamond ＋ Noto Serif JP</dd>
+          <dt>参考になる業種</dt>
+          <dd>高級工作機械・精密機器・時計</dd>
+        </dl>
+      </div>
+    </a>
+
+    <a class="card" href="pattern-c-hakusei.html">
+      <div class="card__grid">
+        <span class="card__no">C</span>
+        <div>
+          <h2 class="card__title">白の精度 — 建築的ミニマル</h2>
+          <p class="card__copy">「良い型は、現場を静かにする。」</p>
+          <p class="card__concept">建築設計事務所のような白とヘアラインの世界。露出グリッドと厳密な整列、文字ウェイトのコントラストだけで木型の精度を語る、装飾ゼロのBtoBミニマル。</p>
+          <span class="card__open">パターンを見る</span>
+        </div>
+        <dl class="card__spec">
+          <dt>Palette</dt>
+          <dd>白 × 黒 × 深緑
+            <span class="sw"><i style="background:#FAFAF8"></i><i style="background:#111111"></i><i style="background:#0A4D3C"></i></span>
+          </dd>
+          <dt>Type</dt>
+          <dd>Libre Franklin ＋ Noto Sans JP</dd>
+          <dt>参考になる業種</dt>
+          <dd>建築設計事務所・北欧家具</dd>
+        </dl>
+      </div>
+    </a>
+
+    <a class="card" href="pattern-d-zumen.html">
+      <div class="card__grid">
+        <span class="card__no">D</span>
+        <div>
+          <h2 class="card__title">図面 — エンジニアリング・ドキュメント</h2>
+          <p class="card__copy">「図面の先まで、責任を持つ。」</p>
+          <p class="card__concept">機械図面・検査成績書の世界観でサイト全体を1枚の図面シートとして構成。図枠・表題欄・寸法線・スペック表をデザイン言語に、「精度を扱う会社はサイトまで正確」を表現。</p>
+          <span class="card__open">パターンを見る</span>
+        </div>
+        <dl class="card__spec">
+          <dt>Palette</dt>
+          <dd>紙グレー × インク × インクブルー
+            <span class="sw"><i style="background:#F2F2EF"></i><i style="background:#1B1B1B"></i><i style="background:#1F3A5F"></i></span>
+          </dd>
+          <dt>Type</dt>
+          <dd>IBM Plex Sans JP ＋ IBM Plex Mono</dd>
+          <dt>参考になる業種</dt>
+          <dd>計測機器・エンジニアリング企業</dd>
+        </dl>
+      </div>
+    </a>
+
+  </main>
+
+  <footer>
+    TS Industry コーポレートサイト刷新 タタキ台 v6 ／ 2026年6月
+  </footer>
+
+</div>
+
+</body>
+</html>

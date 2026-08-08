@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>株式会社ティーエスインダストリー | トムソン型（抜き型・木型）の設計・製造</title>
+<meta name="description" content="トムソン型（抜き型・木型）の設計・製造とウォータージェット加工。新しい型はもちろん、他社製の型のトラブルや、図面のない現物だけのご相談も。型のことなら、どんな小さなことでもご相談ください。">
+<!-- ============================================================
+     案B-4「頼れる工房」— 写真主役 × 深緑
+     配色: 温白ベース × 深緑（#35584A・唯一のアクセント）
+     狙い: 写真を大胆に見せて「現場の実在感」で信頼をつくる。
+           ヒーローは刃のマクロ写真（blade-macro.jpg）を全面に、
+           要素はH1＋一言＋導線のみに絞って写真を主役に立てる。
+           リード文と実績数値はヒーロー直下のセクションへ分離。
+           中盤は全幅写真帯（50vh級）＋写真上のオーバーレイ相談カードで
+           「写真主役」をページ後半まで貫く。B-3（生成り×飴色・
+           コンパクト）とは写真・コピー・骨格を変えた別タイプ。
+     ============================================================ -->
+<!-- 注: Google Fonts を外部読み込みしているため、厳密には単一ファイル完結ではない。
+     フォールバック（Yu Gothic / Hiragino）指定済みのためオフラインでも閲覧は破綻しない。
+     完全自己完結が要件になった場合は、フォントをローカル配置（@font-face）に切り替えること。 -->
+<!-- ★公開前チェックリスト（リリースブロッカー）★
+     [ ] 電話番号「052-XXX-XXXX」を実番号へ差し替え（4箇所: ヒーロー / 会社概要 / CTA / フッター — このファイル内を「052-XXX-XXXX」で検索）
+         差し替え時に CTA の電話番号は <a href="tel:～"> でリンク化すること（現状はプレースホルダーのためリンクにしていない）
+     [ ] お問い合わせフォームの href（現状 mailto:info@ts-industry.example の仮アドレス）を実フォームURLまたは実メールアドレスの mailto: へ差し替え
+     [ ] ウォータージェット詳細ページ完成後、「詳しく見る」リンクを復活（biz-card 内のコメント参照）
+     [ ] お知らせ3件はドラフト用の仮コンテンツ。公開前に実際の告知内容・日付へ差し替え（または事実確認）すること
+     [ ] 写真は ../draft-b/assets/img/ を参照中。draft-w4 を単独で納品する場合は assets を同フォルダへコピーしてパスを直すこと -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   カラーパレット・基本変数
+   アクセントは深緑（#35584A）の1色のみ。カラフル禁止は継続。
+   ============================================================ */
+:root{
+  --bg:          #FAF8F4;                 /* ベースの温白 */
+  --bg-2:        #F0EDE6;                 /* 交互面（少し深い生成り） */
+  --card:        #FFFFFE;                 /* カードの白 */
+  --ink:         #2B2A26;                 /* 主文字色 */
+  --ink-2:       #6C6961;                 /* 補助文字色 */
+  --line:        #E3DFD6;                 /* 罫線 */
+  --accent:      #35584A;                 /* 深緑（唯一のアクセント） */
+  --accent-deep: #2A4639;                 /* hover時の深まり */
+  --accent-soft: rgba(53,88,74,.08);      /* バッジ下地などごく薄い面 */
+  --band-bg:     #22332C;                 /* CTAバンドの深緑濃色 */
+  --band-ink:    #F2EDE1;                 /* 濃色面の上の生成り文字 */
+  --sans: 'Noto Sans JP', 'Yu Gothic', 'Hiragino Kaku Gothic ProN', sans-serif;
+  --radius: 8px;                          /* 角丸の基準（6〜10pxの範囲で使う） */
+  --shadow: 0 12px 32px -20px rgba(43,42,38,.3);  /* 柔らかい影（控えめ） */
+  --pad-x: 48px;
+}
+
+/* ---------- リセット・ベース ---------- */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; scroll-padding-top:88px; }
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:400;
+  font-size:16px;
+  line-height:1.95;
+  letter-spacing:.02em;
+  -webkit-font-smoothing:antialiased;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+ul,ol{ list-style:none; }
+/* キーボード操作時のフォーカスを分かりやすく */
+a:focus-visible, button:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  border-radius:4px;
+}
+
+/* ---------- 共通レイアウト ---------- */
+.container{ max-width:1200px; margin:0 auto; }
+.section{ padding:110px var(--pad-x); }
+.section.alt{ background:var(--bg-2); }
+
+/* セクション見出し（小さな英字ラベル＋太く大きな和文タイトル）
+   B-4は「堂々」— 900ウェイト・字間タイトで写真に負けない見出しにする */
+.sec-head{ margin-bottom:60px; }
+.sec-head .en{
+  display:block;
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:14px;
+}
+.sec-head h2{
+  font-weight:900;
+  font-size:clamp(30px, 4vw, 44px);
+  letter-spacing:.015em;
+  line-height:1.4;
+}
+.sec-head .note{
+  margin-top:20px;
+  max-width:40em;
+  color:var(--ink-2);
+  font-size:15px;
+  line-height:2.1;
+}
+
+/* ---------- ボタン ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:12px;
+  font-weight:700;
+  font-size:16px;
+  letter-spacing:.05em;
+  padding:18px 42px;
+  border-radius:var(--radius);
+  transition:background .25s ease, color .25s ease, border-color .25s ease, transform .15s ease;
+}
+.btn .ar{ font-weight:400; }
+/* 深緑塗り（白地の上の主導線） */
+.btn-fill{
+  background:var(--accent);
+  color:#FDFCF8;
+  box-shadow:var(--shadow);
+}
+.btn-fill:hover{ background:var(--accent-deep); }
+.btn-fill:active{ transform:translateY(2px); box-shadow:none; }
+/* 白枠（写真・濃色の上の副導線） */
+.btn-ghost{
+  border:1px solid rgba(255,255,255,.65);
+  color:#FFF;
+  background:rgba(255,255,255,.04);
+}
+.btn-ghost:hover{ border-color:#FFF; background:rgba(255,255,255,.14); }
+/* 生成り塗り（深緑バンドの上の主導線） */
+.btn-cream{
+  background:var(--band-ink);
+  color:var(--band-bg);
+}
+.btn-cream:hover{ background:#E5DCC9; }
+.btn-cream:active{ transform:translateY(2px); }
+/* 線ボタン（白地の上の副導線） */
+.btn-line{
+  border:1px solid #C9C3B5;
+  color:var(--ink);
+  background:var(--card);
+}
+.btn-line:hover{ border-color:var(--accent); color:var(--accent-deep); }
+/* テキストリンク（「詳しく見る →」など） */
+.text-link{
+  display:inline-flex; align-items:center; gap:8px;
+  font-weight:700;
+  font-size:15px;
+  letter-spacing:.05em;
+  color:var(--accent);
+  transition:color .25s ease, gap .25s ease;
+}
+.text-link:hover{ color:var(--accent-deep); gap:12px; }
+
+/* ---------- 小ラベル（事業タグなど） ---------- */
+.tag{
+  display:inline-block;
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--accent);
+  background:var(--accent-soft);
+  border-radius:6px;
+  padding:6px 14px;
+  margin-bottom:18px;
+}
+
+/* ---------- 写真枠 ---------- */
+.ph{
+  position:relative;
+  overflow:hidden;
+  border-radius:var(--radius);
+  background:var(--bg-2);   /* 画像読込前の下地 */
+}
+.ph img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+}
+
+/* ---------- フェードイン演出（控えめ） ---------- */
+.reveal{ opacity:0; transform:translateY(18px); transition:opacity .8s ease, transform .8s ease; }
+.reveal.is-visible{ opacity:1; transform:none; }
+.reveal.d1{ transition-delay:.1s; }
+.reveal.d2{ transition-delay:.2s; }
+.reveal.d3{ transition-delay:.3s; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  .reveal{ opacity:1; transform:none; transition:none; }
+}
+
+/* ============================================================
+   ヘッダー（温白・固定）
+   ※ dieboard.html と完全同一構造にすること
+   ============================================================ */
+.header{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:16px var(--pad-x);
+  background:rgba(250,248,244,.94);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.logo{
+  font-weight:900;
+  font-size:20px;
+  letter-spacing:.06em;
+  color:var(--ink);
+}
+.logo .dash{ color:var(--accent); }
+.gnav{ display:flex; align-items:center; gap:30px; }
+.gnav a{
+  font-size:14px;
+  font-weight:500;
+  letter-spacing:.05em;
+  color:var(--ink-2);
+  transition:color .25s ease;
+}
+.gnav a:hover{ color:var(--accent-deep); }
+/* ヘッダー右端の「お問い合わせ」は深緑塗りで目立たせる */
+.gnav .nav-cta{
+  color:#FDFCF8;
+  background:var(--accent);
+  border-radius:var(--radius);
+  padding:11px 24px;
+  font-weight:700;
+  transition:background .25s ease;
+}
+.gnav .nav-cta:hover{ background:var(--accent-deep); color:#FDFCF8; }
+/* モバイル用メニュー開閉ボタン（768px以下でのみ表示・テキストのみ） */
+.nav-toggle{
+  display:none;
+  font-family:var(--sans);
+  font-weight:500;
+  font-size:12px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--ink);
+  background:none;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:9px 14px 9px 18px;
+  cursor:pointer;
+}
+
+/* ============================================================
+   強いヒーロー（B-4の顔）
+   blade-macro.jpg（刃のマクロ・B-4専用カット）をほぼ全面に敷き、
+   左下の文字域だけに濃色グラデーションを重ねて白抜きの特大見出しを置く。
+   リード文・実績数値は直下の .hero-follow へ分離し、写真の迫力を保つ。
+   ============================================================ */
+.hero{
+  position:relative;
+  min-height:640px;
+  height:82vh;
+  display:flex;
+  align-items:flex-end;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute; inset:0;
+}
+.hero-bg img{
+  width:100%; height:100%;
+  object-fit:cover;
+  /* 刃先（画像中央やや下）が主役になる位置合わせ */
+  object-position:center 42%;
+}
+/* 左下の文字域だけを沈めるグラデーション（画面上半分は写真をそのまま見せる） */
+.hero-shade{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(to top, rgba(18,25,21,.82) 0%, rgba(18,25,21,.32) 34%, rgba(18,25,21,0) 60%),
+    linear-gradient(to right, rgba(18,25,21,.48) 0%, rgba(18,25,21,.12) 38%, rgba(18,25,21,0) 62%);
+}
+.hero-inner{
+  position:relative;
+  width:100%;
+  max-width:1200px;
+  margin:0 auto;
+  padding:150px var(--pad-x) 64px;
+  color:#FFF;
+}
+/* 英字eyebrow: 写真の明部に掛かっても読めるよう白＋薄い影で明度を確保 */
+.hero-eyebrow{
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color:#FFF;
+  text-shadow:0 1px 12px rgba(18,25,21,.6);
+  margin-bottom:26px;
+}
+/* 特大見出し（900・字間タイト・白抜き） */
+.hero h1{
+  font-weight:900;
+  font-size:clamp(46px, 6.6vw, 80px);
+  line-height:1.22;
+  letter-spacing:.015em;
+  margin-bottom:26px;
+  text-shadow:0 2px 24px rgba(18,25,21,.35);
+}
+/* 温かいサブコピー（相談のハードルを下げる第一声） */
+.hero-sub{
+  font-weight:700;
+  font-size:clamp(18px, 2.1vw, 23px);
+  letter-spacing:.04em;
+  line-height:1.9;
+  margin-bottom:14px;
+}
+.hero-actions{
+  display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+  margin-bottom:20px;
+}
+/* ボタン下の「お電話でも」の一言（人の気配） */
+.hero-tel{
+  font-size:13px;
+  color:rgba(255,255,255,.75);
+  letter-spacing:.04em;
+}
+.hero-tel strong{
+  font-weight:700;
+  font-size:15px;
+  color:#FFF;
+  letter-spacing:.06em;
+}
+
+/* ============================================================
+   ヒーロー直下の導入セクション
+   （ヒーローから降ろしたリード文＋実績数値。写真を主役に保つための分離）
+   ============================================================ */
+.hero-follow{
+  padding:72px var(--pad-x);
+  border-bottom:1px solid var(--line);
+}
+.hero-follow-grid{
+  display:grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap:64px;
+  align-items:center;
+}
+.hf-lead{
+  color:var(--ink-2);
+  font-size:15px;
+  line-height:2.2;
+}
+/* 創業・拠点・人数の実績行 */
+.hf-meta{
+  display:flex;
+  border-top:2px solid var(--ink);
+}
+.hf-meta .hm{
+  flex:1;
+  padding:18px 20px 0 0;
+  font-size:12px;
+  letter-spacing:.08em;
+  color:var(--ink-2);
+}
+.hf-meta .hm + .hm{ border-left:1px solid var(--line); padding-left:20px; }
+.hf-meta .hm strong{
+  display:block;
+  font-weight:900;
+  font-size:26px;
+  letter-spacing:.03em;
+  color:var(--accent);
+  margin-bottom:2px;
+}
+
+/* ============================================================
+   事業紹介（大きな写真カード2枚・木型を主役大きめに）
+   ============================================================ */
+.biz-grid{
+  display:grid;
+  grid-template-columns: 1.3fr 1fr;   /* 木型カードを大きく */
+  gap:40px;
+  align-items:start;
+}
+.biz-card{
+  display:block;
+  border-radius:var(--radius);
+  overflow:hidden;
+  background:var(--card);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+.biz-card .ph{ border-radius:0; }
+.biz-card .ph img{ transition:transform .7s ease; }
+.biz-card:hover .ph img{ transform:scale(1.035); }
+.biz-grid .biz-card:first-child .ph{ height:420px; }
+.biz-grid .biz-card:last-child  .ph{ height:340px; }
+.biz-body{ padding:36px 40px 40px; }
+.biz-title{
+  font-weight:900;
+  font-size:clamp(21px, 2.4vw, 27px);
+  letter-spacing:.02em;
+  line-height:1.6;
+  margin-bottom:16px;
+}
+.biz-text{ color:var(--ink-2); font-size:15px; line-height:2.1; margin-bottom:24px; }
+/* カード全体をリンクにした場合の矢印挙動 */
+a.biz-card .text-link{ pointer-events:none; }
+a.biz-card:hover .text-link{ color:var(--accent-deep); gap:12px; }
+
+/* ============================================================
+   品質へのこだわり（01-04・深緑の数字＋罫線で堂々と）
+   ============================================================ */
+.quality-photo{
+  height:420px;
+  margin-bottom:64px;
+}
+.quality-grid{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:40px;
+}
+.q-item{
+  border-top:2px solid var(--ink);   /* 太めの罫線で堂々と */
+  padding-top:26px;
+}
+.q-item .qn{
+  font-weight:900;
+  font-size:30px;
+  letter-spacing:.06em;
+  color:var(--accent);
+  line-height:1;
+  margin-bottom:18px;
+}
+.q-item h3{
+  font-weight:900;
+  font-size:19px;
+  letter-spacing:.05em;
+  margin-bottom:2px;
+}
+.q-item h3 small{
+  display:block;
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--ink-2);
+  margin-top:6px;
+}
+.q-item p{ color:var(--ink-2); font-size:14px; line-height:2.05; margin-top:14px; }
+
+/* ============================================================
+   全幅写真帯（factory.jpg・一文だけを堂々と置く）
+   高さは50vh級。オーバーレイは均一ではなく左下の文字域だけを
+   沈める方向性グラデにし、工場内観そのものを見せる。
+   ============================================================ */
+.photo-band{
+  position:relative;
+  height:52vh;
+  min-height:380px;
+  overflow:hidden;
+}
+.photo-band img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+}
+.photo-band .shade{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(to top, rgba(18,25,21,.72) 0%, rgba(18,25,21,.2) 42%, rgba(18,25,21,0) 68%),
+    linear-gradient(to right, rgba(18,25,21,.38) 0%, rgba(18,25,21,0) 55%);
+}
+.photo-band .band-copy{
+  position:relative;
+  height:100%;
+  max-width:1200px;
+  margin:0 auto;
+  display:flex; align-items:flex-end; justify-content:flex-start;
+  padding:0 var(--pad-x) 52px;
+  text-align:left;
+}
+.photo-band .band-copy p{
+  color:#FFF;
+  font-weight:900;
+  font-size:clamp(20px, 2.8vw, 30px);
+  letter-spacing:.05em;
+  line-height:1.8;
+  text-shadow:0 2px 20px rgba(18,25,21,.4);
+}
+
+/* ============================================================
+   よくあるご相談（Q形式4件・2×2）
+   B-4固有レイアウト: 工房写真を全面に敷き、その上に白カードを
+   浮かべるオーバーレイ構成。「写真主役」をページ後半まで貫く。
+   ============================================================ */
+.soudan{
+  position:relative;
+  overflow:hidden;
+}
+.soudan-bg{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+}
+/* 写真の気配を残しつつ本文の可読性を確保する深緑寄りのオーバーレイ */
+.soudan-shade{
+  position:absolute; inset:0;
+  background:linear-gradient(to bottom, rgba(24,34,29,.88) 0%, rgba(24,34,29,.78) 100%);
+}
+.soudan .container{ position:relative; }
+/* 濃色写真の上なので見出し系は白抜きに切り替える */
+.soudan .sec-head .en{ color:#A9C3B6; }
+.soudan .sec-head h2{ color:#FFF; }
+.soudan .sec-head .note{ color:rgba(255,255,255,.82); }
+.soudan-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+.soudan-card{
+  display:grid;
+  grid-template-columns: 44px 1fr;
+  gap:20px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:30px 34px;
+  box-shadow:0 18px 40px -24px rgba(10,16,13,.6);  /* 写真上に浮かぶ影 */
+}
+/* Qの丸バッジ（アイコンではなく文字。線円＋薄い下地に留める） */
+.soudan-card .q{
+  width:44px; height:44px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  background:var(--accent-soft);
+  color:var(--accent);
+  border:1px solid rgba(53,88,74,.35);
+  font-weight:900;
+  font-size:18px;
+  margin-top:2px;
+}
+.soudan-card h3{
+  font-weight:900;
+  font-size:17px;
+  letter-spacing:.03em;
+  line-height:1.8;
+  margin-bottom:8px;
+}
+.soudan-card p{ color:var(--ink-2); font-size:15px; line-height:2.05; }
+/* カード群の締めの一言（写真上なので白系に） */
+.soudan-close{
+  margin-top:28px;
+  font-size:15px;
+  color:rgba(255,255,255,.85);
+  line-height:2.05;
+}
+.soudan-close .text-link{ color:#CFE3D8; }
+.soudan-close .text-link:hover{ color:#FFF; }
+
+/* ============================================================
+   ご相談の流れ（3ステップ・相談無料明記）
+   ============================================================ */
+.flow-grid{
+  display:flex;
+  align-items:stretch;
+  gap:0;
+}
+.flow-step{
+  flex:1;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:36px 34px;
+}
+/* ステップ間の「→」（アイコン不使用・文字のみ） */
+.flow-arrow{
+  display:flex; align-items:center; justify-content:center;
+  width:56px;
+  font-weight:500;
+  font-size:22px;
+  color:var(--ink-2);
+}
+/* 数字の丸バッジ（線円。塗りはボタンだけに残す） */
+.flow-step .num{
+  width:46px; height:46px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  background:var(--accent-soft);
+  color:var(--accent);
+  border:1px solid rgba(53,88,74,.35);
+  font-weight:900;
+  font-size:19px;
+  margin-bottom:22px;
+}
+.flow-step h3{
+  font-weight:900;
+  font-size:18px;
+  letter-spacing:.05em;
+  margin-bottom:12px;
+}
+.flow-step p{ color:var(--ink-2); font-size:15px; line-height:2.05; }
+/* ステップ下の安心材料 */
+.flow-note{
+  margin-top:40px;
+  text-align:center;
+  font-size:15px;
+  color:var(--ink-2);
+  line-height:2.05;
+}
+.flow-note strong{ font-weight:700; color:var(--ink); }
+
+/* ============================================================
+   会社情報＋お知らせ（コンパクト）
+   ============================================================ */
+.company-grid{
+  display:grid;
+  grid-template-columns: 6fr 5fr;
+  gap:80px;
+  align-items:start;
+}
+.company-dl div{
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:20px;
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+  font-size:15px;
+}
+.company-dl div:first-child{ border-top:2px solid var(--ink); }
+.company-dl dt{ color:var(--ink-2); letter-spacing:.08em; }
+.company-dl dd{ color:var(--ink); letter-spacing:.03em; line-height:1.9; }
+.company-dl dd small{ display:block; color:var(--ink-2); font-size:12px; margin-top:2px; }
+/* お知らせ */
+.news-head{
+  display:flex; align-items:baseline; justify-content:space-between;
+  margin-bottom:20px;
+}
+.news-head h3{
+  font-weight:900;
+  font-size:18px;
+  letter-spacing:.06em;
+}
+.news-head span{
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.26em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+.news li{ border-top:1px solid var(--line); }
+.news li:last-child{ border-bottom:1px solid var(--line); }
+.news a{
+  display:grid;
+  grid-template-columns:104px 1fr 20px;
+  gap:16px;
+  align-items:baseline;
+  padding:20px 6px;
+  border-radius:6px;
+  transition:background .25s ease;
+}
+.news a:hover{ background:var(--accent-soft); }
+.news time{
+  font-weight:500;
+  font-size:13px;
+  letter-spacing:.06em;
+  color:var(--ink-2);
+}
+.news .nt{ font-size:14px; color:var(--ink); letter-spacing:.03em; line-height:1.9; }
+.news .ar{ color:var(--accent); transition:transform .25s ease; }
+.news a:hover .ar{ transform:translateX(4px); }
+
+/* ============================================================
+   CTA（深緑バンド・電話を大きく・人の気配）
+   ※ dieboard.html と完全同一構造にすること
+   ============================================================ */
+.cta{
+  padding:120px var(--pad-x);
+  background:var(--band-bg);
+  color:var(--band-ink);
+  text-align:center;
+}
+.cta .en{
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:rgba(242,237,225,.6);
+  margin-bottom:24px;
+}
+.cta h2{
+  font-weight:900;
+  font-size:clamp(28px, 3.8vw, 40px);
+  letter-spacing:.02em;
+  line-height:1.55;
+  margin-bottom:24px;
+}
+.cta .cta-lead{
+  max-width:36em;
+  margin:0 auto 56px;
+  color:rgba(242,237,225,.78);
+  font-size:15px;
+  line-height:2.15;
+}
+/* 電話とフォームの2枚パネル（濃色面の上なので半透明の面で区切る） */
+.cta-cards{
+  max-width:900px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  text-align:left;
+}
+.cta-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(242,237,225,.2);
+  border-radius:var(--radius);
+  padding:40px 40px 36px;
+}
+.cta-card .how{
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:rgba(242,237,225,.6);
+  margin-bottom:18px;
+}
+/* 電話番号は大きく。実番号への差し替え時に tel: リンク化する（公開前チェックリスト参照） */
+.cta-card .tel{
+  font-weight:900;
+  font-size:clamp(28px, 3.2vw, 36px);
+  letter-spacing:.04em;
+  line-height:1.4;
+  color:#FFF;
+  margin-bottom:12px;
+}
+.cta-card .sub{
+  font-size:13px;
+  color:rgba(242,237,225,.75);
+  line-height:2.0;
+}
+.cta-card .sub strong{ color:var(--band-ink); font-weight:700; }
+.cta-card .btn{ width:100%; margin-bottom:16px; }
+
+/* ============================================================
+   フッター（温白）
+   ※ dieboard.html と完全同一構造にすること
+   深緑はCTAバンドで締め、フッターは温白に戻して呼吸をつくる
+   （深緑濃色×2枚が連続すると巨大な一枚面に見えるため） ============================================================ */
+.footer{
+  padding:80px var(--pad-x) 40px;
+  background:var(--bg);
+  color:var(--ink);
+}
+.footer-inner{
+  max-width:1200px; margin:0 auto;
+  display:grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap:56px;
+  margin-bottom:64px;
+}
+.footer .logo{ color:var(--ink); font-size:20px; margin-bottom:20px; display:inline-block; }
+.footer .logo .dash{ color:var(--accent); }
+.footer-company{ font-size:13px; color:var(--ink-2); letter-spacing:.05em; line-height:2.2; }
+.footer h4{
+  font-size:11px;
+  letter-spacing:.26em;
+  color:var(--accent);
+  font-weight:500;
+  margin-bottom:20px;
+  text-transform:uppercase;
+}
+.footer-nav li{ margin-bottom:12px; }
+.footer-nav a{
+  font-size:13px; letter-spacing:.05em; color:var(--ink-2);
+  transition:color .25s ease;
+}
+.footer-nav a:hover{ color:var(--accent-deep); }
+.footer-loc p{ font-size:13px; color:var(--ink-2); letter-spacing:.04em; line-height:2.1; margin-bottom:18px; }
+.footer-loc p strong{ display:block; font-weight:700; color:var(--ink); margin-bottom:2px; }
+.copyright{
+  max-width:1200px; margin:0 auto;
+  border-top:1px solid var(--line);
+  padding-top:28px;
+  display:flex; justify-content:space-between; align-items:baseline;
+  font-size:12px;
+  letter-spacing:.14em;
+  color:var(--ink-2);
+}
+
+/* ============================================================
+   レスポンシブ（中間幅: タブレット〜小型ノート）
+   ナビ6項目が折り返し・はみ出ししないよう余白を詰める
+   ============================================================ */
+@media (min-width:769px) and (max-width:1080px){
+  :root{ --pad-x:32px; }
+  .gnav{ gap:16px; }
+  .gnav a{ letter-spacing:.02em; font-size:13px; }
+  .gnav .nav-cta{ padding:10px 16px; }
+  .biz-grid{ gap:24px; }
+  .biz-body{ padding:28px 28px 32px; }
+  .quality-grid{ grid-template-columns:1fr 1fr; }
+}
+
+/* ============================================================
+   レスポンシブ（768px以下）
+   ============================================================ */
+@media (max-width:768px){
+  :root{ --pad-x:24px; }
+  .header{ padding:14px var(--pad-x); flex-wrap:wrap; }
+  /* モバイルはMenuボタンでドロワーを開閉（ナビ欠落を防ぐ） */
+  .nav-toggle{ display:block; }
+  .gnav{
+    display:none;
+    width:100%;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    margin-top:12px;
+    border-top:1px solid var(--line);
+    padding-top:4px;
+  }
+  /* 高さの低い画面（横向きスマホ等）で6項目＋CTAが画面外に切れないよう、
+     ヘッダー分を引いた高さで内部スクロールできるようにする */
+  .gnav.is-open{ display:flex; max-height:calc(100vh - 70px); overflow-y:auto; }
+  .gnav a{
+    padding:14px 2px;
+    border-bottom:1px solid var(--line);
+    color:var(--ink);
+  }
+  .gnav .nav-cta{
+    border:none;
+    margin:16px 0 8px;
+    padding:15px;
+    text-align:center;
+    justify-content:center;
+  }
+  .section{ padding:80px var(--pad-x); }
+  .sec-head{ margin-bottom:40px; }
+  /* ヒーローは高さ固定をやめて内容に合わせる（文字の見切れを防ぐ） */
+  .hero{ height:auto; min-height:0; }
+  .hero-inner{ padding:140px var(--pad-x) 48px; }
+  /* 320px級の狭い端末でも「この一本の刃が、」(8文字)が折り返さないようvw追従にする */
+  .hero h1{ font-size:clamp(30px, 10.5vw, 46px); }
+  .hero-actions .btn{ width:100%; }
+  /* ヒーロー直下の導入セクションは縦積みに */
+  .hero-follow{ padding:56px var(--pad-x); }
+  .hero-follow-grid{ grid-template-columns:1fr; gap:36px; }
+  .hf-meta .hm{ padding-right:14px; }
+  .hf-meta .hm + .hm{ padding-left:14px; }
+  .biz-grid{ grid-template-columns:1fr; gap:24px; }
+  .biz-grid .biz-card:first-child .ph,
+  .biz-grid .biz-card:last-child .ph{ height:240px; }
+  .biz-body{ padding:26px 24px 30px; }
+  .quality-photo{ height:220px; margin-bottom:40px; }
+  .quality-grid{ grid-template-columns:1fr; gap:32px; }
+  .photo-band{ height:44vh; min-height:280px; }
+  .photo-band .band-copy{ padding-bottom:36px; }
+  .soudan-grid{ grid-template-columns:1fr; gap:16px; }
+  .soudan-card{ padding:24px 22px; grid-template-columns:36px 1fr; gap:16px; }
+  .soudan-card .q{ width:36px; height:36px; font-size:15px; }
+  /* ご相談の流れは縦積みにし、矢印は「↓」に置き換える */
+  .flow-grid{ flex-direction:column; }
+  .flow-arrow{ width:auto; padding:10px 0; }
+  .flow-arrow::before{ content:'↓'; }
+  .flow-arrow span{ display:none; }
+  .company-grid{ grid-template-columns:1fr; gap:44px; }
+  .company-dl div{ grid-template-columns:120px 1fr; }
+  .news a{ grid-template-columns:90px 1fr; }
+  .news .ar{ display:none; }
+  .cta{ padding:88px var(--pad-x); }
+  .cta-cards{ grid-template-columns:1fr; }
+  .cta-card{ padding:32px 26px 28px; }
+  .footer-inner{ grid-template-columns:1fr; gap:44px; }
+  .copyright{ flex-direction:column; gap:8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ ヘッダー（dieboard.html と完全同一） ============ -->
+<header class="header">
+  <a class="logo" href="index.html">ts<span class="dash">—</span>industry</a>
+  <!-- モバイル用メニュー開閉ボタン（768px以下でのみ表示） -->
+  <button class="nav-toggle" type="button" aria-controls="gnav" aria-expanded="false">Menu</button>
+  <!-- 注: アンカーは「index.html#～」形式で書く（dieboard.html に同一ヘッダーを置いても両ページで動くようにするため） -->
+  <nav class="gnav" id="gnav">
+    <a href="dieboard.html">抜き型・木型</a>
+    <a href="index.html#waterjet">ウォータージェット</a>
+    <a href="index.html#quality">品質へのこだわり</a>
+    <a href="index.html#soudan">よくあるご相談</a>
+    <a href="index.html#company">会社情報</a>
+    <a class="nav-cta" href="#contact">お問い合わせ</a>
+  </nav>
+</header>
+
+<!-- ============ 強いヒーロー（写真ほぼ全面＋白抜き特大見出し） ============ -->
+<!-- B-4専用カット: 刃のマクロ写真。要素はeyebrow＋H1＋一言＋導線＋電話のみに絞り、写真を主役に立てる -->
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <img src="../draft-b/assets/img/blade-macro.jpg" alt="トムソン型の刃先のマクロ — 木型に打ち込まれた刃の接写" loading="eager">
+  </div>
+  <div class="hero-shade" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow reveal">Cutting Die Manufacturing — Since 1998</p>
+    <!-- H1はB-4固有: 目の前の刃の実在感に寄せた一句（B-3「精度は、約束である。」と書き分け） -->
+    <h1 class="reveal d1">この一本の刃が、<br>百万枚を抜く。</h1>
+    <!-- 温度のあるサブコピー: 相談のハードルを下げる第一声 -->
+    <p class="hero-sub reveal d1">型のことなら、どんな小さなことでもご相談ください。</p>
+    <div class="hero-actions reveal d2">
+      <!-- 暗色シェード×写真の上では深緑塗りが沈むため、主導線は生成り塗り（btn-cream）にする -->
+      <a class="btn btn-cream" href="#contact">相談してみる<span class="ar">→</span></a>
+      <a class="btn btn-ghost" href="#business">事業内容を見る</a>
+    </div>
+    <!-- TODO: 公開前に実電話番号へ差し替え（052-XXX-XXXXはプレースホルダー） -->
+    <p class="hero-tel reveal d2">お急ぎの方はお電話で　<strong>052-XXX-XXXX</strong>（平日 9:00–17:00）</p>
+  </div>
+</section>
+
+<!-- ============ ヒーロー直下の導入（ヒーローから降ろしたリード文＋実績数値） ============ -->
+<section class="hero-follow">
+  <div class="container hero-follow-grid">
+    <p class="hf-lead reveal">一枚の型が、何十万枚の仕上がりを決める。だから私たちは、材料の選定から出荷前の検査まで、すべての工程に理由を持って型をつくっています。新しい型はもちろん、他社でつくった型の困りごとや、図面のない現物だけのご相談も。まずは、お話をお聞かせください。</p>
+    <div class="hf-meta reveal d1">
+      <div class="hm"><strong>1998</strong>創業</div>
+      <div class="hm"><strong>2</strong>拠点 — 名古屋・厚木</div>
+      <div class="hm"><strong>25</strong>名の職人と技術者</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 事業紹介（大きな写真カード2枚） ============ -->
+<section class="section" id="business">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="en">Business</span>
+      <h2>事業紹介</h2>
+    </div>
+
+    <div class="biz-grid">
+      <!-- 主役: トムソン型（木型）。カード全体で dieboard.html へ -->
+      <a class="biz-card reveal" href="dieboard.html">
+        <div class="ph">
+          <img src="../draft-b/assets/img/dieboard-wide.jpg" alt="作業台の上に置かれたトムソン型（抜き型）の全景">
+        </div>
+        <div class="biz-body">
+          <span class="tag">Die Making</span>
+          <h3 class="biz-title">トムソン型（抜き型・木型）の設計・製造</h3>
+          <p class="biz-text">パッケージ・紙器・段ボールの抜き加工に使われるトムソン型を、設計から製造まで一貫して手がけています。CAD/CAMによる精密な設計データをもとに、レーザー加工した木型へ職人が一本ずつ刃を入れ、罫線・ブリッジ・ゴムの位置まで吟味して仕上げます。量産の歩留まりは、型の精度で決まります。</p>
+          <span class="text-link">詳しく見る <span class="ar">→</span></span>
+        </div>
+      </a>
+
+      <!-- 第2の柱: ウォータージェット -->
+      <div class="biz-card reveal d1" id="waterjet">
+        <div class="ph">
+          <img src="../draft-b/assets/img/waterjet.jpg" alt="ウォータージェット切断の瞬間 — 超高圧の水流と舞い上がる霧">
+        </div>
+        <div class="biz-body">
+          <span class="tag">Waterjet Cutting</span>
+          <h3 class="biz-title">ウォータージェット加工</h3>
+          <p class="biz-text">水に研磨材を加えた超高圧の噴流で素材を切断するウォータージェット加工。熱による変質や歪みがなく、ゴム・樹脂・発泡材・複合材など、刃物やレーザーが不得手とする素材も精密に切り出せます。抜き型づくりで培った「素材を見る目」と図面の精度を、受託加工としてご提供しています。</p>
+          <!-- 注: ウォータージェット詳細ページは未作成。死にリンクを置かないため「詳しく見る」は
+               ページ完成後に <a class="text-link" href="（詳細ページURL）">詳しく見る <span class="ar">→</span></a> へ差し替えること。
+               それまでは相談導線（このバリアントの主旨に沿う）を置いておく -->
+          <a class="text-link" href="#contact">この素材は切れるか、を相談する <span class="ar">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 品質へのこだわり（深緑の数字＋罫線で堂々と） ============ -->
+<section class="section alt" id="quality">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="en">Quality</span>
+      <h2>品質へのこだわり</h2>
+      <p class="note">安くつくる方法ではなく、正しくつくる方法を。型の寿命と抜き上がりは、納品のずっと前 — 材料を選ぶ段階から決まっています。ここに掲げるのは、私たちが譲らない四つの基準です。</p>
+    </div>
+
+    <!-- 出荷前検査の情景（暖色系の写真を大きく） -->
+    <div class="ph quality-photo reveal">
+      <img src="../draft-b/assets/img/inspection.jpg" alt="出荷前検査 — 図面と照合しながら型を確認する様子">
+    </div>
+
+    <div class="quality-grid">
+      <div class="q-item reveal">
+        <div class="qn">01</div>
+        <h3>材料選定<small>Material</small></h3>
+        <p>合板は反りと密度をロット単位で確認し、刃材は紙質と抜き数に合わせて選び分けます。型の寿命は、材料の段階で半分決まると考えています。</p>
+      </div>
+      <div class="q-item reveal d1">
+        <div class="qn">02</div>
+        <h3>設計検証<small>Verification</small></h3>
+        <p>支給データをそのまま型にはしません。寸法・罫線・ブリッジ位置を必ず検証し、疑問があれば加工前にお客様へ確認します。</p>
+      </div>
+      <div class="q-item reveal d2">
+        <div class="qn">03</div>
+        <h3>製造工程<small>Process</small></h3>
+        <p>刃入れの角度、つなぎの位置、ゴムの硬度。数値にできる項目は数値で管理し、数値にならない部分は熟練の手が引き受けます。</p>
+      </div>
+      <div class="q-item reveal d3">
+        <div class="qn">04</div>
+        <h3>出荷前検査<small>Inspection</small></h3>
+        <p>すべての型を、図面との照合と試し抜きで確認してから出荷します。基準に満たない型は、出荷しません。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 全幅写真帯（工場内観＋一文） ============ -->
+<div class="photo-band">
+  <img src="../draft-b/assets/img/factory.jpg" alt="名古屋工場の内観 — 窓から差し込む光と作業場">
+  <div class="shade" aria-hidden="true"></div>
+  <div class="band-copy">
+    <p class="reveal">1998年から、名古屋で型をつくり続けています。</p>
+  </div>
+</div>
+
+<!-- ============ よくあるご相談（Q形式4件・工房写真の上にカードを浮かべるB-4固有レイアウト） ============ -->
+<section class="section soudan" id="soudan">
+  <!-- 背景写真: 職人の手元。装飾目的のためaltは空にする -->
+  <img class="soudan-bg" src="../draft-b/assets/img/hands.jpg" alt="" aria-hidden="true">
+  <div class="soudan-shade" aria-hidden="true"></div>
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="en">Consultation</span>
+      <h2>よくあるご相談</h2>
+      <p class="note">「こんなことを聞いていいのだろうか」と迷うような内容こそ、私たちがいちばん多くいただいている相談です。実際によくあるご相談を、いくつかご紹介します。</p>
+    </div>
+
+    <div class="soudan-grid">
+      <div class="soudan-card reveal">
+        <div class="q">Q</div>
+        <div>
+          <h3>他社でつくった型が、うまく抜けない。</h3>
+          <p>他社製の型のご相談もお受けしています。型か抜きサンプルを拝見し、原因と直し方を根拠とともにご説明します。つくり直しが最善とは限りません。</p>
+        </div>
+      </div>
+      <div class="soudan-card reveal d1">
+        <div class="q">Q</div>
+        <div>
+          <h3>今日頼んだら、いつできるか先に知りたい。</h3>
+          <p>まずはお電話ください。品物の形状と枚数が分かれば、その場で納期の目安をお答えします。お急ぎの事情も含めてご相談ください。</p>
+        </div>
+      </div>
+      <div class="soudan-card reveal d2">
+        <div class="q">Q</div>
+        <div>
+          <h3>図面がない。現物しかない。</h3>
+          <p>現物からの採寸・データ起こしに対応しています。摩耗した型の複製や、廃番になった箱の型の再現もご相談いただけます。</p>
+        </div>
+      </div>
+      <div class="soudan-card reveal d3">
+        <div class="q">Q</div>
+        <div>
+          <h3>1個だけでも頼めますか。</h3>
+          <p>1型からお受けしています。数量の多い少ないで、つくり方や検査の基準を変えることはありません。</p>
+        </div>
+      </div>
+    </div>
+    <p class="soudan-close reveal d3">ここに載っていないご相談も、もちろんお受けします。<a class="text-link" href="#contact">相談してみる <span class="ar">→</span></a></p>
+  </div>
+</section>
+
+<!-- ============ ご相談の流れ（3ステップ） ============ -->
+<section class="section alt" id="flow">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="en">Flow</span>
+      <h2>ご相談の流れ</h2>
+      <p class="note">かしこまった準備は要りません。多くの場合、最初のご連絡から納期のご回答まで、その日のうちに進みます。</p>
+    </div>
+
+    <div class="flow-grid">
+      <div class="flow-step reveal">
+        <div class="num">1</div>
+        <h3>ご連絡</h3>
+        <p>お電話・フォーム、どちらでも。現物の写真をお送りいただくだけでも構いません。「まだ相談の段階」で大丈夫です。</p>
+      </div>
+      <div class="flow-arrow reveal d1"><span>→</span></div>
+      <div class="flow-step reveal d1">
+        <div class="num">2</div>
+        <h3>現物・図面を拝見</h3>
+        <p>図面がなければ、現物や写真から確認します。内容によっては、お電話のその場でお答えできることもあります。</p>
+      </div>
+      <div class="flow-arrow reveal d2"><span>→</span></div>
+      <div class="flow-step reveal d2">
+        <div class="num">3</div>
+        <h3>お見積り・納期のご回答</h3>
+        <p>金額と納期を、根拠とあわせてご提示します。内容にご納得いただいてから、正式なご依頼となります。</p>
+      </div>
+    </div>
+
+    <p class="flow-note reveal d3"><strong>ご相談とお見積りは無料です。</strong>お見積り内容は、ご検討のうえお返事いただければ結構です。</p>
+  </div>
+</section>
+
+<!-- ============ 会社情報＋お知らせ ============ -->
+<section class="section" id="company">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="en">Company</span>
+      <h2>会社情報</h2>
+    </div>
+
+    <div class="company-grid">
+      <dl class="company-dl reveal">
+        <div>
+          <dt>社名</dt>
+          <dd>株式会社ティーエスインダストリー<small>TS Industry Co., Ltd.</small></dd>
+        </div>
+        <div>
+          <dt>創業</dt>
+          <dd>1998年</dd>
+        </div>
+        <div>
+          <dt>従業員数</dt>
+          <dd>25名（職人・技術者）</dd>
+        </div>
+        <div>
+          <dt>事業内容</dt>
+          <dd>トムソン型（抜き型・木型）の設計・製造<br>ウォータージェット加工</dd>
+        </div>
+        <div>
+          <dt>名古屋工場本社</dt>
+          <!-- TODO: 公開前に実電話番号へ差し替え（052-XXX-XXXXはプレースホルダー） -->
+          <dd>愛知県名古屋市守山区今尻町2015<small>TEL 052-XXX-XXXX</small></dd>
+        </div>
+        <div>
+          <dt>神奈川営業所</dt>
+          <dd>神奈川県厚木市酒井2087-10</dd>
+        </div>
+      </dl>
+
+      <div class="reveal d1">
+        <div class="news-head">
+          <h3>お知らせ</h3>
+          <span>News</span>
+        </div>
+        <ul class="news">
+          <li><a href="dieboard.html#technology">
+            <time datetime="2026-06-05">2026.06.05</time>
+            <span class="nt">技術資料「DP2ステンレスの耐食性能について」を公開しました</span>
+            <span class="ar">→</span>
+          </a></li>
+          <li><a href="index.html#waterjet">
+            <time datetime="2026-05-21">2026.05.21</time>
+            <span class="nt">ウォータージェット受託加工の対応素材一覧を更新しました</span>
+            <span class="ar">→</span>
+          </a></li>
+          <li><a href="index.html#quality">
+            <time datetime="2026-05-08">2026.05.08</time>
+            <span class="nt">名古屋工場本社の検査設備を更新しました</span>
+            <span class="ar">→</span>
+          </a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA（深緑バンド・dieboard.html と完全同一） ============ -->
+<section class="cta" id="contact">
+  <p class="en reveal">Contact</p>
+  <h2 class="reveal d1">型のことで、<br>困りごとはありませんか。</h2>
+  <p class="cta-lead reveal d2">新しい型のご相談はもちろん、他社製の型のトラブルや、まだ形になっていないお話でも。まずは状況をお聞かせください。</p>
+
+  <div class="cta-cards reveal d3">
+    <!-- 電話: 番号を大きく、人の気配を添える -->
+    <div class="cta-card">
+      <p class="how">お電話で</p>
+      <!-- TODO: 公開前に実電話番号へ差し替え（052-XXX-XXXXはプレースホルダー）。
+           差し替え時は <a href="tel:052XXXXXXX" class="tel">…</a> の形でリンク化すること -->
+      <p class="tel">052-XXX-XXXX</p>
+      <p class="sub"><strong>受付 平日 9:00–17:00｜名古屋工場本社</strong><br>
+      担当者が直接お答えします。作業中で出られない場合は、折り返しご連絡いたします。</p>
+    </div>
+    <!-- フォーム: 安心材料（写真だけでも概算可）を添える -->
+    <div class="cta-card">
+      <p class="how">フォームで</p>
+      <!-- TODO: mailto:info@ts-industry.example は仮アドレス（.exampleは実在しない予約ドメイン）。
+           フォーム実装後に実フォームURL（または実メールアドレスの mailto:）へ差し替えること。
+           セルフリンク（#contact）だと「押しても動かないボタン」に見えるため暫定でmailtoにしている -->
+      <a class="btn btn-cream" href="mailto:info@ts-industry.example">お問い合わせフォーム<span class="ar">→</span></a>
+      <p class="sub">図面がなくても大丈夫です。現物の写真を添えていただくだけでも、概算をお出しできます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ フッター（温白・dieboard.html と完全同一） ============ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <a class="logo" href="index.html">ts<span class="dash">—</span>industry</a>
+      <p class="footer-company">株式会社ティーエスインダストリー<br>
+      トムソン型（抜き型・木型）の設計・製造<br>
+      ウォータージェット加工</p>
+    </div>
+    <div>
+      <h4>Menu</h4>
+      <!-- 注: アンカーは「index.html#～」形式（dieboard.html に同一フッターを置いても動くようにするため） -->
+      <ul class="footer-nav">
+        <li><a href="dieboard.html">抜き型・木型</a></li>
+        <li><a href="index.html#waterjet">ウォータージェット</a></li>
+        <li><a href="dieboard.html#technology">技術情報</a></li>
+        <li><a href="index.html#soudan">よくあるご相談</a></li>
+        <li><a href="index.html#company">会社情報</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+    </div>
+    <div class="footer-loc">
+      <h4>Location</h4>
+      <!-- TODO: 公開前に実電話番号へ差し替え（052-XXX-XXXXはプレースホルダー） -->
+      <p><strong>名古屋工場本社</strong>愛知県名古屋市守山区今尻町2015<br>TEL 052-XXX-XXXX</p>
+      <p><strong>神奈川営業所</strong>神奈川県厚木市酒井2087-10</p>
+    </div>
+  </div>
+  <div class="copyright">
+    <span>© 2026 TS Industry Co., Ltd.</span>
+    <span>Precision is our promise.</span>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// スクロールに応じたフェードイン（IntersectionObserver）
+// 演出は控えめに。失敗しても閲覧に支障が出ないようにする。
+// ============================================================
+(function(){
+  // 対象要素をすべて取得する
+  var targets = document.querySelectorAll('.reveal');
+
+  // すべて表示状態にするフォールバック処理
+  function showAll(){
+    targets.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+
+  try{
+    // IntersectionObserver非対応の環境ではそのまま表示する
+    if(!('IntersectionObserver' in window)){
+      showAll();
+      return;
+    }
+    // 画面に入ったら .is-visible を付与し、以後は監視を外す
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    targets.forEach(function(el){ observer.observe(el); });
+  }catch(e){
+    // 想定外のエラー時もコンテンツは必ず見えるようにする
+    showAll();
+  }
+})();
+
+// ============================================================
+// モバイル用メニューの開閉（768px以下で表示されるMenuボタン）
+// 失敗してもフッターナビから各セクションへ到達できる
+// ============================================================
+(function(){
+  var toggle = document.querySelector('.nav-toggle');
+  var nav = document.getElementById('gnav');
+
+  // 要素が見つからない場合は何もしない
+  if(!toggle || !nav){ return; }
+
+  // メニューを閉じた状態に戻す共通処理
+  function closeMenu(){
+    nav.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.textContent = 'Menu';
+  }
+
+  try{
+    // ボタンで開閉を切り替える
+    toggle.addEventListener('click', function(){
+      var isOpen = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      toggle.textContent = isOpen ? 'Close' : 'Menu';
+    });
+
+    // メニュー内のリンクを押したら閉じる（アンカー移動を妨げない）
+    nav.addEventListener('click', function(e){
+      var link = e.target && e.target.closest ? e.target.closest('a') : null;
+      if(link){ closeMenu(); }
+    });
+  }catch(e){
+    // 想定外のエラー時はメニューを閉じた状態で固定する
+    closeMenu();
+  }
+})();
+</script>
+
+</body>
+</html>

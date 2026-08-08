@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TS Industry — Technical Overview｜株式会社ティーエスインダストリー</title>
+<meta name="description" content="名古屋の精密加工メーカー。トムソン型（抜き型・木型）の設計製造とウォータージェット切断加工。30年以上の実績で、現場の課題を解決します。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:    #F8F7F2;
+    --paper-2:  #F2F0EA;
+    --ink:      #111111;
+    --ink-2:    #2A2A28;
+    --sub:      #6B6B68;
+    --mute:     #9A9A95;
+    --rule:     #D8D5CD;
+    --rule-soft:#E5E2D8;
+    --serif:  'Noto Serif JP', serif;
+    --sans:   'Noto Sans JP', sans-serif;
+    --display:'Inter', sans-serif;
+    --mono:   'IBM Plex Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.85;
+    font-feature-settings: "palt";
+    -webkit-font-smoothing: antialiased;
+    font-size: 15px;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+  }
+  .wrap-narrow { max-width: 760px; margin: 0 auto; padding: 0 40px; }
+
+  /* ─────────── HEADER ─────────── */
+  header.site-header {
+    position: sticky;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(248,247,242,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .site-header .wrap {
+    max-width: 1280px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .logo {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  nav.main-nav {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    font-family: var(--display);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  nav.main-nav a {
+    color: var(--sub);
+    transition: color .2s;
+    padding: 4px 0;
+    border-bottom: 1px solid transparent;
+  }
+  nav.main-nav a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+  /* ─────────── HERO (whitepaper opening) ─────────── */
+  section.hero {
+    padding: 120px 0 100px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-pretitle {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--sub);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+  .hero-rule {
+    width: 56px; height: 1px; background: var(--ink);
+    margin-bottom: 36px;
+  }
+  h1.hero-title {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(40px, 5.4vw, 76px);
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    margin-bottom: 28px;
+    max-width: 920px;
+  }
+  .hero-subtitle {
+    font-family: var(--display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(16px, 1.6vw, 20px);
+    color: var(--sub);
+    margin-bottom: 80px;
+    max-width: 720px;
+    line-height: 1.6;
+  }
+  .abstract {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 32px 0;
+    max-width: 720px;
+  }
+  .abstract-label {
+    font-family: var(--mono); font-size: 10px;
+    color: var(--sub); letter-spacing: 0.24em;
+    text-transform: uppercase; margin-bottom: 18px;
+  }
+  .abstract-list {
+    list-style: none;
+    font-family: var(--mono);
+    font-size: 14px;
+  }
+  .abstract-list li {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--rule-soft);
+    color: var(--ink-2);
+  }
+  .abstract-list li:last-child { border-bottom: none; }
+  .abstract-list .key { color: var(--sub); letter-spacing: 0.16em; }
+
+  /* ─────────── SECTION SHELL ─────────── */
+  section.block { padding: 100px 0; border-bottom: 1px solid var(--rule); }
+  .section-head { margin-bottom: 56px; max-width: 760px; }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--sub);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(26px, 2.8vw, 38px);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+  }
+  .section-lead {
+    font-family: var(--sans);
+    font-size: 15px;
+    color: var(--sub);
+    max-width: 640px;
+    margin-top: 16px;
+    line-height: 1.95;
+  }
+
+  /* ─────────── SERVICES ─────────── */
+  .services-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--rule);
+  }
+  .service-row {
+    display: grid;
+    grid-template-columns: 110px 1fr 320px;
+    gap: 48px;
+    padding: 56px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .service-row .idx {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--sub);
+    letter-spacing: 0.18em;
+    white-space: nowrap;
+  }
+  .service-row .body h3 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 26px;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+  .service-row .body .en {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--sub);
+    margin-bottom: 18px;
+    letter-spacing: 0.02em;
+  }
+  .service-row .body p {
+    color: var(--ink-2);
+    font-size: 14.5px;
+    line-height: 1.95;
+    margin-bottom: 20px;
+    max-width: 520px;
+  }
+  .service-row .body a.more {
+    font-family: var(--display);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 3px;
+    transition: opacity .2s;
+  }
+  .service-row .body a.more:hover { opacity: 0.55; }
+  .service-row .figure {
+    aspect-ratio: 4/3;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    position: relative;
+  }
+  .service-row .figure::after {
+    content: 'Fig. — Placeholder';
+    position: absolute;
+    bottom: -22px; left: 0;
+    font-family: var(--mono); font-size: 10px;
+    color: var(--mute); letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* ─────────── STRENGTH ─────────── */
+  .strength-quote {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(22px, 2.4vw, 32px);
+    line-height: 1.65;
+    letter-spacing: 0.04em;
+    max-width: 760px;
+    margin: 0 0 64px;
+    color: var(--ink);
+  }
+  .strength-quote::before {
+    content: ''; display: block;
+    width: 32px; height: 2px; background: var(--ink);
+    margin-bottom: 28px;
+  }
+  .strength-grid {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 48px;
+  }
+  .strength-grid > .colA { font-family: var(--mono); font-size: 11px; color: var(--sub); letter-spacing: 0.22em; padding-top: 4px; }
+  .strength-items { display: flex; flex-direction: column; }
+  .strength-item {
+    border-top: 1px solid var(--rule);
+    padding: 32px 0;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .strength-item:last-child { border-bottom: 1px solid var(--rule); }
+  .strength-item h4 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 19px; line-height: 1.4;
+  }
+  .strength-item h4 .num {
+    display: block;
+    font-family: var(--mono); font-size: 10px;
+    color: var(--sub); letter-spacing: 0.22em;
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+  .strength-item p { color: var(--ink-2); font-size: 14.5px; line-height: 1.95; }
+
+  /* ─────────── TECHNOLOGY ─────────── */
+  .tech-table {
+    border-top: 1px solid var(--rule);
+  }
+  .tech-row {
+    display: grid;
+    grid-template-columns: 80px 240px 1fr 240px;
+    gap: 40px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+    transition: background .25s ease;
+  }
+  .tech-row:hover { background: var(--paper-2); }
+  .tech-row .num {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--sub); letter-spacing: 0.22em; padding-top: 4px;
+  }
+  .tech-row h4 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 22px; line-height: 1.4;
+  }
+  .tech-row h4 .en {
+    display: block;
+    font-family: var(--display); font-style: italic;
+    font-size: 12px; color: var(--sub);
+    margin-top: 4px; font-weight: 400; letter-spacing: 0.02em;
+  }
+  .tech-row .desc {
+    color: var(--ink-2); font-size: 14.5px;
+    line-height: 1.95;
+  }
+  .tech-row .specs {
+    font-family: var(--mono); font-size: 12.5px;
+    line-height: 2; color: var(--ink-2);
+  }
+  .tech-row .specs .k { color: var(--sub); letter-spacing: 0.12em; }
+
+  /* ─────────── NUMBERS ─────────── */
+  .numbers-table {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .numbers-cell {
+    padding: 48px 24px;
+    border-right: 1px solid var(--rule);
+  }
+  .numbers-cell:last-child { border-right: none; }
+  .numbers-cell .v {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(40px, 4.8vw, 64px);
+    line-height: 1;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .numbers-cell .v sup {
+    font-size: 0.4em;
+    color: var(--sub);
+    margin-left: 4px;
+    vertical-align: super;
+  }
+  .numbers-cell .l {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--sub); letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .numbers-cell .ja {
+    font-size: 13px; color: var(--ink-2);
+  }
+
+  /* ─────────── CTA ─────────── */
+  section.cta { padding: 120px 0 140px; background: var(--paper-2); border-bottom: 1px solid var(--rule); }
+  .cta-inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 80px;
+    align-items: end;
+  }
+  .cta h2 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: clamp(24px, 2.4vw, 36px);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    margin-bottom: 24px;
+  }
+  .cta .lead { color: var(--sub); max-width: 540px; line-height: 1.95; font-size: 15px; }
+  .cta-actions { display: flex; flex-direction: column; gap: 28px; }
+  .cta-button {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 18px 36px;
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: background .2s;
+    align-self: flex-start;
+  }
+  .cta-button:hover { background: #000; }
+  .cta-tel {
+    font-family: var(--display); font-weight: 600;
+    font-size: 26px; letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+  .cta-tel small {
+    display: block;
+    font-family: var(--mono); font-size: 10px;
+    color: var(--sub); letter-spacing: 0.22em;
+    margin-bottom: 6px;
+  }
+
+  /* ─────────── FOOTER ─────────── */
+  footer.site-footer {
+    padding: 64px 0 32px;
+    background: var(--paper);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+  .footer-col h4 {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--sub); letter-spacing: 0.22em;
+    text-transform: uppercase; margin-bottom: 16px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--rule);
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 8px; }
+  .footer-col a { color: var(--ink-2); font-size: 13px; transition: opacity .2s; }
+  .footer-col a:hover { opacity: 0.55; }
+  .footer-brand .name {
+    font-family: var(--display); font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    font-size: 15px; margin-bottom: 14px;
+  }
+  .footer-brand p { color: var(--sub); font-size: 13px; line-height: 1.85; max-width: 320px; }
+  .colophon {
+    border-top: 1px solid var(--rule);
+    padding-top: 22px;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--mute); letter-spacing: 0.18em;
+    display: flex; justify-content: space-between;
+  }
+
+  /* ─────────── REVEAL ─────────── */
+  .reveal {
+    opacity: 0;
+    transition: opacity .9s ease;
+  }
+  .reveal.visible { opacity: 1; }
+
+  /* ─────────── RESPONSIVE ─────────── */
+  @media (max-width: 880px) {
+    nav.main-nav { display: none; }
+    .service-row { grid-template-columns: 1fr; gap: 24px; }
+    .service-row .figure { aspect-ratio: 16/10; }
+    .strength-grid { grid-template-columns: 1fr; gap: 24px; }
+    .strength-item { grid-template-columns: 1fr; gap: 12px; }
+    .tech-row { grid-template-columns: 1fr; gap: 12px; }
+    .numbers-table { grid-template-columns: 1fr 1fr; }
+    .numbers-cell { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .numbers-cell:nth-child(2n) { border-right: 0; }
+    .cta-inner { grid-template-columns: 1fr; gap: 32px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .colophon { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="/" class="logo">TS Industry</a>
+    <nav class="main-nav">
+      <a href="#services">Services</a>
+      <a href="#strength">Strength</a>
+      <a href="#technology">Technology</a>
+      <a href="#numbers">About</a>
+      <a href="#recruit">Recruit</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ─────────── HERO ─────────── -->
+<section class="hero">
+  <div class="wrap">
+    <p class="hero-pretitle">Technical Overview · Volume 30 · 2026 edition</p>
+    <div class="hero-rule"></div>
+    <h1 class="hero-title">精度で、信頼を刻む。</h1>
+    <p class="hero-subtitle">Precision engineering for Thomson dies and waterjet cutting,<br>since 1995. From Nagoya, Japan.</p>
+
+    <div class="abstract">
+      <p class="abstract-label">— Abstract</p>
+      <ul class="abstract-list">
+        <li><span class="key">EST.</span><span>1995 (30+ years in operation)</span></li>
+        <li><span class="key">STAFF</span><span>25 (Nagoya HQ + Atsugi sales office)</span></li>
+        <li><span class="key">CLIENTS</span><span>500+ (cumulative)</span></li>
+        <li><span class="key">COMPLAINTS</span><span>0 (since 2018)</span></li>
+        <li><span class="key">SCOPE</span><span>Die board manufacturing · Waterjet cutting</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── §01 SERVICES ─────────── -->
+<section class="block" id="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">§ 01 — Services</div>
+      <h2 class="section-title">2つの精密加工で、<br>現場の「困った」を解く。</h2>
+      <p class="section-lead">トムソン型の設計・製造と、ウォータージェットによる精密切断。30年以上にわたり、製造現場が「妥協できない部分」を支えてきました。</p>
+    </div>
+
+    <div class="services-list">
+      <div class="service-row reveal">
+        <div class="idx">01 / DIE BOARD</div>
+        <div class="body">
+          <h3>抜き型 ／ 木型</h3>
+          <div class="en">Thomson die manufacturing</div>
+          <p>独自素材CAブレード、長寿命機構アン・アフェクトシステム、独自配合DP2ステンレス。他社製の型のトラブルにも対応する駆け込み寺として、止まらない現場を支えます。</p>
+          <a href="/dieboard/" class="more">See specifications →</a>
+        </div>
+        <div class="figure"></div>
+      </div>
+
+      <div class="service-row reveal">
+        <div class="idx">02 / WATERJET</div>
+        <div class="body">
+          <h3>ウォータージェット</h3>
+          <div class="en">Precision waterjet cutting</div>
+          <p>超高圧水流による精密切断。熱影響ゼロ、金属からゴム・樹脂・石材・ガラスまで30種類以上の素材に対応。試作1個からの小ロット生産も歓迎します。</p>
+          <a href="/waterjet/" class="more">See specifications →</a>
+        </div>
+        <div class="figure"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── §02 STRENGTH ─────────── -->
+<section class="block" id="strength">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">§ 02 — Strength</div>
+      <h2 class="section-title">他社の型でトラブルが起きたとき、<br>呼ばれる工場であること。</h2>
+    </div>
+
+    <p class="strength-quote reveal">
+      精度が命の現場で、「とりあえず TS Industry に聞いてみよう」と<br>言われる存在になる。それが、30年かけて築いてきたポジションです。
+    </p>
+
+    <div class="strength-grid">
+      <div class="colA reveal">CRITERIA</div>
+      <div class="strength-items">
+        <div class="strength-item reveal">
+          <h4><span class="num">01 / Quality</span>妥協なき品質</h4>
+          <p>独自素材CAブレードと精密加工で、他社では再現できない切れ味と寿命を両立する。価格競争には参加しない。</p>
+        </div>
+        <div class="strength-item reveal">
+          <h4><span class="num">02 / Usability</span>圧倒的な使いやすさ</h4>
+          <p>納品して終わりではなく、現場で本当に時短になる設計を追求。段取り替えの早さ、メンテナンス性まで考慮する。</p>
+        </div>
+        <div class="strength-item reveal">
+          <h4><span class="num">03 / Partnership</span>駆け込み寺としての対応力</h4>
+          <p>他社の型で起きたトラブルの相談、緊急の修正、仕様変更。30年蓄積した知見で、止まらない現場を支える。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── §03 TECHNOLOGY ─────────── -->
+<section class="block" id="technology">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">§ 03 — Technology</div>
+      <h2 class="section-title">3つの自社技術が、<br>差を作っている。</h2>
+      <p class="section-lead">他社が真似のできない領域は、長年の実験と現場検証から生まれた独自素材・独自機構が支えています。</p>
+    </div>
+
+    <div class="tech-table">
+      <div class="tech-row reveal">
+        <div class="num">01</div>
+        <h4>CAブレード<span class="en">CA Blade — high-precision blade</span></h4>
+        <div class="desc">自社開発の高精度切断刃。標準刃の3倍を超える寿命を実現し、ロット中の刃替え頻度を劇的に減らす。</div>
+        <div class="specs">
+          <div><span class="k">Hardness</span> &nbsp;&nbsp; HRC 62</div>
+          <div><span class="k">Lifespan</span> &nbsp;&nbsp; 3× std.</div>
+          <div><span class="k">Status</span> &nbsp;&nbsp;&nbsp;&nbsp; in production</div>
+        </div>
+      </div>
+      <div class="tech-row reveal">
+        <div class="num">02</div>
+        <h4>アン・アフェクトシステム<span class="en">Un-Affect System — patented mechanism</span></h4>
+        <div class="desc">型の長寿命化を実現する独自機構。型へのダメージを抑え、メンテナンス周期を延ばす。</div>
+        <div class="specs">
+          <div><span class="k">Cycle+</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1.8× std.</div>
+          <div><span class="k">Maint.</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 24 mo+</div>
+          <div><span class="k">Status</span> &nbsp;&nbsp;&nbsp;&nbsp; patented</div>
+        </div>
+      </div>
+      <div class="tech-row reveal">
+        <div class="num">03</div>
+        <h4>DP2ステンレス<span class="en">DP2 Stainless — proprietary alloy</span></h4>
+        <div class="desc">耐久性と精度を両立した独自配合のステンレス素材。腐食環境下でも精度を保つ。</div>
+        <div class="specs">
+          <div><span class="k">Hardness</span> &nbsp;&nbsp; HRC 55</div>
+          <div><span class="k">Corrosion</span> A-grade</div>
+          <div><span class="k">Status</span> &nbsp;&nbsp;&nbsp;&nbsp; in production</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── §04 NUMBERS ─────────── -->
+<section class="block" id="numbers">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-num">§ 04 — By the numbers</div>
+      <h2 class="section-title">数字で見るTS Industry。</h2>
+    </div>
+
+    <div class="numbers-table">
+      <div class="numbers-cell reveal">
+        <div class="l">Years</div>
+        <div class="v">30<sup>+</sup></div>
+        <div class="ja">創業からの年数</div>
+      </div>
+      <div class="numbers-cell reveal">
+        <div class="l">Locations</div>
+        <div class="v">2</div>
+        <div class="ja">名古屋本社／神奈川営業所</div>
+      </div>
+      <div class="numbers-cell reveal">
+        <div class="l">Clients</div>
+        <div class="v">500<sup>+</sup></div>
+        <div class="ja">取引先数（累計）</div>
+      </div>
+      <div class="numbers-cell reveal">
+        <div class="l">Complaints</div>
+        <div class="v">0</div>
+        <div class="ja">クレーム件数 (since 2018)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── CTA ─────────── -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <div class="cta-inner reveal">
+      <div>
+        <p class="section-num" style="margin-bottom:18px;">§ 05 — Contact</p>
+        <h2>他社製の型でお困りなら、<br>まずTS Industryへ。</h2>
+        <p class="lead">お見積もり・設計相談・既存型の修正対応、いずれも歓迎します。試作1個からのウォータージェット切断もお気軽にどうぞ。</p>
+      </div>
+      <div class="cta-actions">
+        <a href="/contact/" class="cta-button">お問い合わせ →</a>
+        <div class="cta-tel">
+          <small>TEL — Nagoya HQ</small>
+          052-XXX-XXXX
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── FOOTER ─────────── -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <div class="name">TS Industry</div>
+        <p>株式会社ティーエスインダストリー。トムソン型の設計・製造とウォータージェット加工。1995年創業、名古屋。</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/dieboard/">抜き型／木型</a></li>
+          <li><a href="/cablade/">CAブレード</a></li>
+          <li><a href="/unaffectedsystem/">アン・アフェクト</a></li>
+          <li><a href="/dp2/">DP2</a></li>
+          <li><a href="/waterjet/">ウォータージェット</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about/">会社概要</a></li>
+          <li><a href="/recruit/">採用情報</a></li>
+          <li><a href="/news/">お知らせ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li>〒463-0023</li>
+          <li>愛知県名古屋市守山区今尻町2015</li>
+          <li>052-XXX-XXXX</li>
+          <li><a href="/contact/">お問い合わせ →</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="colophon">
+      <span>© 2026 TS Industry Co., Ltd.</span>
+      <span>Vol. 30 — Technical Overview, 2026 edition</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

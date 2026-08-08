@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TS Industry ドラフト比較 — 黒ベース / 白ベース2配色</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@500&display=swap" rel="stylesheet">
+<style>
+/* ===== ドラフト比較ハブ — v6インデックスと同じ静かなトーン ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #F5F4F1;
+  --ink: #1B1B1B;
+  --sub: #6E6A63;
+  --line: #D8D5CE;
+  --accent: #2B4459;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.8;
+}
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+.head { padding: 88px 0 48px; border-bottom: 1px solid var(--line); }
+.head__label {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--sub); margin-bottom: 28px;
+}
+.head__title {
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 500; letter-spacing: 0.06em; line-height: 1.5;
+  margin-bottom: 20px;
+}
+.head__desc { font-size: 14px; color: var(--sub); max-width: 640px; font-weight: 300; }
+
+.list { padding: 24px 0 96px; }
+.card {
+  display: block; color: inherit;
+  padding: 40px 0; border-bottom: 1px solid var(--line);
+  transition: background 0.25s;
+}
+.card:hover { background: #EFEDE8; }
+.card__grid { display: grid; grid-template-columns: 64px 1fr 300px; gap: 32px; align-items: start; }
+.card__no {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 13px; letter-spacing: 0.1em;
+  color: var(--sub); padding-top: 6px;
+}
+.card__title { font-size: 20px; font-weight: 500; letter-spacing: 0.04em; margin-bottom: 8px; }
+.card__concept { font-size: 13.5px; color: var(--sub); font-weight: 300; max-width: 560px; }
+.card__links { margin-top: 16px; font-size: 12.5px; letter-spacing: 0.08em; }
+.card__links a {
+  color: var(--accent); border-bottom: 1px solid var(--accent);
+  text-decoration: none;
+  display: inline-block; padding-bottom: 2px; margin-right: 24px;
+}
+.card__spec { font-size: 12px; color: var(--sub); font-weight: 300; }
+.card__spec dt {
+  font-family: 'Libre Franklin', sans-serif;
+  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+  margin-top: 12px; margin-bottom: 2px; color: #9B968D;
+}
+.card__spec dt:first-child { margin-top: 6px; }
+
+/* 色見本（小さな正方形のみ） */
+.sw { display: inline-flex; gap: 6px; vertical-align: middle; margin-left: 8px; }
+.sw i { width: 14px; height: 14px; display: inline-block; border: 1px solid rgba(0,0,0,0.12); }
+
+footer { padding: 32px 0 64px; font-size: 11.5px; color: var(--sub); font-weight: 300; }
+
+@media (max-width: 768px) {
+  .card__grid { grid-template-columns: 1fr; gap: 14px; }
+  .head { padding: 56px 0 40px; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="head">
+    <p class="head__label">TS Industry — Draft B Color Study</p>
+    <h1 class="head__title">採用案B「重厚」<br>ベースカラー比較（黒×1・白×2）</h1>
+    <p class="head__desc">
+      レイアウト・文言・写真はすべて共通。ベースカラーだけを差し替えた3バージョンです。
+      それぞれトップページと抜き型／木型ページの2ページ構成。
+    </p>
+  </header>
+
+  <main class="list">
+
+    <div class="card">
+      <div class="card__grid">
+        <span class="card__no">B-0</span>
+        <div>
+          <h2 class="card__title">黒ベース（オリジナル）</h2>
+          <p class="card__concept">墨黒の全面ダーク基調。暗い工房写真と一体化した、高級工作機械ブランドの緊張感。夜の工房にスポットライトが灯るような世界観。</p>
+          <p class="card__links"><a href="draft-b/index.html">トップを見る</a><a href="draft-b/dieboard.html">木型ページ</a></p>
+        </div>
+        <dl class="card__spec">
+          <dt>Palette</dt>
+          <dd>墨黒 × 生成り文字 × 真鍮
+            <span class="sw"><i style="background:#121214"></i><i style="background:#E9E6DF"></i><i style="background:#B89B6A"></i></span>
+          </dd>
+          <dt>印象</dt>
+          <dd>重厚・緊張感・プレミアム</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card__grid">
+        <span class="card__no">B-1</span>
+        <div>
+          <h2 class="card__title">白ベース・ウォーム（生成り×墨×真鍮）</h2>
+          <p class="card__concept">黒ベースの世界観をそのまま明転。生成りの紙のような白に墨の文字、真鍮の罫線。CTA・フッターはダークバンドで引き締め。温かみと誠実さ。</p>
+          <p class="card__links"><a href="draft-w1/index.html">トップを見る</a><a href="draft-w1/dieboard.html">木型ページ</a></p>
+        </div>
+        <dl class="card__spec">
+          <dt>Palette</dt>
+          <dd>生成り白 × 墨 × 真鍮
+            <span class="sw"><i style="background:#F7F5F0"></i><i style="background:#1D1B18"></i><i style="background:#8F7648"></i></span>
+          </dd>
+          <dt>印象</dt>
+          <dd>誠実・温かみ・老舗の品格</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card__grid">
+        <span class="card__no">B-2</span>
+        <div>
+          <h2 class="card__title">白ベース・クール（白×チャコール×鉄紺）</h2>
+          <p class="card__concept">わずかに青みがかった白にチャコールの文字、鉄紺のアクセント。ゴールドを使わないエンジニアリング寄りの静かな信頼感。精密機器メーカーの空気。</p>
+          <p class="card__links"><a href="draft-w2/index.html">トップを見る</a><a href="draft-w2/dieboard.html">木型ページ</a></p>
+        </div>
+        <dl class="card__spec">
+          <dt>Palette</dt>
+          <dd>白 × チャコール × 鉄紺
+            <span class="sw"><i style="background:#FAFAFB"></i><i style="background:#16181D"></i><i style="background:#2B4459"></i></span>
+          </dd>
+          <dt>印象</dt>
+          <dd>知的・精密・クール</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card__grid">
+        <span class="card__no">B-3</span>
+        <div>
+          <h2 class="card__title">親しみ（生成り×飴色・相談ハードル低減版）</h2>
+          <p class="card__concept">品格を保ったまま温度を上げた版。角丸と柔らかいボタン、「よくあるご相談」「ご相談の流れ」を新設し、電話・問い合わせのハードルを下げることを狙った設計。ヒーローを大型化して強化済み。</p>
+          <p class="card__links"><a href="draft-w3/index.html">トップを見る</a><a href="draft-w3/dieboard.html">木型ページ</a></p>
+        </div>
+        <dl class="card__spec">
+          <dt>Palette</dt>
+          <dd>明るい生成り × 柔らかい墨 × 飴色
+            <span class="sw"><i style="background:#FBF9F5"></i><i style="background:#33302B"></i><i style="background:#A9613B"></i></span>
+          </dd>
+          <dt>印象</dt>
+          <dd>親しみ・相談しやすさ・工房の温度</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card__grid">
+        <span class="card__no">B-4</span>
+        <div>
+          <h2 class="card__title">頼れる工房（写真主役×深緑・大胆バランス）</h2>
+          <p class="card__concept">職人の手元写真をほぼ全面に使う強いヒーローと、太く堂々とした見出し。アクセントは深緑1色に替え、セクション間に全幅の写真帯を挟む「見せる」構成。親しみと問い合わせやすさの仕掛けはB-3と共通。</p>
+          <p class="card__links"><a href="draft-w4/index.html">トップを見る</a><a href="draft-w4/dieboard.html">木型ページ</a></p>
+        </div>
+        <dl class="card__spec">
+          <dt>Palette</dt>
+          <dd>温白 × 濃茶墨 × 深緑
+            <span class="sw"><i style="background:#FAF8F4"></i><i style="background:#2B2A26"></i><i style="background:#35584A"></i></span>
+          </dd>
+          <dt>印象</dt>
+          <dd>力強さ・信頼・現場の実感</dd>
+        </dl>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    TS Industry コーポレートサイト刷新 採用案B カラー比較 ／ 2026年7月
+  </footer>
+
+</div>
+
+</body>
+</html>

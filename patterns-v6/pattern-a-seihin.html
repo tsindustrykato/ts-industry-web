@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>株式会社ティーエスインダストリー｜トムソン型（抜き型）の設計・製造</title>
+<meta name="description" content="株式会社ティーエスインダストリーは、トムソン型（抜き型・木型）の設計・製造を中心に、ウォータージェット加工を手がける愛知県名古屋市の製造会社です。価格ではなく、精度と品質で選ばれる型づくりを続けています。">
+<!-- フォント読み込み（見出し: Shippori Mincho / 本文: Noto Sans JP） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================
+   パターンA「静謐」 — 和モダン × 職人気質
+   生成り × 墨色、アクセントは深い藍。罫線と余白で構成する。
+   ========================================================== */
+
+/* ---- カラーパレット・基本変数 ---- */
+:root{
+  --base:      #F7F5F0;   /* 生成り（ベース） */
+  --base-deep: #EFECE4;   /* 生成り やや濃 */
+  --ink:       #1A1A18;   /* 墨色（文字・反転面） */
+  --ink-soft:  #5A574F;   /* 墨色 淡（補助文） */
+  --ink-faint: #8C887D;   /* 墨色 さらに淡（注記） */
+  --indigo:    #2B4459;   /* 深い藍（アクセント・罫線・リンク） */
+  --hairline:  rgba(26,26,24,.16);          /* 1px罫線 */
+  --hairline-light: rgba(247,245,240,.22);  /* 反転面の罫線 */
+  --serif: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --sans:  "Noto Sans JP", "Hiragino Kaku Gothic ProN", sans-serif;
+  --max:   1160px;        /* コンテンツ最大幅 */
+  /* タイプスケール — 16px未満は5段に統一して階層を明確にする */
+  --fs-note:  10px;       /* 注記・コピーライト */
+  --fs-label: 11px;       /* 英字ラベル・見出し付記 */
+  --fs-cap:   12px;       /* キャプション・補足 */
+  --fs-sub:   13px;       /* 補助本文・ボタン・ナビ */
+  --fs-body:  15px;       /* 本文 */
+}
+
+/* ---- リセット・ベース ---- */
+*,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  font-family:var(--sans);
+  font-weight:400; /* 小サイズ本文がWindows実機でかすれないよう既定は400（細字は大きな文字専用） */
+  color:var(--ink);
+  background:var(--base);
+  line-height:2;
+  letter-spacing:.05em;
+  font-feature-settings:"palt";
+  -webkit-font-smoothing:antialiased;
+}
+/* 紙の質感 — ごく薄いノイズを全面に敷く */
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none;
+  z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+/* 独自背景を持つ面は fixed のノイズが背景に覆われて消えるため、同じノイズを個別に敷く */
+.quality::before, .tech::before, .company::before, .footer::before{
+  content:"";
+  position:absolute; inset:0;
+  pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+ul,ol{ list-style:none; }
+
+/* ---- 共通レイアウト ---- */
+.wrap{ max-width:var(--max); margin:0 auto; padding:0 40px; position:relative; z-index:1; }
+section{ position:relative; z-index:1; }
+
+/* 英字セクションラベル（serif・小・字間広め） */
+.sec-label{
+  font-family:var(--serif);
+  font-size:var(--fs-label);
+  letter-spacing:.42em;
+  text-transform:uppercase;
+  color:var(--indigo);
+  display:flex; align-items:center; gap:18px;
+}
+.sec-label::before{
+  content:""; display:block;
+  width:48px; height:1px; background:var(--indigo);
+}
+/* セクション見出し（明朝） */
+.sec-title{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:clamp(26px, 3.2vw, 38px);
+  letter-spacing:.12em;
+  line-height:1.6; /* 複数行見出しは本文(2.4前後)より締めて階層を立てる */
+  margin-top:28px;
+}
+.sec-lead{
+  margin-top:26px;
+  max-width:38em;
+  color:var(--ink-soft);
+  font-size:var(--fs-body);
+}
+
+/* 縦書きユーティリティ */
+.tate{
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  font-feature-settings:"palt" 0; /* 縦組はベタ組に近く */
+}
+
+/* 角丸なしの静かなボタン（線＋矢印） */
+.btn{
+  display:inline-flex; align-items:center; gap:calc(16px - .22em); /* ラベル末尾の字間ぶんを相殺 */
+  font-family:var(--sans); font-weight:400;
+  font-size:var(--fs-sub); letter-spacing:.22em;
+  padding:18px 34px;
+  border:1px solid var(--ink);
+  color:var(--ink);
+  transition:background .4s ease, color .4s ease;
+}
+.btn .arrow{ transition:transform .4s ease; }
+.btn:hover{ background:var(--ink); color:var(--base); }
+.btn:hover .arrow{ transform:translateX(6px); }
+.btn--light{ border-color:var(--base); color:var(--base); }
+.btn--light:hover{ background:var(--base); color:var(--ink); }
+
+/* CSS製の線矢印（アイコンフォント不使用） */
+.arrow{
+  display:inline-block; width:34px; height:1px;
+  background:currentColor; position:relative;
+}
+.arrow::after{
+  content:""; position:absolute; right:0; top:-3.5px;
+  width:9px; height:1px; background:currentColor;
+  transform:rotate(38deg); transform-origin:right center;
+}
+
+/* 写真プレースホルダー（極薄グラデーション＋ノイズ＋注記ラベル） */
+.photo{
+  position:relative;
+  background:linear-gradient(152deg, #E7E3D9 0%, #D8D4C8 46%, #C9C5B8 100%);
+  overflow:hidden;
+}
+.photo::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.10'/%3E%3C/svg%3E");
+}
+.photo::after{ /* 内側に1pxの枠 */
+  content:""; position:absolute; inset:10px;
+  border:1px solid rgba(26,26,24,.10);
+  pointer-events:none;
+}
+.photo--dark{
+  background:linear-gradient(160deg, #34332F 0%, #26251F 55%, #1C1B17 100%);
+}
+.photo--dark::after{ border-color:rgba(247,245,240,.10); }
+.photo .note{
+  position:absolute; left:22px; bottom:18px;
+  font-size:var(--fs-note); letter-spacing:.24em;
+  color:rgba(26,26,24,.55);
+  border-left:1px solid rgba(26,26,24,.35);
+  padding-left:10px;
+  line-height:1.6;
+  z-index:1;
+}
+.photo--dark .note{
+  color:rgba(247,245,240,.55);
+  border-left-color:rgba(247,245,240,.35);
+}
+
+/* スクロールフェードイン */
+.reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity 1s cubic-bezier(.22,1,.36,1), transform 1s cubic-bezier(.22,1,.36,1);
+  transition-delay:var(--d, 0s);
+}
+.reveal.is-visible{ opacity:1; transform:none; }
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1; transform:none; transition:none; }
+  html{ scroll-behavior:auto; }
+}
+
+/* ==========================================================
+   ヘッダー
+   ========================================================== */
+.header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(247,245,240,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--hairline);
+}
+.header-inner{
+  max-width:var(--max); margin:0 auto; padding:0 40px;
+  display:flex; align-items:center; justify-content:space-between;
+  height:78px;
+}
+.logo{
+  font-family:var(--serif);
+  font-size:19px; letter-spacing:.22em; /* 大文字の正攻法ロゴタイプに合わせ字間を広めに */
+  font-weight:500;
+}
+.logo small{
+  display:block;
+  font-family:var(--sans); font-weight:400;
+  font-size:var(--fs-note); letter-spacing:.22em;
+  color:var(--ink-faint);
+  margin-top:2px;
+}
+/* モバイル用メニュー開閉ボタン（文字のみ・アイコン不使用、〜768pxで表示） */
+.nav-toggle{
+  display:none;
+  font-family:var(--serif);
+  font-size:var(--fs-cap); letter-spacing:.3em;
+  color:var(--ink);
+  background:none; border:none;
+  padding:8px 0 8px 10px;
+  cursor:pointer;
+}
+.gnav{ display:flex; align-items:center; gap:38px; }
+.gnav a{
+  font-size:var(--fs-sub); letter-spacing:.18em; font-weight:400;
+  position:relative; padding:6px 0;
+}
+.gnav a::after{
+  content:""; position:absolute; left:0; bottom:0;
+  width:100%; height:1px; background:var(--indigo);
+  transform:scaleX(0); transform-origin:right center;
+  transition:transform .45s cubic-bezier(.22,1,.36,1);
+}
+.gnav a:hover::after{ transform:scaleX(1); transform-origin:left center; }
+.gnav .nav-cta{
+  border:1px solid var(--ink);
+  padding:11px calc(24px - .2em) 11px 24px; /* ラベル末尾の字間ぶんを右で相殺 */
+  letter-spacing:.2em;
+  transition:background .35s ease, color .35s ease;
+}
+.gnav .nav-cta:hover{ background:var(--ink); color:var(--base); }
+.gnav .nav-cta::after{ display:none; }
+
+/* ==========================================================
+   ヒーロー — 縦書きの主コピー × 写真の非対称構成
+   ========================================================== */
+.hero{
+  position:relative;
+  padding:96px 0 0;
+  overflow:hidden;
+}
+.hero-inner{
+  max-width:var(--max); margin:0 auto; padding:0 40px;
+  display:grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,48%);
+  gap:60px;
+  align-items:stretch;
+  min-height:78vh;
+}
+.hero-text{
+  display:flex;
+  flex-direction:row-reverse;   /* 縦書きコピーを右側に置く */
+  justify-content:flex-end;
+  gap:clamp(32px, 5vw, 72px);
+  padding-bottom:90px;
+}
+.hero-copy{
+  font-family:var(--serif);
+  font-weight:500;
+  /* 幅(vw)だけでなく高さ(vh)にも連動させ、低い画面で1列に収まらず折り返す破綻を防ぐ */
+  font-size:clamp(30px, min(3.6vw, 5.8vh), 52px);
+  letter-spacing:.3em;
+  line-height:2.3;              /* 縦組では行間＝列間 */
+  height:clamp(330px, 62vh, 560px); /* 8文字×1.3em（字間込み）が常に1列に収まる高さ */
+}
+.hero-side{
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding-bottom:6px;
+}
+.hero-eyebrow{
+  font-family:var(--serif);
+  font-size:var(--fs-label); letter-spacing:.4em;
+  color:var(--indigo);
+  text-transform:uppercase;
+  margin-bottom:34px;
+}
+.hero-sub{
+  font-size:var(--fs-body); line-height:2.4;
+  color:var(--ink-soft);
+  max-width:24em;
+}
+.hero-sub strong{ font-weight:500; color:var(--ink); }
+.hero-cta{ margin-top:44px; }
+.hero-photo{
+  position:relative;
+  min-height:520px;
+  overflow:visible; /* 枠外に置く英字キャプション(.en-cap)が.photoのoverflow:hiddenで欠けないよう解除 */
+}
+/* ヒーロー右下の小さな英字キャプション */
+.hero-photo .en-cap{
+  position:absolute; right:-12px; top:40px;
+  font-family:var(--serif);
+  font-size:var(--fs-note); letter-spacing:.5em;
+  color:var(--ink-faint);
+  z-index:2;
+}
+/* ヒーロー下端のスクロール示唆（縦罫線のみ） */
+.hero-scroll{
+  max-width:var(--max); margin:0 auto; padding:0 40px;
+  display:flex; align-items:center; gap:16px;
+  height:90px;
+  border-top:1px solid var(--hairline);
+  font-size:var(--fs-note); letter-spacing:.4em; color:var(--ink-faint);
+}
+.hero-scroll::before{
+  content:""; width:1px; height:34px; background:var(--ink-faint);
+  transform:rotate(0deg);
+}
+
+/* ==========================================================
+   理念ステートメント
+   ========================================================== */
+.philosophy{
+  padding:150px 0 140px;
+}
+.philosophy-grid{
+  display:grid;
+  grid-template-columns: 280px 1fr;
+  gap:70px;
+  align-items:start;
+}
+.philosophy-tate{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:clamp(20px, 2vw, 26px);
+  letter-spacing:.34em;
+  line-height:2.4;
+  height:420px; /* 11文字×1.34em（字間込み）が1列に収まる高さ（340pxでは末尾が折り返す） */
+  border-right:1px solid var(--hairline);
+  padding-right:clamp(24px, 3vw, 48px);
+  justify-self:end;
+}
+.philosophy-body h2{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:clamp(24px, 2.8vw, 34px);
+  letter-spacing:.14em;
+  line-height:1.6; /* 見出しを締めて本文(2.5)とのコントラストを出す */
+  margin-bottom:42px;
+}
+.philosophy-body p{
+  font-size:var(--fs-body); line-height:2.5;
+  color:var(--ink-soft);
+  max-width:40em;
+}
+.philosophy-body p + p{ margin-top:30px; }
+.philosophy-body em{
+  font-style:normal; font-weight:400; color:var(--ink);
+  border-bottom:1px solid var(--indigo);
+  padding-bottom:1px;
+}
+
+/* ==========================================================
+   事業紹介
+   ========================================================== */
+.business{
+  padding:130px 0 0;
+  border-top:1px solid var(--hairline);
+}
+.business-head{ margin-bottom:90px; }
+
+.biz{
+  display:grid;
+  gap:64px;
+  align-items:center;
+  padding:0 0 120px;
+}
+.biz--main{ grid-template-columns: minmax(0,52%) minmax(0,1fr); }
+.biz--sub{ grid-template-columns: minmax(0,1fr) minmax(0,44%); }
+.biz-num{
+  font-family:var(--serif);
+  font-size:var(--fs-sub); letter-spacing:.3em;
+  color:var(--indigo);
+  display:flex; align-items:center; gap:16px;
+  margin-bottom:26px;
+}
+.biz-num::after{ content:""; flex:0 0 40px; height:1px; background:var(--indigo); }
+.biz h3{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:clamp(24px, 2.6vw, 32px);
+  letter-spacing:.12em;
+  line-height:1.6; /* 複数行見出しを締める */
+}
+.biz h3 small{
+  display:block;
+  font-family:var(--serif);
+  font-size:var(--fs-label); letter-spacing:.4em;
+  color:var(--ink-faint);
+  margin-top:10px;
+  text-transform:uppercase;
+  font-weight:400;
+}
+.biz-desc{
+  margin-top:30px;
+  font-size:var(--fs-body); line-height:2.4;
+  color:var(--ink-soft);
+  max-width:34em;
+}
+.biz-photo{ min-height:430px; }
+.biz--sub .biz-photo{ min-height:360px; }
+.biz-more{
+  display:inline-flex; align-items:center; gap:14px;
+  margin-top:36px;
+  font-size:var(--fs-sub); letter-spacing:.22em; font-weight:400;
+  color:var(--indigo);
+}
+.biz-more .arrow{ width:42px; }
+.biz-more:hover .arrow{ transform:translateX(6px); }
+.biz-more .arrow{ transition:transform .4s ease; }
+
+/* 製品ラインナップ（テキストのみ・罫線区切り） */
+.lineup{
+  margin-top:40px;
+  border-top:1px solid var(--hairline);
+}
+.lineup li{
+  display:flex; align-items:baseline; gap:22px;
+  padding:14px 4px;
+  border-bottom:1px solid var(--hairline);
+  font-size:var(--fs-sub);
+}
+.lineup .no{
+  font-family:var(--serif);
+  font-size:var(--fs-label); color:var(--ink-faint); letter-spacing:.1em;
+  flex:0 0 2.4em;
+}
+.lineup .name{ font-weight:400; letter-spacing:.12em; flex:0 0 13em; }
+.lineup .cap{ color:var(--ink-faint); font-size:var(--fs-cap); letter-spacing:.08em; }
+
+/* ==========================================================
+   品質へのこだわり — 数字と罫線のみで構成
+   ========================================================== */
+.quality{
+  background:var(--base-deep);
+  padding:130px 0 140px;
+  border-top:1px solid var(--hairline);
+}
+.quality-grid{
+  margin-top:80px;
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  border-left:1px solid var(--hairline);
+}
+.q-item{
+  border-right:1px solid var(--hairline);
+  padding:8px 30px 18px;
+}
+.q-item .num{
+  font-family:var(--serif);
+  font-size:46px; font-weight:400;
+  letter-spacing:.06em;
+  color:var(--ink);
+  line-height:1;
+}
+.q-item .num::after{
+  content:""; display:block;
+  width:30px; height:1px; background:var(--indigo);
+  margin:24px 0 26px;
+}
+.q-item h4{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:18px; letter-spacing:.18em;
+  margin-bottom:18px;
+}
+.q-item h4 small{
+  display:block;
+  font-size:var(--fs-note); letter-spacing:.3em; color:var(--ink-faint);
+  font-weight:400; margin-top:8px; text-transform:uppercase;
+}
+.q-item p{
+  font-size:var(--fs-sub); line-height:2.3; color:var(--ink-soft);
+}
+
+/* ==========================================================
+   技術・新技術 — 墨色の反転面
+   ========================================================== */
+.tech{
+  background:var(--ink);
+  color:var(--base);
+  padding:140px 0 150px;
+}
+.tech .sec-label{ color:var(--base-deep); }
+.tech .sec-label::before{ background:var(--base-deep); opacity:.6; }
+.tech .sec-lead{ color:rgba(247,245,240,.6); }
+.tech-list{
+  margin-top:90px;
+  border-top:1px solid var(--hairline-light);
+}
+.tech-row{
+  display:grid;
+  grid-template-columns: 120px minmax(0,340px) 1fr;
+  gap:48px;
+  padding:54px 8px;
+  border-bottom:1px solid var(--hairline-light);
+  align-items:baseline;
+}
+.tech-row .t-num{
+  font-family:var(--serif);
+  font-size:var(--fs-sub); letter-spacing:.3em;
+  color:rgba(247,245,240,.45);
+}
+.tech-row h4{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:clamp(20px, 2.2vw, 26px);
+  letter-spacing:.14em;
+  line-height:1.6; /* 見出し行間を本文と差別化 */
+}
+.tech-row h4 small{
+  display:block;
+  font-size:var(--fs-note); letter-spacing:.34em;
+  color:rgba(247,245,240,.45);
+  font-weight:400; margin-top:10px; text-transform:uppercase;
+}
+.tech-row p{
+  font-size:var(--fs-sub); line-height:2.4;
+  color:rgba(247,245,240,.68);
+  max-width:36em;
+}
+.tech-note{
+  margin-top:56px;
+  font-size:var(--fs-cap); letter-spacing:.14em;
+  color:rgba(247,245,240,.5);
+  display:flex; align-items:center; gap:18px;
+}
+.tech-note::before{
+  content:""; width:36px; height:1px; background:rgba(247,245,240,.35);
+}
+
+/* ==========================================================
+   対応力 — 控えめな3項目
+   ========================================================== */
+.support{
+  padding:130px 0 140px;
+}
+.support-grid{
+  margin-top:76px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:0;
+  border-top:1px solid var(--hairline);
+}
+.s-item{
+  padding:44px 36px 10px 0;
+  border-bottom:1px solid var(--hairline);
+}
+.s-item + .s-item{ padding-left:36px; border-left:1px solid var(--hairline); }
+.s-item h4{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:19px; letter-spacing:.16em;
+  margin-bottom:20px;
+  display:flex; align-items:baseline; gap:16px;
+}
+.s-item h4 span{
+  font-size:var(--fs-label); color:var(--indigo); letter-spacing:.2em;
+}
+.s-item p{
+  font-size:var(--fs-sub); line-height:2.3; color:var(--ink-soft);
+}
+
+/* ==========================================================
+   会社情報 ＋ お知らせ
+   ========================================================== */
+.company{
+  background:var(--base-deep);
+  border-top:1px solid var(--hairline);
+  padding:130px 0 140px;
+}
+.company-grid{
+  display:grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap:90px;
+  margin-top:80px;
+}
+/* 左: 数字サマリ */
+.facts{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-left:1px solid var(--hairline);
+  align-self:start;
+}
+.fact{
+  border-right:1px solid var(--hairline);
+  padding:6px 24px 14px;
+}
+.fact .v{
+  font-family:var(--serif);
+  font-size:clamp(34px, 3.4vw, 46px);
+  letter-spacing:.04em;
+  line-height:1.2;
+}
+.fact .v small{ font-size:var(--fs-sub); letter-spacing:.1em; margin-left:4px; }
+.fact .k{
+  display:block;
+  margin-top:14px;
+  font-size:var(--fs-label); letter-spacing:.26em;
+  color:var(--ink-soft);
+}
+/* 会社概要表 */
+.profile{
+  margin-top:64px;
+  border-top:1px solid var(--hairline);
+}
+.profile dl{
+  display:grid;
+  grid-template-columns: 9em 1fr;
+  border-bottom:1px solid var(--hairline);
+  padding:18px 4px;
+  gap:12px;
+}
+.profile dt{
+  font-size:var(--fs-cap); letter-spacing:.2em; color:var(--ink-soft);
+  font-weight:400; padding-top:2px;
+}
+.profile dd{ font-size:var(--fs-sub); line-height:2.1; }
+.profile dd small{ color:var(--ink-faint); display:block; font-size:var(--fs-cap); }
+/* 右: お知らせ */
+.news-list{ border-top:1px solid var(--hairline); }
+.news-list a{
+  display:grid;
+  grid-template-columns: 8em 1fr auto;
+  align-items:baseline;
+  gap:24px;
+  padding:26px 4px;
+  border-bottom:1px solid var(--hairline);
+  transition:opacity .3s ease;
+}
+.news-list a:hover{ opacity:.6; }
+.news-list time{
+  font-family:var(--serif);
+  font-size:var(--fs-cap); letter-spacing:.16em;
+  color:var(--ink-faint);
+}
+.news-list .t{ font-size:var(--fs-sub); letter-spacing:.06em; line-height:2; }
+.news-list .arrow{ width:26px; color:var(--indigo); }
+.news-more{ margin-top:36px; }
+
+/* ==========================================================
+   CTA ＋ フッター
+   ========================================================== */
+.cta{
+  padding:160px 0;
+  text-align:center;
+  border-top:1px solid var(--hairline);
+}
+.cta-copy{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:clamp(24px, 3vw, 36px);
+  letter-spacing:.16em;
+  line-height:2.1;
+  margin-right:-.16em; /* 末尾字間ぶんの光学センター補正 */
+}
+.cta-sub{
+  margin-top:34px;
+  font-size:var(--fs-body); line-height:2.4;
+  color:var(--ink-soft);
+}
+.cta-actions{
+  margin-top:56px;
+  display:flex; justify-content:center; align-items:center; gap:48px;
+  flex-wrap:wrap;
+}
+.cta-tel{
+  font-family:var(--serif);
+  font-size:24px; letter-spacing:.12em;
+  margin-right:-.12em; /* 末尾字間ぶんの光学センター補正 */
+}
+.cta-tel small{
+  display:block;
+  font-family:var(--sans);
+  font-size:var(--fs-label); letter-spacing:.26em; color:var(--ink-faint);
+  margin-top:8px; font-weight:400;
+}
+
+.footer{
+  position:relative; /* ::before の紙ノイズを敷くために必要 */
+  background:var(--ink);
+  color:var(--base);
+  padding:90px 0 0;
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns: minmax(0,1fr) auto;
+  gap:60px;
+  padding-bottom:70px;
+  border-bottom:1px solid var(--hairline-light);
+}
+.footer .logo small{ color:rgba(247,245,240,.45); }
+.footer-addr{
+  margin-top:34px;
+  font-size:var(--fs-cap); line-height:2.3;
+  color:rgba(247,245,240,.6);
+  letter-spacing:.08em;
+}
+.footer-addr strong{
+  font-weight:400; color:var(--base);
+  display:block; letter-spacing:.18em;
+}
+.footer-addr > div + div{ margin-top:22px; }
+.footer-nav{
+  display:flex; gap:56px;
+}
+.footer-nav ul li{ margin-bottom:14px; }
+.footer-nav a{
+  font-size:var(--fs-cap); letter-spacing:.18em;
+  color:rgba(247,245,240,.7);
+  transition:color .3s ease;
+}
+.footer-nav a:hover{ color:var(--base); }
+.copyright{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:28px 0 34px;
+  font-size:var(--fs-note); letter-spacing:.22em;
+  color:rgba(247,245,240,.4);
+}
+
+/* ==========================================================
+   レスポンシブ（〜768px 簡易対応）
+   ========================================================== */
+@media (max-width: 960px){
+  .biz--main, .biz--sub{ grid-template-columns:1fr; gap:44px; }
+  .biz--sub .biz-photo{ order:2; }
+  .quality-grid{ grid-template-columns:repeat(2,1fr); border-top:1px solid var(--hairline); }
+  .q-item{ padding-top:34px; border-bottom:1px solid var(--hairline); }
+  .company-grid{ grid-template-columns:1fr; gap:70px; }
+  .tech-row{ grid-template-columns:1fr; gap:18px; padding:44px 4px; }
+}
+@media (max-width: 768px){
+  .wrap, .header-inner, .hero-inner, .hero-scroll{ padding-left:22px; padding-right:22px; }
+  .header-inner{ height:64px; }
+  /* 横スクロールナビをやめ、MENU文字ボタン＋全画面メニューに切り替える */
+  .nav-toggle{ display:inline-block; }
+  .gnav{
+    position:fixed; top:64px; left:0; right:0; bottom:0;
+    background:rgba(247,245,240,.97);
+    flex-direction:column; align-items:stretch;
+    gap:0; padding:30px 22px 60px;
+    overflow-y:auto;
+    visibility:hidden; opacity:0;
+    transition:opacity .35s ease, visibility .35s ease;
+  }
+  body.nav-open .gnav{ visibility:visible; opacity:1; }
+  body.nav-open{ overflow:hidden; } /* メニュー表示中は背面のスクロールを止める */
+  .gnav a{
+    font-family:var(--serif);
+    font-size:16px; letter-spacing:.2em;
+    padding:20px 4px;
+    border-bottom:1px solid var(--hairline);
+  }
+  .gnav a::after{ display:none; }
+  .gnav .nav-cta{
+    margin-top:34px;
+    text-align:center;
+    padding:16px 0;
+    border:1px solid var(--ink);
+  }
+
+  .hero{ padding-top:56px; }
+  .hero-inner{ grid-template-columns:1fr; gap:44px; min-height:0; }
+  .hero-text{ padding-bottom:0; justify-content:space-between; }
+  .hero-copy{ font-size:27px; height:330px; letter-spacing:.24em; }
+  .hero-photo{ min-height:300px; }
+  .hero-photo .en-cap{ display:none; }
+  .hero-scroll{ margin-top:56px; height:64px; }
+
+  .philosophy{ padding:90px 0; }
+  .philosophy-grid{ grid-template-columns:1fr; gap:48px; }
+  .philosophy-tate{
+    height:auto; border-right:none; padding-right:0;
+    writing-mode:horizontal-tb;
+    border-left:2px solid var(--indigo); padding-left:20px;
+    line-height:2.1;
+  }
+  .business{ padding-top:90px; }
+  .business-head{ margin-bottom:60px; }
+  .biz{ padding-bottom:80px; }
+  .biz-photo{ min-height:280px; }
+  .lineup .name{ flex:0 0 9.5em; }
+  .lineup .cap{ display:none; }
+
+  .quality{ padding:90px 0; }
+  .quality-grid{ grid-template-columns:1fr; border-left:none; margin-top:54px; }
+  .q-item{ border-right:none; padding-left:0; padding-right:0; }
+
+  .tech{ padding:90px 0 100px; }
+  .tech-list{ margin-top:54px; }
+
+  .support{ padding:90px 0; }
+  .support-grid{ grid-template-columns:1fr; margin-top:50px; }
+  .s-item{ padding:36px 0 14px; }
+  .s-item + .s-item{ padding-left:0; border-left:none; }
+
+  .company{ padding:90px 0; }
+  .company-grid{ margin-top:54px; }
+  .facts{ grid-template-columns:1fr 1fr 1fr; }
+  .fact{ padding:6px 14px 10px; }
+  .profile dl{ grid-template-columns:1fr; gap:4px; }
+  .news-list a{ grid-template-columns:1fr; gap:6px; padding:20px 0; }
+  .news-list .arrow{ display:none; }
+
+  .cta{ padding:100px 0; }
+  .cta-actions{ flex-direction:column; gap:36px; }
+
+  .footer{ padding-top:64px; }
+  .footer-grid{ grid-template-columns:1fr; gap:48px; }
+  .footer-nav{ gap:40px; flex-wrap:wrap; }
+  .copyright{ flex-direction:column; gap:10px; align-items:flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ ヘッダー ============ -->
+<header class="header">
+  <div class="header-inner">
+    <a class="logo" href="#">TS INDUSTRY<small>株式会社ティーエスインダストリー</small></a>
+    <nav class="gnav" id="gnav" aria-label="グローバルナビゲーション">
+      <a href="#business">抜き型／木型</a>
+      <a href="#business-wj">ウォータージェット</a>
+      <a href="#tech">技術情報</a>
+      <a href="#company">会社概要</a>
+      <a href="#">採用情報</a>
+      <a class="nav-cta" href="#contact">お問い合わせ</a>
+    </nav>
+    <!-- モバイル用メニュー開閉ボタン（〜768pxでのみ表示、文字のみでアイコン不使用） -->
+    <button class="nav-toggle" type="button" aria-controls="gnav" aria-expanded="false">MENU</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ ヒーロー ============ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1 class="hero-copy tate reveal">百分の一ミリに、<br>誠実であること。</h1>
+      <div class="hero-side">
+        <p class="hero-eyebrow reveal" style="--d:.15s">Thomson Die Making — Since 1998</p>
+        <p class="hero-sub reveal" style="--d:.25s">
+          ティーエスインダストリーは、<strong>トムソン型（抜き型）の設計・製造</strong>を専門とする会社です。
+          材料の選定から、設計、製造、最後の検査まで。
+          すべての工程に理由を持ち、ひとつの型に向き合います。
+        </p>
+        <div class="hero-cta reveal" style="--d:.35s">
+          <a class="btn" href="#philosophy">私たちの考え<span class="arrow"></span></a>
+        </div>
+      </div>
+    </div>
+    <!-- 注: 各 figcaption.note の「写真：…」はモック段階の撮影指示表示。公開実装時にはすべて削除する -->
+    <figure class="photo hero-photo reveal" style="--d:.2s">
+      <span class="en-cap tate">PRECISION&nbsp;IN&nbsp;EVERY&nbsp;BLADE</span>
+      <figcaption class="note">写真：植刃工程、職人の手元</figcaption>
+    </figure>
+  </div>
+  <div class="hero-scroll">SCROLL</div>
+</section>
+
+<!-- ============ 理念ステートメント ============ -->
+<section class="philosophy" id="philosophy">
+  <div class="wrap">
+    <div class="philosophy-grid">
+      <p class="philosophy-tate tate reveal">価格ではなく、精度で。</p>
+      <div class="philosophy-body">
+        <h2 class="reveal">私たちは、価格競争に<br>参加しないと決めています。</h2>
+        <p class="reveal" style="--d:.1s">
+          抜き型は、パッケージの品質を最初に決める道具です。
+          型の精度が、その後のすべての工程を左右する。
+          だから私たちは、刃の一本、ベニヤの一枚から選び抜き、
+          百分の一ミリの単位で型と向き合います。
+        </p>
+        <p class="reveal" style="--d:.18s">
+          安さを理由に選ばれることはなくても、<em>仕上がりを理由に選ばれ続ける</em>。
+          創業から変わらない、私たちのものづくりの順序です。
+          困ったときに思い出していただける存在であることを、誇りにしています。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 事業紹介 ============ -->
+<section class="business" id="business">
+  <div class="wrap">
+    <div class="business-head">
+      <p class="sec-label reveal">Our Craft</p>
+      <h2 class="sec-title reveal" style="--d:.1s">事業内容</h2>
+      <p class="sec-lead reveal" style="--d:.18s">
+        中心にあるのは、創業以来続けてきた抜き型づくり。
+        その精度管理の延長線上に、ウォータージェット加工という第二の柱があります。
+      </p>
+    </div>
+
+    <!-- 01 抜き型／木型（主役） -->
+    <div class="biz biz--main">
+      <figure class="photo biz-photo reveal">
+        <figcaption class="note">写真：レーザー加工後の木型・全景</figcaption>
+      </figure>
+      <div class="biz-text">
+        <p class="biz-num reveal">01</p>
+        <h3 class="reveal" style="--d:.08s">トムソン型（抜き型・木型）の<br>設計・製造<small>Thomson Die / Cutting Die</small></h3>
+        <p class="biz-desc reveal" style="--d:.16s">
+          紙器・段ボール・シール・樹脂シートなど、抜き加工に使われる型を、
+          設計から製造、検査まで一貫して手がけています。
+          量産時の安定性を見据えた刃の選定と罫線設計、
+          そして出荷前の全数検査。図面どおりに作るだけではなく、
+          「抜きやすい型」であることまでを品質と考えています。
+        </p>
+        <ul class="lineup reveal" style="--d:.24s">
+          <li><span class="no">—</span><span class="name">CAブレード</span><span class="cap">切れ味と寿命を両立した独自刃材</span></li>
+          <li><span class="no">—</span><span class="name">点字</span><span class="cap">ユニバーサルデザイン対応の点字加工</span></li>
+          <li><span class="no">—</span><span class="name">彫刻刃</span><span class="cap">複雑形状・微細加工に対応</span></li>
+          <li><span class="no">—</span><span class="name">アン・アフェクトシステム</span><span class="cap">抜き面への影響を抑える独自方式</span></li>
+          <li><span class="no">—</span><span class="name">DP2ステンレス</span><span class="cap">耐食性に優れたステンレス刃材</span></li>
+          <li><span class="no">—</span><span class="name">リード罫</span><span class="cap">折りの安定性を高める罫線仕様</span></li>
+        </ul>
+        <a class="biz-more reveal" style="--d:.3s" href="#">抜き型／木型について<span class="arrow"></span></a>
+      </div>
+    </div>
+
+    <!-- 02 ウォータージェット（第2の柱） -->
+    <div class="biz biz--sub" id="business-wj">
+      <div class="biz-text">
+        <p class="biz-num reveal">02</p>
+        <h3 class="reveal" style="--d:.08s">ウォータージェット加工<small>Waterjet Cutting</small></h3>
+        <p class="biz-desc reveal" style="--d:.16s">
+          超高圧水による切断は、熱による変形や変質がなく、
+          金属・樹脂・ゴム・複合材まで素材を選びません。
+          型づくりで培った寸法管理の考え方をそのまま持ち込み、
+          試作一点から小ロットの部品加工までお引き受けしています。
+          材質と板厚をお知らせいただければ、加工可否を確認のうえご返答します。
+        </p>
+        <a class="biz-more reveal" style="--d:.24s" href="#">ウォータージェット加工について<span class="arrow"></span></a>
+      </div>
+      <figure class="photo biz-photo reveal" style="--d:.12s">
+        <figcaption class="note">写真：ウォータージェット切断面</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 品質へのこだわり ============ -->
+<section class="quality">
+  <div class="wrap">
+    <p class="sec-label reveal">Quality</p>
+    <h2 class="sec-title reveal" style="--d:.1s">品質は、工程の積み重ねでしか<br>つくれない。</h2>
+    <div class="quality-grid">
+      <div class="q-item reveal">
+        <p class="num">01</p>
+        <h4>材料選定<small>Material</small></h4>
+        <p>刃材とベニヤは、製造元と特性を把握したうえで用途ごとに使い分けます。仕入れ値ではなく、抜き上がりを基準に選ぶこと。型づくりはここから始まります。</p>
+      </div>
+      <div class="q-item reveal" style="--d:.08s">
+        <p class="num">02</p>
+        <h4>設計<small>Design</small></h4>
+        <p>抜き加工の現場を想定し、刃の配置、ニック、罫線の仕様までを図面の段階で詰めます。量産時の安定性は、設計で決まる部分が大きいと考えています。</p>
+      </div>
+      <div class="q-item reveal" style="--d:.16s">
+        <p class="num">03</p>
+        <h4>製造工程<small>Process</small></h4>
+        <p>レーザー加工の精度に頼り切らず、曲げ・植刃の最終調整は職人の手と目で行います。機械と手仕事、それぞれの得意を組み合わせた工程です。</p>
+      </div>
+      <div class="q-item reveal" style="--d:.24s">
+        <p class="num">04</p>
+        <h4>検査<small>Inspection</small></h4>
+        <p>出荷前に、図面との照合を全数で実施します。寸法だけでなく、刃の立ち方や罫線の通りまで確認し、問題があれば工程を遡って原因を残しません。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 技術・新技術 ============ -->
+<section class="tech" id="tech">
+  <div class="wrap">
+    <p class="sec-label reveal">Technology</p>
+    <h2 class="sec-title reveal" style="--d:.1s">独自技術</h2>
+    <p class="sec-lead reveal" style="--d:.18s">
+      量産現場の困りごとから生まれた、私たち自身の答えです。
+      いずれも実際の抜き加工での検証を重ねたうえで、お客様にご提案しています。
+    </p>
+    <div class="tech-list">
+      <div class="tech-row reveal">
+        <p class="t-num">Tech 01</p>
+        <h4>CAブレード<small>CA Blade</small></h4>
+        <p>切れ味と耐久性は、これまで両立の難しい要素でした。CAブレードは刃材と刃付けの組み合わせを見直すことで、シャープな切断面を保ったまま型の寿命を延ばします。長期の量産案件で交換頻度を抑えたい場合に適しています。</p>
+      </div>
+      <div class="tech-row reveal" style="--d:.08s">
+        <p class="t-num">Tech 02</p>
+        <h4>アン・アフェクトシステム<small>Un-Affect System</small></h4>
+        <p>抜き加工の際、製品表面に残るあたりや傷を抑えるための独自方式です。化粧箱や表面加工された素材など、仕上がり面の品位が問われる製品で効果を発揮します。対象の素材と印刷仕様をうかがったうえで、適用可否をご案内します。</p>
+      </div>
+      <div class="tech-row reveal" style="--d:.16s">
+        <p class="t-num">Tech 03</p>
+        <h4>DP2ステンレス<small>DP2 Stainless</small></h4>
+        <p>耐食性に優れたステンレス刃材です。水分や薬剤に触れる環境、食品・医療関連のパッケージなど、錆を避けたい用途に向いています。通常刃材との使い分けについても、用途に応じてご提案しています。</p>
+      </div>
+    </div>
+    <p class="tech-note reveal">各技術の仕様・適用条件の詳細は、技術資料をご用意しています。お問い合わせください。</p>
+  </div>
+</section>
+
+<!-- ============ 対応力 ============ -->
+<section class="support">
+  <div class="wrap">
+    <p class="sec-label reveal">Response</p>
+    <h2 class="sec-title reveal" style="--d:.1s">精度を守ったうえでの、速さと柔軟さ。</h2>
+    <div class="support-grid">
+      <div class="s-item reveal">
+        <h4>スピード<span>納期</span></h4>
+        <p>短納期のご相談には、対応可否と納期の見込みをその日のうちにお答えします。できないことはできないとお伝えするのも、約束を守るための速さです。</p>
+      </div>
+      <div class="s-item reveal" style="--d:.08s">
+        <h4>提案力<span>仕様</span></h4>
+        <p>図面をそのまま型にするだけでなく、抜きやすさや歩留まりの観点から、刃や罫線の仕様変更をご提案することがあります。判断材料を添えてお戻しします。</p>
+      </div>
+      <div class="s-item reveal" style="--d:.16s">
+        <h4>柔軟な対応<span>相談</span></h4>
+        <p>お持ち込みの型の修理・診断にも対応します。修理で済むのか、作り替えが必要なのか。状態を確認したうえで、率直にお伝えします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 会社情報 ＋ お知らせ ============ -->
+<section class="company" id="company">
+  <div class="wrap">
+    <p class="sec-label reveal">Company</p>
+    <h2 class="sec-title reveal" style="--d:.1s">会社情報</h2>
+    <div class="company-grid">
+      <div>
+        <div class="facts">
+          <div class="fact reveal">
+            <p class="v">1998</p>
+            <span class="k">創業</span>
+          </div>
+          <div class="fact reveal" style="--d:.08s">
+            <p class="v">2<small>拠点</small></p>
+            <span class="k">名古屋・神奈川</span>
+          </div>
+          <div class="fact reveal" style="--d:.16s">
+            <p class="v">25<small>名</small></p>
+            <span class="k">従業員</span>
+          </div>
+        </div>
+        <div class="profile reveal" style="--d:.2s">
+          <dl>
+            <dt>社名</dt>
+            <dd>株式会社ティーエスインダストリー<small>TS Industry Co., Ltd.</small></dd>
+          </dl>
+          <dl>
+            <dt>名古屋工場本社</dt>
+            <!-- TODO: 公開前に実番号へ差し替え（CTA・フッターにも同じ仮番号あり） -->
+            <dd>愛知県名古屋市守山区今尻町2015<small>TEL 052-XXX-XXXX</small></dd>
+          </dl>
+          <dl>
+            <dt>神奈川営業所</dt>
+            <dd>神奈川県厚木市酒井2087-10</dd>
+          </dl>
+          <dl>
+            <dt>事業内容</dt>
+            <dd>トムソン型（抜き型・木型）の設計・製造／ウォータージェット加工</dd>
+          </dl>
+        </div>
+      </div>
+      <div>
+        <ul class="news-list reveal" style="--d:.1s">
+          <li>
+            <a href="#">
+              <time datetime="2026-06-05">2026.06.05</time>
+              <span class="t">ウォータージェット加工の対応素材一覧を更新しました</span>
+              <span class="arrow"></span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <time datetime="2026-05-26">2026.05.26</time>
+              <span class="t">「DP2ステンレス」の技術資料を公開しました</span>
+              <span class="arrow"></span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <time datetime="2026-05-12">2026.05.12</time>
+              <span class="t">名古屋工場本社の工場見学の受け入れを再開しました</span>
+              <span class="arrow"></span>
+            </a>
+          </li>
+        </ul>
+        <div class="news-more reveal" style="--d:.2s">
+          <a class="biz-more" href="#">お知らせ一覧<span class="arrow"></span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <h2 class="cta-copy reveal">型のことで、迷ったら。</h2>
+    <p class="cta-sub reveal" style="--d:.1s">
+      新規のご依頼はもちろん、他社で製造された型のトラブルのご相談も承ります。<br>
+      図面の有無にかかわらず、まずは現状をお聞かせください。
+    </p>
+    <div class="cta-actions reveal" style="--d:.2s">
+      <!-- TODO: 公開前に実番号へ差し替え -->
+      <p class="cta-tel">052-XXX-XXXX<small>名古屋工場本社（平日 8:30–17:30）</small></p>
+      <a class="btn" href="#">お問い合わせフォーム<span class="arrow"></span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ フッター ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <p class="logo">TS INDUSTRY<small>株式会社ティーエスインダストリー</small></p>
+        <div class="footer-addr">
+          <div>
+            <strong>名古屋工場本社</strong>
+            愛知県名古屋市守山区今尻町2015<br>
+            <!-- TODO: 公開前に実番号へ差し替え -->
+            TEL 052-XXX-XXXX
+          </div>
+          <div>
+            <strong>神奈川営業所</strong>
+            神奈川県厚木市酒井2087-10
+          </div>
+        </div>
+      </div>
+      <nav class="footer-nav" aria-label="フッターナビゲーション">
+        <ul>
+          <li><a href="#business">抜き型／木型</a></li>
+          <li><a href="#business-wj">ウォータージェット</a></li>
+          <li><a href="#tech">技術情報</a></li>
+        </ul>
+        <ul>
+          <li><a href="#company">会社概要</a></li>
+          <li><a href="#">採用情報</a></li>
+          <li><a href="#contact">お問い合わせ</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="copyright">
+      <span>© 1998–2026 TS Industry Co., Ltd.</span>
+      <span>百分の一ミリに、誠実であること。</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// スクロールに応じて .reveal 要素をフェードインさせる（控えめな演出のみ）
+(function(){
+  try{
+    var targets = document.querySelectorAll('.reveal');
+    // IntersectionObserver非対応環境では全要素を即時表示する
+    if(!('IntersectionObserver' in window)){
+      targets.forEach(function(el){ el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target); // 一度表示したら監視を外す
+        }
+      });
+    }, { rootMargin:'0px 0px -8% 0px', threshold:0.05 });
+    targets.forEach(function(el){ io.observe(el); });
+  }catch(e){
+    // 予期せぬエラー時もコンテンツが見えなくならないようにする
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('is-visible'); });
+  }
+})();
+
+// モバイル用ナビ開閉（MENU文字ボタンで全画面メニューを開閉する）
+(function(){
+  try{
+    var toggle = document.querySelector('.nav-toggle');
+    var nav = document.getElementById('gnav');
+    if(!toggle || !nav){ return; }
+    // 開閉状態（bodyクラス・aria属性・ボタン表記）をまとめて切り替える
+    function setOpen(isOpen){
+      document.body.classList.toggle('nav-open', isOpen);
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      toggle.textContent = isOpen ? 'CLOSE' : 'MENU';
+    }
+    toggle.addEventListener('click', function(){
+      setOpen(!document.body.classList.contains('nav-open'));
+    });
+    // ページ内アンカーへ移動するため、メニュー内リンクを押したら閉じる
+    nav.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ setOpen(false); });
+    });
+  }catch(e){
+    // 開閉処理が失敗してもページ閲覧自体は継続できるため何もしない
+  }
+})();
+</script>
+</body>
+</html>

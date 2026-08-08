@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>抜き型／木型 | 株式会社ティーエスインダストリー</title>
+<meta name="description" content="トムソン型（抜き型・木型）の設計・製造。価格ではなく、精度で選ばれる型を。CAブレード・アン・アフェクトシステム・DP2ステンレスの独自技術をご紹介します。他社で作られた型のご相談も歓迎です。">
+<!-- ============================================================
+     パターンB-4「頼れる工房」 — 写真主役 × 深緑
+     下層ページ: 抜き型／木型（Die Board）
+     共通部（変数・ボタン・ヘッダー・CTA・フッター・JS）は index.html と完全同一。
+     変更時は必ず両ファイルへ同じ修正を入れること。
+     ============================================================ -->
+<!-- 注: Google Fonts を外部読み込みしているため、厳密には単一ファイル完結ではない。
+     フォールバック（Yu Gothic / Hiragino）指定済みのためオフラインでも閲覧は破綻しない。
+     完全自己完結が要件になった場合は、フォントをローカル配置（@font-face）に切り替えること。 -->
+<!-- ★公開前チェックリスト（リリースブロッカー）★
+     [ ] 電話番号「052-XXX-XXXX」を実番号へ差し替え（このファイル内を「052-XXX-XXXX」で検索: CTA / フッター）
+         差し替え時に CTA の電話番号は <a href="tel:～"> でリンク化すること（現状はプレースホルダーのためリンクにしていない）
+     [ ] お問い合わせフォームの href（現状 mailto:info@ts-industry.example の仮アドレス）を実フォームURLまたは実メールアドレスの mailto: へ差し替え
+     [ ] 写真は ../draft-b/assets/img/ を参照中。draft-w4 を単独で納品する場合は assets を同フォルダへコピーしてパスを直すこと -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   カラーパレット・基本変数（index.html と完全同一）
+   アクセントは深緑（#35584A）の1色のみ。カラフル禁止は継続。
+   ============================================================ */
+:root{
+  --bg:          #FAF8F4;                 /* ベースの温白 */
+  --bg-2:        #F0EDE6;                 /* 交互面（少し深い生成り） */
+  --card:        #FFFFFE;                 /* カードの白 */
+  --ink:         #2B2A26;                 /* 主文字色 */
+  --ink-2:       #6C6961;                 /* 補助文字色 */
+  --line:        #E3DFD6;                 /* 罫線 */
+  --accent:      #35584A;                 /* 深緑（唯一のアクセント） */
+  --accent-deep: #2A4639;                 /* hover時の深まり */
+  --accent-soft: rgba(53,88,74,.08);      /* バッジ下地などごく薄い面 */
+  --band-bg:     #22332C;                 /* CTAバンドの深緑濃色 */
+  --band-ink:    #F2EDE1;                 /* 濃色面の上の生成り文字 */
+  --sans: 'Noto Sans JP', 'Yu Gothic', 'Hiragino Kaku Gothic ProN', sans-serif;
+  --radius: 8px;                          /* 角丸の基準（6〜10pxの範囲で使う） */
+  --shadow: 0 12px 32px -20px rgba(43,42,38,.3);  /* 柔らかい影（控えめ） */
+  --pad-x: 48px;
+}
+
+/* ---------- リセット・ベース（index.html と完全同一） ---------- */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; scroll-padding-top:88px; }
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:400;
+  font-size:16px;
+  line-height:1.95;
+  letter-spacing:.02em;
+  -webkit-font-smoothing:antialiased;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+ul,ol{ list-style:none; }
+/* キーボード操作時のフォーカスを分かりやすく */
+a:focus-visible, button:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  border-radius:4px;
+}
+
+/* ---------- 共通レイアウト（index.html と完全同一） ---------- */
+.container{ max-width:1200px; margin:0 auto; }
+.section{ padding:110px var(--pad-x); }
+.section.alt{ background:var(--bg-2); }
+
+/* セクション見出し（小さな英字ラベル＋太く大きな和文タイトル）
+   B-4は「堂々」— 900ウェイト・字間タイトで写真に負けない見出しにする */
+.sec-head{ margin-bottom:60px; }
+.sec-head .en{
+  display:block;
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:14px;
+}
+.sec-head h2{
+  font-weight:900;
+  font-size:clamp(30px, 4vw, 44px);
+  letter-spacing:.015em;
+  line-height:1.4;
+}
+.sec-head .note{
+  margin-top:20px;
+  max-width:40em;
+  color:var(--ink-2);
+  font-size:15px;
+  line-height:2.1;
+}
+
+/* ---------- ボタン（index.html と完全同一） ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:12px;
+  font-weight:700;
+  font-size:16px;
+  letter-spacing:.05em;
+  padding:18px 42px;
+  border-radius:var(--radius);
+  transition:background .25s ease, color .25s ease, border-color .25s ease, transform .15s ease;
+}
+.btn .ar{ font-weight:400; }
+/* 深緑塗り（白地の上の主導線） */
+.btn-fill{
+  background:var(--accent);
+  color:#FDFCF8;
+  box-shadow:var(--shadow);
+}
+.btn-fill:hover{ background:var(--accent-deep); }
+.btn-fill:active{ transform:translateY(2px); box-shadow:none; }
+/* 白枠（写真・濃色の上の副導線） */
+.btn-ghost{
+  border:1px solid rgba(255,255,255,.65);
+  color:#FFF;
+  background:rgba(255,255,255,.04);
+}
+.btn-ghost:hover{ border-color:#FFF; background:rgba(255,255,255,.14); }
+/* 生成り塗り（深緑バンドの上の主導線） */
+.btn-cream{
+  background:var(--band-ink);
+  color:var(--band-bg);
+}
+.btn-cream:hover{ background:#E5DCC9; }
+.btn-cream:active{ transform:translateY(2px); }
+
+/* ---------- 写真枠（index.html と完全同一） ---------- */
+.ph{
+  position:relative;
+  overflow:hidden;
+  border-radius:var(--radius);
+  background:var(--bg-2);   /* 画像読込前の下地 */
+}
+.ph img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+}
+
+/* ---------- フェードイン演出（index.html と完全同一・控えめ） ---------- */
+.reveal{ opacity:0; transform:translateY(18px); transition:opacity .8s ease, transform .8s ease; }
+.reveal.is-visible{ opacity:1; transform:none; }
+.reveal.d1{ transition-delay:.1s; }
+.reveal.d2{ transition-delay:.2s; }
+.reveal.d3{ transition-delay:.3s; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  .reveal{ opacity:1; transform:none; transition:none; }
+}
+
+/* ============================================================
+   ヘッダー（温白・固定）
+   ※ index.html と完全同一構造にすること
+   ============================================================ */
+.header{
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:16px var(--pad-x);
+  background:rgba(250,248,244,.94);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.logo{
+  font-weight:900;
+  font-size:20px;
+  letter-spacing:.06em;
+  color:var(--ink);
+}
+.logo .dash{ color:var(--accent); }
+.gnav{ display:flex; align-items:center; gap:30px; }
+.gnav a{
+  font-size:14px;
+  font-weight:500;
+  letter-spacing:.05em;
+  color:var(--ink-2);
+  transition:color .25s ease;
+}
+.gnav a:hover{ color:var(--accent-deep); }
+/* 現在地のナビ項目（このページでは「抜き型・木型」）は主文字色で少し立てる */
+.gnav a[aria-current="page"]{ color:var(--ink); font-weight:700; }
+/* ヘッダー右端の「お問い合わせ」は深緑塗りで目立たせる */
+.gnav .nav-cta{
+  color:#FDFCF8;
+  background:var(--accent);
+  border-radius:var(--radius);
+  padding:11px 24px;
+  font-weight:700;
+  transition:background .25s ease;
+}
+.gnav .nav-cta:hover{ background:var(--accent-deep); color:#FDFCF8; }
+/* モバイル用メニュー開閉ボタン（768px以下でのみ表示・テキストのみ） */
+.nav-toggle{
+  display:none;
+  font-family:var(--sans);
+  font-weight:500;
+  font-size:12px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--ink);
+  background:none;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:9px 14px 9px 18px;
+  cursor:pointer;
+}
+
+/* ============================================================
+   ページヒーロー（下層用）
+   hero-top.jpg（暗い工房の抜き型刃）を全幅74vhに敷き、
+   トップページと同じ流儀の濃色グラデーション＋白抜き見出し。
+   B-4は「大胆」— 下層でも高さを遠慮しない。h1にはページ名ラベルではなく
+   メッセージ（価格ではなく、精度で選ばれる型を。）を載せる。
+   ============================================================ */
+.page-hero{
+  position:relative;
+  min-height:560px;
+  height:74vh;
+  display:flex;
+  align-items:flex-end;
+  overflow:hidden;
+}
+.page-hero .hero-bg{
+  position:absolute; inset:0;
+}
+.page-hero .hero-bg img{
+  width:100%; height:100%;
+  object-fit:cover;
+  object-position:center 55%;   /* 刃のディテールが残る位置合わせ */
+}
+/* 左下を濃く沈めるグラデーション（トップページ .hero-shade と同じ流儀） */
+.page-hero .hero-shade{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(to top, rgba(18,25,21,.88) 0%, rgba(18,25,21,.42) 42%, rgba(18,25,21,.08) 72%, rgba(18,25,21,0) 100%),
+    linear-gradient(to right, rgba(18,25,21,.55) 0%, rgba(18,25,21,.18) 45%, rgba(18,25,21,0) 75%);
+}
+.page-hero .hero-inner{
+  position:relative;
+  width:100%;
+  max-width:1200px;
+  margin:0 auto;
+  padding:150px var(--pad-x) 64px;
+  color:#FFF;
+}
+/* パンくず（写真上・白で静かに） */
+.crumb{
+  font-size:12px;
+  letter-spacing:.12em;
+  color:rgba(255,255,255,.75);
+  margin-bottom:24px;
+}
+.crumb a{ color:rgba(255,255,255,.75); transition:color .25s ease; }
+.crumb a:hover{ color:#FFF; }
+.crumb .sep{ margin:0 12px; color:rgba(255,255,255,.35); }
+.page-hero .hero-eyebrow{
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.75);
+  margin-bottom:20px;
+}
+/* 白抜きの太い見出し（トップページ h1 と同じ流儀・下層はやや控えめな級数） */
+.page-hero h1{
+  font-weight:900;
+  font-size:clamp(38px, 5.6vw, 64px);
+  line-height:1.22;
+  letter-spacing:.015em;
+  margin-bottom:22px;
+  text-shadow:0 2px 24px rgba(18,25,21,.35);
+}
+.page-hero .hero-lead{
+  max-width:36em;
+  font-size:15px;
+  line-height:2.15;
+  color:rgba(255,255,255,.88);
+  margin-bottom:36px;
+}
+
+/* ============================================================
+   01 考え方（Overview）
+   ============================================================ */
+.philosophy-grid{
+  display:grid;
+  grid-template-columns: 5fr 6fr;
+  gap:80px;
+  align-items:start;
+}
+.philosophy-statement{
+  font-weight:900;
+  font-size:clamp(28px, 3.4vw, 40px);
+  line-height:1.7;
+  letter-spacing:.03em;
+}
+/* 見出し語への深緑は「ボタン・リンク・小ラベルのみ」の規律からの唯一の例外。
+   逸脱はここ1箇所だけと決めて維持する（他で見出し語に深緑を使わないこと） */
+.philosophy-statement em{
+  font-style:normal;
+  color:var(--accent);
+}
+.philosophy-text p{ color:var(--ink-2); line-height:2.3; }
+.philosophy-text p + p{ margin-top:28px; }
+
+/* ============================================================
+   02 独自技術（このページの主役 — 写真に「主役」の扱いを与える）
+   B-3（行儀のよい6:5交互2カラム）との固有解:
+   ・技術1は刃先マクロを画面幅いっぱいの全幅ブレイクアウトに
+   ・技術2・3は大きな写真の上に本文カードを重ねるオーバーラップ構成
+   ============================================================ */
+.tech-intro{
+  max-width:640px;
+  color:var(--ink-2);
+  line-height:2.3;
+  margin:-24px 0 80px;   /* sec-head直下の間合いを詰める */
+}
+/* --- 技術1（CAブレード）: 全幅ブレイクアウト ---
+   写真は .container の外・.section の直下に置き、
+   sectionの左右パディングを負のマージンで破って画面幅いっぱいに敷く */
+.tech-breakout .tb-photo{
+  margin:0 calc(-1 * var(--pad-x));   /* コンテナを破る全幅ブリード */
+  height:72vh;
+  min-height:460px;
+  max-height:760px;
+  overflow:hidden;
+  background:var(--bg-2);   /* 画像読込前の下地 */
+}
+.tech-breakout .tb-photo img{
+  width:100%; height:100%;
+  object-fit:cover;
+}
+/* 本文カードは写真に負のマージンで食い込ませる（重なりで額装感を出す） */
+.tech-breakout .tb-card{
+  position:relative;
+  max-width:660px;
+  margin-top:-170px;
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:0 28px 64px -32px rgba(18,25,21,.5);
+  padding:48px 52px 44px;
+}
+/* --- 技術2・3: 写真7割幅＋本文カードのオーバーラップ2段組 --- */
+.tech-feature{ position:relative; margin-top:110px; }
+.tech-feature .ph{
+  width:72%;
+  min-height:520px;
+  box-shadow:var(--shadow);
+}
+.tech-feature .tf-body{
+  position:relative;             /* 写真の上に重ねる */
+  width:47%;
+  margin:-300px 0 0 auto;        /* 写真右下に食い込ませる */
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:0 24px 56px -30px rgba(18,25,21,.4);
+  padding:44px 46px 40px;
+}
+/* 反転（写真右・カード左）でリズムをつくる */
+.tech-feature.tf-rev .ph{ margin-left:auto; }
+.tech-feature.tf-rev .tf-body{ margin:-300px auto 0 0; }
+/* 深緑の数字＋技術名 */
+.tf-head{
+  display:flex; align-items:center; gap:20px;
+  margin-bottom:26px;
+}
+/* 丸数字（数字＋薄緑の丸背景。アイコンは使わない） */
+.num-circle{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:46px; height:46px;
+  border-radius:50%;
+  background:var(--accent-soft);
+  color:var(--accent);
+  font-weight:900;
+  font-size:17px;
+  flex:none;
+}
+.tf-label .en{
+  display:block;
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--ink-2);
+  margin-bottom:6px;
+}
+.tf-label h3{
+  font-weight:900;
+  font-size:clamp(22px, 2.6vw, 28px);
+  letter-spacing:.02em;
+  line-height:1.4;
+}
+/* 「何を解決する技術か」の小さな対訳カード */
+.tf-issue{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:8px 24px;
+  margin-bottom:26px;
+}
+.tf-issue > div{
+  display:grid;
+  grid-template-columns:64px 1fr;
+  gap:18px;
+  padding:14px 0;
+}
+.tf-issue > div + div{ border-top:1px solid var(--line); }
+.tf-issue dt{
+  font-weight:900;
+  font-size:13px;
+  letter-spacing:.14em;
+  color:var(--accent);
+  padding-top:4px;
+}
+.tf-issue dd{
+  font-size:14px;
+  color:var(--ink-2);
+  letter-spacing:.03em;
+  line-height:1.9;
+}
+.tf-text{ color:var(--ink-2); font-size:15px; line-height:2.2; }
+
+/* ============================================================
+   03 製品ラインナップ（写真＋特殊加工カード）
+   独自技術3件の要約再掲カードは廃止（役割分担: 詳細は02に集約）。
+   代わりに大きな型の写真を置き、点字・彫刻刃・リード罫の
+   「特殊加工」3枚に絞って写真と並走させる。
+   ============================================================ */
+.lineup-grid{
+  display:grid;
+  grid-template-columns: 5fr 6fr;
+  gap:48px;
+  align-items:stretch;
+}
+/* 左の大写真はカード列と同じ高さまで伸ばす */
+.lineup-photo{ min-height:520px; box-shadow:var(--shadow); }
+.lineup-cards{ display:flex; flex-direction:column; gap:20px; }
+.lineup-card{
+  flex:1;   /* 3枚で写真の高さを分け合う */
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:34px 30px 30px;
+  display:flex;
+  flex-direction:column;
+}
+/* 独自技術3件への静かな誘導行（再掲カードの代わり） */
+.lineup-more{
+  margin-top:28px;
+  font-size:14px;
+  color:var(--ink-2);
+  letter-spacing:.03em;
+}
+.lineup-more a{
+  color:var(--accent);
+  font-weight:700;
+  text-decoration:underline;
+  text-underline-offset:4px;
+}
+.lineup-more a:hover{ color:var(--accent-deep); }
+.lineup-card .lc-no{
+  font-weight:900;
+  font-size:13px;
+  letter-spacing:.14em;
+  color:var(--accent);
+  margin-bottom:14px;
+}
+.lineup-card h3{
+  font-weight:700;
+  font-size:18px;
+  letter-spacing:.03em;
+  line-height:1.6;
+  margin-bottom:12px;
+}
+.lineup-card .lc-desc{
+  font-size:14px;
+  color:var(--ink-2);
+  line-height:1.9;
+  margin-bottom:20px;
+  flex:1;   /* 用途行をカード下端に揃える */
+}
+.lineup-card .lc-use{
+  border-top:1px solid var(--line);
+  padding-top:14px;
+  font-size:13px;
+  color:var(--ink-2);
+  letter-spacing:.03em;
+  line-height:1.8;
+}
+.lineup-card .lc-use strong{
+  display:block;
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.16em;
+  /* 深緑はカードあたり1点（.lc-no のみ）に絞る。2点×6枚では柄になりアクセントが死ぬ */
+  color:var(--ink-2);
+  margin-bottom:2px;
+}
+
+/* ============================================================
+   04 対応力
+   ============================================================ */
+/* 対応力はカードにしない: lineupとカード処理が連続すると単調になるため、
+   職人の手元写真＋罫線区切りの縦組みで「人の気配」を立てる
+   （3列テキストグリッドの定石を崩し、ページ後半の写真を絶やさない） */
+.resp-grid{
+  display:grid;
+  grid-template-columns: 5fr 7fr;
+  gap:72px;
+  align-items:stretch;
+}
+/* 左の写真は3項目ぶんの高さに付き合わせる */
+.resp-photo{ min-height:560px; box-shadow:var(--shadow); }
+.resp-items{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:36px;
+}
+.resp-item + .resp-item{
+  border-top:1px solid var(--line);
+  padding-top:36px;
+}
+.resp-item h3{
+  font-weight:900;
+  font-size:20px;
+  letter-spacing:.03em;
+  margin-bottom:16px;
+}
+.resp-item h3 small{
+  display:block;
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+.resp-item p{ color:var(--ink-2); font-size:15px; line-height:2.1; }
+
+/* ============================================================
+   CTA（深緑バンド・電話を大きく・人の気配）
+   ※ index.html と完全同一構造にすること
+   ============================================================ */
+.cta{
+  padding:120px var(--pad-x);
+  background:var(--band-bg);
+  color:var(--band-ink);
+  text-align:center;
+}
+.cta .en{
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:rgba(242,237,225,.6);
+  margin-bottom:24px;
+}
+.cta h2{
+  font-weight:900;
+  font-size:clamp(28px, 3.8vw, 40px);
+  letter-spacing:.02em;
+  line-height:1.55;
+  margin-bottom:24px;
+}
+.cta .cta-lead{
+  max-width:36em;
+  margin:0 auto 56px;
+  color:rgba(242,237,225,.78);
+  font-size:15px;
+  line-height:2.15;
+}
+/* 電話とフォームの2枚パネル（濃色面の上なので半透明の面で区切る） */
+.cta-cards{
+  max-width:900px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  text-align:left;
+}
+.cta-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(242,237,225,.2);
+  border-radius:var(--radius);
+  padding:40px 40px 36px;
+}
+.cta-card .how{
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:rgba(242,237,225,.6);
+  margin-bottom:18px;
+}
+/* 電話番号は大きく。実番号への差し替え時に tel: リンク化する（公開前チェックリスト参照） */
+.cta-card .tel{
+  font-weight:900;
+  font-size:clamp(28px, 3.2vw, 36px);
+  letter-spacing:.04em;
+  line-height:1.4;
+  color:#FFF;
+  margin-bottom:12px;
+}
+.cta-card .sub{
+  font-size:13px;
+  color:rgba(242,237,225,.75);
+  line-height:2.0;
+}
+.cta-card .sub strong{ color:var(--band-ink); font-weight:700; }
+.cta-card .btn{ width:100%; margin-bottom:16px; }
+
+/* ============================================================
+   フッター（温白）
+   ※ index.html と完全同一構造にすること
+   深緑はCTAバンドで締め、フッターは温白に戻して呼吸をつくる
+   （深緑濃色×2枚が連続すると巨大な一枚面に見えるため） ============================================================ */
+.footer{
+  padding:80px var(--pad-x) 40px;
+  background:var(--bg);
+  color:var(--ink);
+}
+.footer-inner{
+  max-width:1200px; margin:0 auto;
+  display:grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap:56px;
+  margin-bottom:64px;
+}
+.footer .logo{ color:var(--ink); font-size:20px; margin-bottom:20px; display:inline-block; }
+.footer .logo .dash{ color:var(--accent); }
+.footer-company{ font-size:13px; color:var(--ink-2); letter-spacing:.05em; line-height:2.2; }
+.footer h4{
+  font-size:11px;
+  letter-spacing:.26em;
+  color:var(--accent);
+  font-weight:500;
+  margin-bottom:20px;
+  text-transform:uppercase;
+}
+.footer-nav li{ margin-bottom:12px; }
+.footer-nav a{
+  font-size:13px; letter-spacing:.05em; color:var(--ink-2);
+  transition:color .25s ease;
+}
+.footer-nav a:hover{ color:var(--accent-deep); }
+.footer-loc p{ font-size:13px; color:var(--ink-2); letter-spacing:.04em; line-height:2.1; margin-bottom:18px; }
+.footer-loc p strong{ display:block; font-weight:700; color:var(--ink); margin-bottom:2px; }
+.copyright{
+  max-width:1200px; margin:0 auto;
+  border-top:1px solid var(--line);
+  padding-top:28px;
+  display:flex; justify-content:space-between; align-items:baseline;
+  font-size:12px;
+  letter-spacing:.14em;
+  color:var(--ink-2);
+}
+
+/* ============================================================
+   レスポンシブ（中間幅: タブレット〜小型ノート）
+   ナビ6項目が折り返し・はみ出ししないよう余白を詰める
+   ============================================================ */
+@media (min-width:769px) and (max-width:1080px){
+  :root{ --pad-x:32px; }
+  .gnav{ gap:16px; }
+  .gnav a{ letter-spacing:.02em; font-size:13px; }
+  .gnav .nav-cta{ padding:10px 16px; }
+  /* オーバーラップは中間幅では浅く・カードは広めに取り直す */
+  .tech-breakout .tb-card{ margin-top:-130px; padding:40px 40px 36px; }
+  .tech-feature .ph{ width:84%; min-height:440px; }
+  .tech-feature .tf-body{ width:58%; margin-top:-210px; padding:36px 34px 32px; }
+  .tech-feature.tf-rev .tf-body{ margin-top:-210px; }
+  .lineup-grid{ gap:28px; }
+  .resp-grid{ gap:40px; }
+}
+
+/* ============================================================
+   レスポンシブ（768px以下）
+   ============================================================ */
+@media (max-width:768px){
+  :root{ --pad-x:24px; }
+  .header{ padding:14px var(--pad-x); flex-wrap:wrap; }
+  /* モバイルはMenuボタンでドロワーを開閉（ナビ欠落を防ぐ） */
+  .nav-toggle{ display:block; }
+  .gnav{
+    display:none;
+    width:100%;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    margin-top:12px;
+    border-top:1px solid var(--line);
+    padding-top:4px;
+  }
+  /* 高さの低い画面（横向きスマホ等）で6項目＋CTAが画面外に切れないよう、
+     ヘッダー分を引いた高さで内部スクロールできるようにする */
+  .gnav.is-open{ display:flex; max-height:calc(100vh - 70px); overflow-y:auto; }
+  .gnav a{
+    padding:14px 2px;
+    border-bottom:1px solid var(--line);
+    color:var(--ink);
+  }
+  .gnav .nav-cta{
+    border:none;
+    margin:16px 0 8px;
+    padding:15px;
+    text-align:center;
+    justify-content:center;
+  }
+  .section{ padding:80px var(--pad-x); }
+  .sec-head{ margin-bottom:40px; }
+  /* ページヒーローは高さ固定をやめて内容に合わせる（文字の見切れを防ぐ） */
+  .page-hero{ height:auto; min-height:0; }
+  .page-hero .hero-inner{ padding:140px var(--pad-x) 48px; }
+  /* 狭い画面ではリード文の強制改行を解除し、1〜2文字の孤立行を防ぐ */
+  .page-hero .hero-lead br{ display:none; }
+  .page-hero .btn{ width:100%; }
+  .crumb{ margin-bottom:20px; }
+  .philosophy-grid{ grid-template-columns:1fr; gap:36px; }
+  .tech-intro{ margin:-12px 0 56px; }
+  /* 全幅ブレイクアウトの写真は高さを抑え、カードの重なりは浅く残す
+     （重なりの気配はモバイルでも消さない） */
+  .tech-breakout .tb-photo{ height:56vw; min-height:240px; }
+  .tech-breakout .tb-card{ margin:-56px 8px 0; padding:30px 24px 28px; }
+  .tech-feature{ margin-top:72px; }
+  .tech-feature .ph{ width:100%; min-height:240px; }
+  .tech-feature .tf-body,
+  .tech-feature.tf-rev .tf-body{ width:auto; margin:-44px 12px 0; padding:30px 24px 28px; }
+  .lineup-grid{ grid-template-columns:1fr; gap:20px; }
+  .lineup-photo{ min-height:220px; }
+  .lineup-more{ margin-top:24px; }
+  .resp-grid{ grid-template-columns:1fr; gap:36px; }
+  .resp-photo{ min-height:240px; }
+  .resp-items{ gap:32px; }
+  .resp-item + .resp-item{ padding-top:32px; }
+  .cta{ padding:88px var(--pad-x); }
+  .cta-cards{ grid-template-columns:1fr; }
+  .cta-card{ padding:32px 26px 28px; }
+  .footer-inner{ grid-template-columns:1fr; gap:44px; }
+  .copyright{ flex-direction:column; gap:8px; }
+}
+</style>
+<!-- JS無効環境への救済: .reveal（ほぼ全コンテンツ）が opacity:0 のまま隠れないようにする -->
+<noscript><style>.reveal{ opacity:1 !important; transform:none !important; transition:none !important; }</style></noscript>
+</head>
+<body>
+
+<!-- ============ ヘッダー（index.html と完全同一） ============ -->
+<header class="header">
+  <a class="logo" href="index.html">ts<span class="dash">—</span>industry</a>
+  <!-- モバイル用メニュー開閉ボタン（768px以下でのみ表示） -->
+  <button class="nav-toggle" type="button" aria-controls="gnav" aria-expanded="false">Menu</button>
+  <!-- 注: アンカーは「index.html#～」形式で書く（index.html と同一ヘッダーを両ページで動かすため）。
+       唯一の差分は現在地マーカー aria-current="page"（このページ=抜き型・木型）のみ -->
+  <nav class="gnav" id="gnav">
+    <a href="dieboard.html" aria-current="page">抜き型・木型</a>
+    <a href="index.html#waterjet">ウォータージェット</a>
+    <a href="index.html#quality">品質へのこだわり</a>
+    <a href="index.html#soudan">よくあるご相談</a>
+    <a href="index.html#company">会社情報</a>
+    <a class="nav-cta" href="#contact">お問い合わせ</a>
+  </nav>
+</header>
+
+<!-- ============ ページヒーロー（hero-top.jpg 全幅60vh＋濃色グラデ＋白抜きh1） ============ -->
+<section class="page-hero" id="top">
+  <div class="hero-bg">
+    <img src="../draft-b/assets/img/hero-top.jpg" alt="暗い工房に浮かび上がる抜き型の刃" loading="eager">
+  </div>
+  <div class="hero-shade" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <p class="crumb reveal"><a href="index.html">トップ</a><span class="sep">/</span>抜き型／木型</p>
+    <!-- 表記ガイドライン: メニュー名は短縮表記「抜き型・木型」（中黒）、
+         ページ名の正式表記「抜き型／木型」（全角スラッシュ）は title・パンくず・eyebrow で担保する。
+         h1はページ名ラベルではなくメッセージに昇格させる（B-4「大胆」の器に言葉の力を合わせる） -->
+    <p class="hero-eyebrow reveal d1">Die Board — 抜き型／木型</p>
+    <h1 class="reveal d1">価格ではなく、<br>精度で選ばれる型を。</h1>
+    <!-- 「他社で作られた型もどうぞ」の訴求は 04 対応力（Flexibility）とCTAの2箇所に集約
+         （繰り返しすぎると必死さに転じて品格を削るため、ここでは言わない） -->
+    <p class="hero-lead reveal d2">材料の選定から設計・刃入れ・出荷前の検査まで、<br>
+    すべての工程に理由を持つ、私たちの型づくりをご紹介します。</p>
+    <div class="reveal d3">
+      <a class="btn btn-fill" href="#contact">型のことを相談してみる<span class="ar">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 考え方 ============ -->
+<section class="section" id="overview">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="en">Overview</span>
+      <h2>考え方</h2>
+    </div>
+    <div class="philosophy-grid">
+      <!-- B-3と同文だった「すべての工程に、理由を持つ。」から書き分け、
+           B-4「頼れる工房」の人格でステートメントを立てる -->
+      <p class="philosophy-statement reveal">頼れる型は、<br><em>理由</em>でできている。</p>
+      <div class="philosophy-text reveal d1">
+        <p>抜き型の仕上がりは、刃を入れる前 — 材料を選ぶ段階から決まっています。合板の反りと密度、刃材の特性、罫線とブリッジの位置。設計・加工・刃入れ・検査のすべての工程で「なぜそうするのか」に答えられる型だけを納めています。</p>
+        <!-- 断定拒絶の先制ではなく理由先行に組み替える（拒絶ではなく信念として読ませる） -->
+        <p>安くつくる工夫よりも、長く正確に抜ける型をつくるほうが、結果としてお客様の損失をいちばん小さくすると考えています。だから、価格の安さでは競いません。</p>
+        <!-- 「他社で作られた型もどうぞ」の訴求は 04 対応力（Flexibility）とCTAの2箇所に集約したため、ここには置かない -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 独自技術（このページの主役） ============ -->
+<section class="section alt" id="technology">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="en">Original Technology</span>
+      <h2>独自技術</h2>
+    </div>
+    <p class="tech-intro reveal">切れ味の持続、抜き跡の抑制、衛生環境への耐性。抜き加工の現場が抱える悩みに応えるため、刃材と工法の開発を続けてきました。現在ご提供している、三つの技術をご紹介します。</p>
+  </div>
+
+  <!-- 技術1: CAブレード（刃先マクロを画面幅いっぱいの全幅ブレイクアウトに） -->
+  <div class="tech-breakout reveal">
+    <div class="tb-photo">
+      <img src="../draft-b/assets/img/blade-macro.jpg" alt="CAブレードの刃先の超マクロ撮影">
+    </div>
+    <div class="container">
+      <div class="tb-card">
+        <div class="tf-head">
+          <span class="num-circle">1</span>
+          <div class="tf-label">
+            <span class="en">CA Blade</span>
+            <h3>CAブレード</h3>
+          </div>
+        </div>
+        <dl class="tf-issue">
+          <div>
+            <dt>課題</dt>
+            <dd>長期ロットの後半で刃先が摩耗し、切り口と寸法が安定しない</dd>
+          </div>
+          <div>
+            <dt>解決</dt>
+            <dd>刃材の組成と刃先設計を見直し、切れ味の鋭さと持続性を両立</dd>
+          </div>
+        </dl>
+        <p class="tf-text">型の品質は、初日の一枚ではなく最終日の一枚で評価されるべきだと考えています。CAブレードは、刃先の硬度と粘りのバランスを独自に設計した刃材です。長期ロットでも摩耗の進行を抑え、切り口の毛羽立ちや寸法の変化を最後まで小さく保ちます。刃の交換頻度が下がることで、型替えによる機械の停止時間も抑えられます。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- 技術2: アン・アフェクトシステム（写真左・カードを右下に重ねる） -->
+    <div class="tech-feature reveal">
+      <div class="ph">
+        <img src="../draft-b/assets/img/unaffect.jpg" alt="圧痕のない真っ白な化粧箱">
+      </div>
+      <div class="tf-body">
+        <div class="tf-head">
+          <span class="num-circle">2</span>
+          <div class="tf-label">
+            <span class="en">Un-Affect System</span>
+            <h3>アン・アフェクトシステム</h3>
+          </div>
+        </div>
+        <dl class="tf-issue">
+          <div>
+            <dt>課題</dt>
+            <dd>抜き加工時の圧痕・白化が、表面品質の問われる製品で不良になる</dd>
+          </div>
+          <div>
+            <dt>解決</dt>
+            <dd>抜くために必要な力以外を被加工材に伝えない型構造</dd>
+          </div>
+        </dl>
+        <p class="tf-text">高級パッケージや薄物のコート紙・フィルムでは、抜いた周辺にわずかな圧痕や白化が残るだけで不良になります。アン・アフェクトシステムは、刃と面板まわりの構造を見直し、被加工材に余計な圧力を「与えない（un-affect）」ことを目的とした独自システムです。化粧品や高級菓子など、表面の仕上がりが商品価値に直結する分野でお使いいただいています。</p>
+      </div>
+    </div>
+
+    <!-- 技術3: DP2ステンレス（写真右・カードを左下に重ねる） -->
+    <div class="tech-feature tf-rev reveal">
+      <div class="ph">
+        <img src="../draft-b/assets/img/stainless.jpg" alt="ヘアライン仕上げのDP2ステンレス刃材の表面マクロ">
+      </div>
+      <div class="tf-body">
+        <div class="tf-head">
+          <span class="num-circle">3</span>
+          <div class="tf-label">
+            <span class="en">DP2 Stainless</span>
+            <h3>DP2ステンレス</h3>
+          </div>
+        </div>
+        <dl class="tf-issue">
+          <div>
+            <dt>課題</dt>
+            <dd>食品・医療の現場では、刃の錆と異物混入のリスクが許されない</dd>
+          </div>
+          <div>
+            <dt>解決</dt>
+            <dd>硬度を確保した耐食ステンレス刃材</dd>
+          </div>
+        </dl>
+        <!-- カードの要約と同文にしない: 本文は炭素鋼との使い分けの判断基準を述べる -->
+        <p class="tf-text">刃材は、使われる環境で選ぶものだと考えています。通常の炭素鋼は切れ味と経済性に優れますが、製造ラインを毎日洗浄する食品工場や、湿度管理の厳しい医療・化粧品の現場では錆が進み、刃の劣化と異物混入の原因になります。ご相談の際は現場の洗浄頻度や湿度条件をうかがい、DP2ステンレスと炭素鋼のどちらが適しているかの判断からご提案します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 製品ラインナップ（写真＋特殊加工カード） ============ -->
+<section class="section" id="lineup">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="en">Product Lineup</span>
+      <h2>製品ラインナップ</h2>
+      <p class="note">上の三つの独自技術に加えて、形状や素材の難しさに応える特殊加工をご用意しています。この中に見当たらないものも、まずはご相談ください。</p>
+    </div>
+
+    <!-- 独自技術の要約再掲はやめ（冗長なため02に集約）、
+         写真1点＋特殊加工3枚の構成で「写真主役」をページ後半まで貫く -->
+    <div class="lineup-grid">
+      <div class="ph lineup-photo reveal">
+        <img src="../draft-b/assets/img/dieboard-wide.jpg" alt="刃入れを終えた抜き型の全景">
+      </div>
+      <div class="lineup-cards">
+        <div class="lineup-card reveal">
+          <p class="lc-no">01</p>
+          <h3>点字</h3>
+          <p class="lc-desc">パッケージに点字表示を成形するための加工型</p>
+          <p class="lc-use"><strong>主な用途</strong>医薬品・日用品の包装</p>
+        </div>
+        <div class="lineup-card reveal d1">
+          <p class="lc-no">02</p>
+          <h3>彫刻刃</h3>
+          <p class="lc-desc">曲げ加工では再現しにくい微細・複雑な刃形状を削り出しで製作</p>
+          <p class="lc-use"><strong>主な用途</strong>微細形状・特殊形状の抜き</p>
+        </div>
+        <div class="lineup-card reveal d2">
+          <p class="lc-no">03</p>
+          <h3>リード罫</h3>
+          <p class="lc-desc">切れ目と罫線を組み合わせ、割れを抑えて正確に折るための罫線</p>
+          <p class="lc-use"><strong>主な用途</strong>厚紙・硬質素材の折り曲げ</p>
+        </div>
+      </div>
+    </div>
+    <p class="lineup-more reveal">CAブレード・アン・アフェクトシステム・DP2ステンレスは、<a href="#technology">独自技術</a>で詳しくご紹介しています。</p>
+  </div>
+</section>
+
+<!-- ============ 04 対応力 ============ -->
+<section class="section alt" id="response">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="en">Response</span>
+      <h2>対応力</h2>
+    </div>
+
+    <!-- トップページと同文の使い回しを避け、抜き型ページの文脈（修理・改造、罫線・ブリッジ等）で書き分ける -->
+    <div class="resp-grid">
+      <!-- 「頼れる工房」の人の気配: 職人の手元写真を3項目に並走させる -->
+      <div class="ph resp-photo reveal">
+        <img src="../draft-b/assets/img/hands.jpg" alt="抜き型に刃を入れる職人の手元">
+      </div>
+      <div class="resp-items">
+        <div class="resp-item reveal">
+          <h3><small>Speed</small>当日に、答える</h3>
+          <p>新規製作だけでなく、修理・改造のご依頼も、対応の可否と納期の目安を当日中にお答えします。できないことは、できないと早くお伝えするのも誠実さだと考えています。</p>
+        </div>
+        <div class="resp-item reveal d1">
+          <h3><small>Proposal</small>図面の前から、考える</h3>
+          <p>支給データをそのまま型にするのではなく、抜き上がりから逆算して、罫線やブリッジの位置に代案があれば設計段階でご提案します。型は、使われて初めて完成するものだからです。</p>
+        </div>
+        <div class="resp-item reveal d2">
+          <h3><small>Flexibility</small>他社製の型も、診る</h3>
+          <p>他社で製作された型の不調も、お断りしません。原因を特定し、直せるものは直し、直せない場合はその理由と作り直しのご提案までお伝えします。型のトラブルで最後に声がかかる存在であることを、誇りにしています。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA（深緑バンド・index.html と完全同一） ============ -->
+<section class="cta" id="contact">
+  <p class="en reveal">Contact</p>
+  <h2 class="reveal d1">型のことで、<br>困りごとはありませんか。</h2>
+  <p class="cta-lead reveal d2">新しい型のご相談はもちろん、他社製の型のトラブルや、まだ形になっていないお話でも。まずは状況をお聞かせください。</p>
+
+  <div class="cta-cards reveal d3">
+    <!-- 電話: 番号を大きく、人の気配を添える -->
+    <div class="cta-card">
+      <p class="how">お電話で</p>
+      <!-- TODO: 公開前に実電話番号へ差し替え（052-XXX-XXXXはプレースホルダー）。
+           差し替え時は <a href="tel:052XXXXXXX" class="tel">…</a> の形でリンク化すること -->
+      <p class="tel">052-XXX-XXXX</p>
+      <p class="sub"><strong>受付 平日 9:00–17:00｜名古屋工場本社</strong><br>
+      担当者が直接お答えします。作業中で出られない場合は、折り返しご連絡いたします。</p>
+    </div>
+    <!-- フォーム: 安心材料（写真だけでも概算可）を添える -->
+    <div class="cta-card">
+      <p class="how">フォームで</p>
+      <!-- TODO: mailto:info@ts-industry.example は仮アドレス（.exampleは実在しない予約ドメイン）。
+           フォーム実装後に実フォームURL（または実メールアドレスの mailto:）へ差し替えること。
+           セルフリンク（#contact）だと「押しても動かないボタン」に見えるため暫定でmailtoにしている -->
+      <a class="btn btn-cream" href="mailto:info@ts-industry.example">お問い合わせフォーム<span class="ar">→</span></a>
+      <p class="sub">図面がなくても大丈夫です。現物の写真を添えていただくだけでも、概算をお出しできます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ フッター（温白・index.html と完全同一） ============ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <a class="logo" href="index.html">ts<span class="dash">—</span>industry</a>
+      <p class="footer-company">株式会社ティーエスインダストリー<br>
+      トムソン型（抜き型・木型）の設計・製造<br>
+      ウォータージェット加工</p>
+    </div>
+    <div>
+      <h4>Menu</h4>
+      <!-- 注: アンカーは「index.html#～」形式（index.html と同一フッターを両ページで動かすため） -->
+      <ul class="footer-nav">
+        <li><a href="dieboard.html">抜き型・木型</a></li>
+        <li><a href="index.html#waterjet">ウォータージェット</a></li>
+        <li><a href="dieboard.html#technology">技術情報</a></li>
+        <li><a href="index.html#soudan">よくあるご相談</a></li>
+        <li><a href="index.html#company">会社情報</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+    </div>
+    <div class="footer-loc">
+      <h4>Location</h4>
+      <!-- TODO: 公開前に実電話番号へ差し替え（052-XXX-XXXXはプレースホルダー） -->
+      <p><strong>名古屋工場本社</strong>愛知県名古屋市守山区今尻町2015<br>TEL 052-XXX-XXXX</p>
+      <p><strong>神奈川営業所</strong>神奈川県厚木市酒井2087-10</p>
+    </div>
+  </div>
+  <div class="copyright">
+    <span>© 2026 TS Industry Co., Ltd.</span>
+    <span>Precision is our promise.</span>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// スクロールに応じたフェードイン（IntersectionObserver）
+// 演出は控えめに。失敗しても閲覧に支障が出ないようにする。
+// ============================================================
+(function(){
+  // 対象要素をすべて取得する
+  var targets = document.querySelectorAll('.reveal');
+
+  // すべて表示状態にするフォールバック処理
+  function showAll(){
+    targets.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+
+  try{
+    // IntersectionObserver非対応の環境ではそのまま表示する
+    if(!('IntersectionObserver' in window)){
+      showAll();
+      return;
+    }
+    // 画面に入ったら .is-visible を付与し、以後は監視を外す
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    targets.forEach(function(el){ observer.observe(el); });
+  }catch(e){
+    // 想定外のエラー時もコンテンツは必ず見えるようにする
+    showAll();
+  }
+})();
+
+// ============================================================
+// モバイル用メニューの開閉（768px以下で表示されるMenuボタン）
+// 失敗してもフッターナビから各セクションへ到達できる
+// ============================================================
+(function(){
+  var toggle = document.querySelector('.nav-toggle');
+  var nav = document.getElementById('gnav');
+
+  // 要素が見つからない場合は何もしない
+  if(!toggle || !nav){ return; }
+
+  // メニューを閉じた状態に戻す共通処理
+  function closeMenu(){
+    nav.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.textContent = 'Menu';
+  }
+
+  try{
+    // ボタンで開閉を切り替える
+    toggle.addEventListener('click', function(){
+      var isOpen = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      toggle.textContent = isOpen ? 'Close' : 'Menu';
+    });
+
+    // メニュー内のリンクを押したら閉じる（アンカー移動を妨げない）
+    nav.addEventListener('click', function(e){
+      var link = e.target && e.target.closest ? e.target.closest('a') : null;
+      if(link){ closeMenu(); }
+    });
+  }catch(e){
+    // 想定外のエラー時はメニューを閉じた状態で固定する
+    closeMenu();
+  }
+})();
+</script>
+
+</body>
+</html>

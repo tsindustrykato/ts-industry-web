@@ -3,334 +3,739 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>株式会社ティーエスインダストリー | トムソン型・ウォータージェット加工</title>
-<meta name="description" content="愛知県名古屋市のトムソン型（抜き型・木型）メーカー。独自素材CAブレードによる高精度な型製造と、大型ウォータージェット加工の2事業を展開。">
+<title>TS Industry | 株式会社ティーエスインダストリー</title>
+<meta name="description" content="名古屋の精密加工メーカー。トムソン型（抜き型・木型）の設計製造と大型ウォータージェット切断加工。独自技術で現場の課題を解決します。">
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&family=Roboto+Mono:wght@400;500;700&family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <script>
 tailwind.config = {
   theme: {
     extend: {
       colors: {
-        'navy': {
-          50:  '#f0f4f8',
-          100: '#d9e2ec',
-          200: '#bcccdc',
-          300: '#9fb3c8',
-          400: '#829ab1',
-          500: '#627d98',
-          600: '#486581',
-          700: '#334e68',
-          800: '#243b53',
-          900: '#102a43',
-          950: '#0a1628',
-        },
+        base: '#FCFCFA',
+        warm: '#F6F4F0',
+        dark: '#111111',
+        sub: '#777777',
+        mute: '#AAAAAA',
+        line: '#E8E8E4',
+        accent: '#0A4D3C',
+        'accent-light': '#E6F0ED',
+        dieboard: '#1C1C2E',
       },
       fontFamily: {
-        'sans': ['Inter', 'Noto Sans JP', 'sans-serif'],
-        'mono': ['Roboto Mono', 'monospace'],
+        sora: ['Sora', 'sans-serif'],
+        body: ['Noto Sans JP', 'sans-serif'],
       },
     },
   },
 }
 </script>
 <style>
+  *, *::before, *::after { margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans JP', sans-serif; color: #333; background: #FCFCFA; }
 
-  .header-scrolled {
-    background: rgba(255,255,255,0.97) !important;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+  /* Header transition */
+  .header-float {
+    background: transparent;
+    transition: background 0.4s, box-shadow 0.4s, backdrop-filter 0.4s;
   }
-  .header-scrolled .nav-link { color: #334e68; }
-  .header-scrolled .nav-link:hover { color: #102a43; }
-  .header-scrolled .logo-light { display: none; }
-  .header-scrolled .logo-dark { display: block; }
-  .header-scrolled .menu-bar { background: #334e68; }
+  .header-float.scrolled {
+    background: rgba(252,252,250,0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+  }
+  .header-float.scrolled .logo-white { display: none; }
+  .header-float.scrolled .logo-black { display: block; }
+  .header-float.scrolled .hdr-link { color: #333; }
+  .header-float.scrolled .hdr-link:hover { color: #0A4D3C; }
+  .header-float.scrolled .hdr-cta { background: #111; color: #fff; }
+  .header-float.scrolled .bar { background: #333; }
 
-  .fade-up {
+  /* Scroll reveal */
+  .reveal {
     opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transform: translateY(24px);
+    transition: opacity 0.8s cubic-bezier(0.23,1,0.32,1), transform 0.8s cubic-bezier(0.23,1,0.32,1);
   }
-  .fade-up.visible {
+  .reveal.visible {
     opacity: 1;
     transform: translateY(0);
   }
-  .delay-1 { transition-delay: 0.15s; }
-  .delay-2 { transition-delay: 0.3s; }
+  .reveal-d1 { transition-delay: 0.1s; }
+  .reveal-d2 { transition-delay: 0.2s; }
+  .reveal-d3 { transition-delay: 0.3s; }
+  .reveal-d4 { transition-delay: 0.4s; }
+
+  /* Section label */
+  .sec-label {
+    font-family: 'Sora', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #aaa;
+  }
+  .sec-label-dark { color: rgba(255,255,255,0.35); }
+
+  /* Service card hover */
+  .svc-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+  }
+  .svc-card:hover { transform: translateY(-4px); }
+  .svc-card img {
+    transition: transform 0.7s cubic-bezier(0.23,1,0.32,1);
+  }
+  .svc-card:hover img { transform: scale(1.06); }
+
+  /* Stat counter line */
+  .stat-line::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: rgba(255,255,255,0.2);
+    margin-bottom: 20px;
+  }
+
+  /* Tech grid item */
+  .tech-item {
+    border-left: 2px solid #E8E8E4;
+    padding-left: 24px;
+    transition: border-color 0.3s;
+  }
+  .tech-item:hover { border-left-color: #0A4D3C; }
+
+  /* CTA split */
+  .cta-block {
+    transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+  }
+  .cta-block:hover { transform: translateY(-2px); }
+
+  /* Pill button */
+  .btn-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 12px 32px;
+    border-radius: 100px;
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+  .btn-dark {
+    background: #111;
+    color: #fff;
+  }
+  .btn-dark:hover { background: #333; }
+  .btn-outline {
+    background: transparent;
+    color: #111;
+    border: 1px solid #E8E8E4;
+  }
+  .btn-outline:hover { border-color: #111; }
+  .btn-white {
+    background: #fff;
+    color: #111;
+  }
+  .btn-white:hover { background: #F6F4F0; }
+  .btn-accent {
+    background: #0A4D3C;
+    color: #fff;
+  }
+  .btn-accent:hover { background: #083d30; }
+
+  /* Corner markers */
+  .corner-marks {
+    position: relative;
+  }
+  .corner-marks::before,
+  .corner-marks::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgba(255,255,255,0.3);
+    pointer-events: none;
+  }
+  .corner-marks::before {
+    top: 12px; left: 12px;
+    border-right: 0; border-bottom: 0;
+  }
+  .corner-marks::after {
+    bottom: 12px; right: 12px;
+    border-left: 0; border-top: 0;
+  }
+
+  /* Mobile menu */
+  .mob-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.23,1,0.32,1);
+  }
+  .mob-menu.open { max-height: 400px; }
+
+  /* Waterjet gradient bg */
+  .wj-gradient {
+    background: linear-gradient(135deg, #0A4D3C 0%, #0d6b52 50%, #0A4D3C 100%);
+  }
+
+  /* News item */
+  .news-item {
+    transition: background 0.3s;
+  }
+  .news-item:hover { background: #F6F4F0; }
+
+  /* Marquee */
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .marquee-track {
+    animation: marquee 40s linear infinite;
+  }
 </style>
 </head>
-<body class="bg-white text-navy-700 font-sans antialiased">
+<body>
 
-<!-- ========== HEADER ========== -->
-<header id="header" class="fixed top-0 w-full z-50 transition-all duration-500">
-  <div class="max-w-[1400px] mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
-    <a href="/" class="flex items-center">
-      <img src="assets/images/会社ロゴ 反転透過-450x100pix-300dpi.png" alt="TS Industry" class="h-8 logo-light">
-      <img src="assets/images/会社ロゴ 反転透過 黒文字-450x100pix-300dpi.png" alt="TS Industry" class="h-8 logo-dark hidden">
+<!-- ===== HEADER ===== -->
+<header id="header" class="header-float fixed top-0 left-0 w-full z-50">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+    <a href="/" class="flex items-center shrink-0">
+      <img src="assets/images/会社ロゴ 反転透過-450x100pix-300dpi.png" alt="TS Industry" class="h-7 logo-white">
+      <img src="assets/images/会社ロゴ 反転透過 黒文字-450x100pix-300dpi.png" alt="TS Industry" class="h-7 logo-black hidden">
     </a>
     <nav class="hidden lg:flex items-center gap-10">
-      <a href="/dieboard/" class="nav-link text-[13px] font-medium text-white/80 hover:text-white tracking-wide transition-colors">抜き型・木型</a>
-      <a href="/waterjet/" class="nav-link text-[13px] font-medium text-white/80 hover:text-white tracking-wide transition-colors">ウォータージェット</a>
-      <a href="/about/" class="nav-link text-[13px] font-medium text-white/80 hover:text-white tracking-wide transition-colors">会社概要</a>
-      <a href="/recruit/" class="nav-link text-[13px] font-medium text-white/80 hover:text-white tracking-wide transition-colors">採用情報</a>
-      <a href="/contact/" class="text-[13px] font-semibold text-navy-900 bg-white hover:bg-navy-50 px-6 py-2.5 tracking-wide transition-colors">
-        お問い合わせ
-      </a>
+      <a href="#services" class="hdr-link font-sora text-[12px] font-medium text-white/75 hover:text-white tracking-[0.08em] transition-colors">Services</a>
+      <a href="#technology" class="hdr-link font-sora text-[12px] font-medium text-white/75 hover:text-white tracking-[0.08em] transition-colors">Technology</a>
+      <a href="#about" class="hdr-link font-sora text-[12px] font-medium text-white/75 hover:text-white tracking-[0.08em] transition-colors">About</a>
+      <a href="#news" class="hdr-link font-sora text-[12px] font-medium text-white/75 hover:text-white tracking-[0.08em] transition-colors">News</a>
+      <a href="#contact" class="hdr-cta btn-pill btn-white text-[12px] py-2.5 px-6">お問い合わせ</a>
     </nav>
-    <button id="menu-toggle" class="lg:hidden flex flex-col gap-1.5 p-2" aria-label="メニュー">
-      <span class="menu-bar block w-6 h-0.5 bg-white transition-all"></span>
-      <span class="menu-bar block w-6 h-0.5 bg-white transition-all"></span>
-      <span class="menu-bar block w-4 h-0.5 bg-white transition-all ml-auto"></span>
+    <button id="menuBtn" class="lg:hidden flex flex-col gap-[5px] p-2" aria-label="Menu">
+      <span class="bar block w-6 h-[1.5px] bg-white transition-all"></span>
+      <span class="bar block w-6 h-[1.5px] bg-white transition-all"></span>
+      <span class="bar block w-4 h-[1.5px] bg-white transition-all ml-auto"></span>
     </button>
   </div>
-  <div id="mobile-menu" class="lg:hidden hidden bg-white border-t border-navy-100">
-    <nav class="max-w-[1400px] mx-auto px-6 py-6 flex flex-col gap-4">
-      <a href="/dieboard/" class="text-sm font-medium text-navy-700 py-2 border-b border-navy-50">抜き型・木型</a>
-      <a href="/waterjet/" class="text-sm font-medium text-navy-700 py-2 border-b border-navy-50">ウォータージェット</a>
-      <a href="/about/" class="text-sm font-medium text-navy-700 py-2 border-b border-navy-50">会社概要</a>
-      <a href="/recruit/" class="text-sm font-medium text-navy-700 py-2 border-b border-navy-50">採用情報</a>
-      <a href="/contact/" class="text-sm font-semibold text-white bg-navy-900 text-center py-3 mt-2">お問い合わせ</a>
+  <div id="mobMenu" class="mob-menu lg:hidden bg-white">
+    <nav class="max-w-[1440px] mx-auto px-6 py-6 flex flex-col gap-1">
+      <a href="#services" class="text-sm font-medium text-dark py-3 border-b border-line">Services</a>
+      <a href="#technology" class="text-sm font-medium text-dark py-3 border-b border-line">Technology</a>
+      <a href="#about" class="text-sm font-medium text-dark py-3 border-b border-line">About</a>
+      <a href="#news" class="text-sm font-medium text-dark py-3 border-b border-line">News</a>
+      <a href="#contact" class="btn-pill btn-dark text-center justify-center mt-3 py-3">お問い合わせ</a>
     </nav>
   </div>
 </header>
 
-<!-- ========== HERO ========== -->
-<section class="relative h-screen min-h-[600px] max-h-[1000px] flex items-end overflow-hidden bg-navy-950">
-  <!-- 背景画像 -->
+<!-- ===== HERO ===== -->
+<section class="relative min-h-screen flex items-end bg-dark overflow-hidden">
   <div class="absolute inset-0">
-    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebb6d51?w=1920&q=80" alt=""
-         class="w-full h-full object-cover opacity-50">
-    <div class="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/50 to-navy-950/30"></div>
+    <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=1920&q=80" alt=""
+         class="w-full h-full object-cover opacity-35" loading="eager">
+    <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/60 to-dark/20"></div>
   </div>
 
-  <div class="relative z-10 max-w-[1400px] mx-auto px-6 md:px-10 pb-20 md:pb-28 w-full">
-    <div class="max-w-xl">
-      <h1 class="text-[2.5rem] md:text-[3.5rem] font-bold text-white leading-[1.15] tracking-tight mb-5">
-        精密な型づくりと、<br>ウォータージェット。
-      </h1>
-      <p class="text-[15px] text-navy-300 leading-relaxed mb-8">
-        独自素材と30年の技術力で、ものづくりの現場を支える。
-      </p>
-      <div class="flex gap-3">
-        <a href="#services" class="text-[13px] font-semibold text-navy-900 bg-white hover:bg-navy-50 px-7 py-3 tracking-wide transition-colors">
-          事業内容
-        </a>
-        <a href="/contact/" class="text-[13px] font-semibold text-white border border-white/25 hover:border-white/50 px-7 py-3 tracking-wide transition-colors">
-          お問い合わせ
-        </a>
+  <!-- Background typography -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none">
+    <span class="font-sora text-[18vw] font-800 text-white/[0.025] leading-none tracking-tighter whitespace-nowrap">PRECISION</span>
+  </div>
+
+  <div class="relative z-10 max-w-[1440px] mx-auto px-6 lg:px-12 pb-20 lg:pb-28 w-full">
+    <div class="grid lg:grid-cols-12 gap-8 items-end">
+      <div class="lg:col-span-7">
+        <p class="sec-label sec-label-dark mb-6 reveal">TS Industry Co., Ltd.</p>
+        <h1 class="text-[2.25rem] sm:text-[3rem] lg:text-[3.75rem] font-black text-white leading-[1.15] tracking-tight mb-6 reveal reveal-d1">
+          精密な型と、<br>水の切断力。
+        </h1>
+        <p class="text-[15px] text-white/50 leading-[1.9] max-w-md mb-10 reveal reveal-d2">
+          1969年創業。独自の素材技術と加工ノウハウで、<br class="hidden sm:block">ものづくりの現場を支え続けています。
+        </p>
+        <div class="flex flex-wrap gap-3 reveal reveal-d3">
+          <a href="#services" class="btn-pill btn-white">事業を見る</a>
+          <a href="#contact" class="btn-pill btn-outline" style="color:#fff; border-color:rgba(255,255,255,0.2);">お問い合わせ</a>
+        </div>
+      </div>
+      <div class="lg:col-span-5 hidden lg:flex justify-end gap-12">
+        <div class="stat-line text-white reveal reveal-d2">
+          <p class="font-sora text-4xl font-700 mb-1">55+</p>
+          <p class="text-[12px] text-white/40">Years of Experience</p>
+        </div>
+        <div class="stat-line text-white reveal reveal-d3">
+          <p class="font-sora text-4xl font-700 mb-1">2</p>
+          <p class="text-[12px] text-white/40">Business Domains</p>
+        </div>
+        <div class="stat-line text-white reveal reveal-d4">
+          <p class="font-sora text-4xl font-700 mb-1">2</p>
+          <p class="text-[12px] text-white/40">Locations</p>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+    <span class="font-sora text-[9px] text-white/25 tracking-[0.25em] uppercase">Scroll</span>
+    <div class="w-px h-8 bg-gradient-to-b from-white/25 to-transparent"></div>
+  </div>
 </section>
 
-<!-- ========== INTRO ========== -->
-<section class="py-24 md:py-32">
-  <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-    <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-center fade-up">
-      <div>
-        <p class="text-[11px] font-semibold text-navy-400 tracking-[0.2em] uppercase mb-6 font-mono">About Us</p>
-        <h2 class="text-2xl md:text-[1.75rem] font-bold text-navy-900 leading-snug mb-6">
+<!-- ===== INTRO ===== -->
+<section class="py-28 lg:py-36">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="grid lg:grid-cols-2 gap-16 lg:gap-28 items-center">
+      <div class="reveal">
+        <p class="sec-label mb-6">About</p>
+        <h2 class="text-2xl lg:text-[1.85rem] font-black text-dark leading-snug mb-8">
           困ったときの、相談先。
         </h2>
-        <p class="text-[15px] text-navy-500 leading-[1.9] mb-4">
+        <p class="text-[14.5px] text-sub leading-[2] mb-5">
           株式会社ティーエスインダストリーは、トムソン型（抜き型・木型）の設計・製造と、大型ウォータージェット加工を行う名古屋の専門メーカーです。
         </p>
-        <p class="text-[15px] text-navy-500 leading-[1.9]">
-          独自開発のCAブレードをはじめとする素材技術と、30年以上の経験。お客様の現場での使いやすさと作業効率を第一に考え、他社製の型のトラブル対応も承っています。
+        <p class="text-[14.5px] text-sub leading-[2] mb-10">
+          独自開発のCAブレードをはじめとする素材技術と、半世紀を超える経験。お客様の現場での使いやすさと作業効率を第一に考え、他社製の型のトラブル対応も承っています。
         </p>
+        <a href="#about" class="btn-pill btn-outline">詳しく見る</a>
       </div>
-      <div class="relative">
-        <div class="aspect-[4/3] overflow-hidden bg-navy-100">
-          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop&q=80" alt="加工現場"
+      <div class="reveal reveal-d2">
+        <div class="relative corner-marks">
+          <div class="aspect-[4/3] overflow-hidden bg-warm">
+            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=600&fit=crop&q=80" alt="加工現場"
+                 class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MARQUEE ===== -->
+<div class="overflow-hidden py-8 border-y border-line">
+  <div class="flex whitespace-nowrap marquee-track">
+    <span class="font-sora text-[13px] font-500 text-mute/40 tracking-[0.15em] uppercase px-10">Die Board Manufacturing</span>
+    <span class="font-sora text-[13px] font-500 text-accent/30 tracking-[0.15em] px-10">/</span>
+    <span class="font-sora text-[13px] font-500 text-mute/40 tracking-[0.15em] uppercase px-10">Water Jet Cutting</span>
+    <span class="font-sora text-[13px] font-500 text-accent/30 tracking-[0.15em] px-10">/</span>
+    <span class="font-sora text-[13px] font-500 text-mute/40 tracking-[0.15em] uppercase px-10">Laser Processing</span>
+    <span class="font-sora text-[13px] font-500 text-accent/30 tracking-[0.15em] px-10">/</span>
+    <span class="font-sora text-[13px] font-500 text-mute/40 tracking-[0.15em] uppercase px-10">CA Blade Technology</span>
+    <span class="font-sora text-[13px] font-500 text-accent/30 tracking-[0.15em] px-10">/</span>
+    <span class="font-sora text-[13px] font-500 text-mute/40 tracking-[0.15em] uppercase px-10">Un-Affect System</span>
+    <span class="font-sora text-[13px] font-500 text-accent/30 tracking-[0.15em] px-10">/</span>
+    <span class="font-sora text-[13px] font-500 text-mute/40 tracking-[0.15em] uppercase px-10">Machining Center</span>
+    <span class="font-sora text-[13px] font-500 text-accent/30 tracking-[0.15em] px-10">/</span>
+    <!-- duplicate for seamless loop -->
+    <span class="font-sora text-[13px] font-500 text-mute/40 tracking-[0.15em] uppercase px-10">Die Board Manufacturing</span>
+    <span class="font-sora text-[13px] font-500 text-accent/30 tracking-[0.15em] px-10">/</span>
+    <span class="font-sora text-[13px] font-500 text-mute/40 tracking-[0.15em] uppercase px-10">Water Jet Cutting</span>
+    <span class="font-sora text-[13px] font-500 text-accent/30 tracking-[0.15em] px-10">/</span>
+    <span class="font-sora text-[13px] font-500 text-mute/40 tracking-[0.15em] uppercase px-10">Laser Processing</span>
+    <span class="font-sora text-[13px] font-500 text-accent/30 tracking-[0.15em] px-10">/</span>
+    <span class="font-sora text-[13px] font-500 text-mute/40 tracking-[0.15em] uppercase px-10">CA Blade Technology</span>
+    <span class="font-sora text-[13px] font-500 text-accent/30 tracking-[0.15em] px-10">/</span>
+    <span class="font-sora text-[13px] font-500 text-mute/40 tracking-[0.15em] uppercase px-10">Un-Affect System</span>
+    <span class="font-sora text-[13px] font-500 text-accent/30 tracking-[0.15em] px-10">/</span>
+    <span class="font-sora text-[13px] font-500 text-mute/40 tracking-[0.15em] uppercase px-10">Machining Center</span>
+    <span class="font-sora text-[13px] font-500 text-accent/30 tracking-[0.15em] px-10">/</span>
+  </div>
+</div>
+
+<!-- ===== SERVICES ===== -->
+<section id="services" class="py-28 lg:py-36 bg-dark text-white">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="mb-20 reveal">
+      <p class="sec-label sec-label-dark mb-5">Services</p>
+      <h2 class="text-2xl lg:text-3xl font-black leading-snug">2つの事業</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-6 reveal reveal-d1">
+      <!-- Die Board -->
+      <a href="#" class="svc-card group block rounded-2xl">
+        <div class="relative aspect-[3/2] overflow-hidden rounded-2xl">
+          <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebb6d51?w=900&h=600&fit=crop&q=80" alt="抜き型・木型"
                class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-dieboard/90 via-dieboard/40 to-transparent"></div>
+          <div class="absolute top-6 left-6">
+            <span class="font-sora text-[11px] font-500 tracking-[0.15em] uppercase text-white/40">01</span>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-7 lg:p-9">
+            <p class="font-sora text-[10px] font-500 tracking-[0.2em] uppercase text-white/40 mb-2">Die Board Manufacturing</p>
+            <h3 class="text-xl lg:text-2xl font-bold mb-3">抜き型・木型</h3>
+            <p class="text-[13px] text-white/50 leading-[1.8] mb-5 max-w-sm">
+              紙器・段ボール・クリアケース用の型を設計製造。独自素材CAブレードとアン・アフェクトシステムにより、ムラ取り作業を大幅に削減します。
+            </p>
+            <div class="flex flex-wrap gap-2 mb-5">
+              <span class="text-[10px] text-white/35 border border-white/10 rounded-full px-3 py-1 font-sora">CAブレード</span>
+              <span class="text-[10px] text-white/35 border border-white/10 rounded-full px-3 py-1 font-sora">アン・アフェクト</span>
+              <span class="text-[10px] text-white/35 border border-white/10 rounded-full px-3 py-1 font-sora">DP2面板</span>
+              <span class="text-[10px] text-white/35 border border-white/10 rounded-full px-3 py-1 font-sora">点字</span>
+            </div>
+            <span class="font-sora text-[12px] font-500 text-white/60 group-hover:text-white tracking-wide inline-flex items-center gap-2 transition-colors">
+              View Details
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
         </div>
+      </a>
+
+      <!-- Water Jet -->
+      <a href="#" class="svc-card group block rounded-2xl">
+        <div class="relative aspect-[3/2] overflow-hidden rounded-2xl">
+          <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=900&h=600&fit=crop&q=80" alt="ウォータージェット加工"
+               class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-accent/90 via-accent/40 to-transparent"></div>
+          <div class="absolute top-6 left-6">
+            <span class="font-sora text-[11px] font-500 tracking-[0.15em] uppercase text-white/40">02</span>
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-7 lg:p-9">
+            <p class="font-sora text-[10px] font-500 tracking-[0.2em] uppercase text-white/40 mb-2">Water Jet Cutting</p>
+            <h3 class="text-xl lg:text-2xl font-bold mb-3">ウォータージェット加工</h3>
+            <p class="text-[13px] text-white/50 leading-[1.8] mb-5 max-w-sm">
+              超高圧水流であらゆる素材を精密切断。熱影響がなく変質・変色ゼロ。金属、ガラス、石材、樹脂など幅広く対応。個人のお客様も歓迎。
+            </p>
+            <div class="flex flex-wrap gap-2 mb-5">
+              <span class="text-[10px] text-white/35 border border-white/10 rounded-full px-3 py-1 font-sora">金属</span>
+              <span class="text-[10px] text-white/35 border border-white/10 rounded-full px-3 py-1 font-sora">石材・タイル</span>
+              <span class="text-[10px] text-white/35 border border-white/10 rounded-full px-3 py-1 font-sora">ガラス</span>
+              <span class="text-[10px] text-white/35 border border-white/10 rounded-full px-3 py-1 font-sora">樹脂・ゴム</span>
+            </div>
+            <span class="font-sora text-[12px] font-500 text-white/60 group-hover:text-white tracking-wide inline-flex items-center gap-2 transition-colors">
+              View Details
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Additional services row -->
+    <div class="grid sm:grid-cols-3 gap-4 mt-6 reveal reveal-d2">
+      <div class="bg-white/[0.04] rounded-xl p-6 border border-white/[0.06] hover:border-white/10 transition-colors">
+        <p class="font-sora text-[10px] font-500 tracking-[0.2em] uppercase text-white/30 mb-3">03</p>
+        <h4 class="text-[15px] font-bold text-white/80 mb-2">レーザー加工</h4>
+        <p class="text-[12px] text-white/35 leading-[1.8]">ダイボード、金属、アクリル文字、ステンレス看板文字を高品質・短納期で加工。</p>
+      </div>
+      <div class="bg-white/[0.04] rounded-xl p-6 border border-white/[0.06] hover:border-white/10 transition-colors">
+        <p class="font-sora text-[10px] font-500 tracking-[0.2em] uppercase text-white/30 mb-3">04</p>
+        <h4 class="text-[15px] font-bold text-white/80 mb-2">機械加工</h4>
+        <p class="text-[12px] text-white/35 leading-[1.8]">マシニングセンタによる精密部品加工。自動車関連治具の製作にも対応。</p>
+      </div>
+      <div class="bg-white/[0.04] rounded-xl p-6 border border-white/[0.06] hover:border-white/10 transition-colors">
+        <p class="font-sora text-[10px] font-500 tracking-[0.2em] uppercase text-white/30 mb-3">05</p>
+        <h4 class="text-[15px] font-bold text-white/80 mb-2">ステンレス面板</h4>
+        <p class="text-[12px] text-white/35 leading-[1.8]">SUS304比で刃の食い込みが少なく、紙粉対策に効果的。各社打抜機に対応。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ========== 2事業分岐 ========== -->
-<section id="services" class="py-24 md:py-32 bg-navy-950 text-white">
-  <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-    <div class="mb-16 fade-up">
-      <p class="text-[11px] font-semibold text-navy-400 tracking-[0.2em] uppercase mb-4 font-mono">Services</p>
-      <h2 class="text-2xl md:text-3xl font-bold">2つの事業</h2>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-4 fade-up">
-      <!-- 抜き型・木型 -->
-      <a href="/dieboard/" class="group relative overflow-hidden block aspect-[4/3] md:aspect-auto">
-        <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&h=600&fit=crop&q=80" alt="抜き型・木型"
-             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-        <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10">
-          <p class="text-[10px] font-mono text-navy-300 tracking-[0.15em] uppercase mb-2">Die Board</p>
-          <h3 class="text-2xl md:text-3xl font-bold mb-3">抜き型・木型</h3>
-          <p class="text-sm text-white/60 leading-relaxed mb-4 max-w-sm">
-            独自素材CAブレードによる高精度な型製造。ムラ取り作業の大幅削減を実現。
-          </p>
-          <div class="flex flex-wrap gap-2 mb-5">
-            <span class="text-[10px] text-white/50 border border-white/15 px-2.5 py-1 font-mono">CAブレード</span>
-            <span class="text-[10px] text-white/50 border border-white/15 px-2.5 py-1 font-mono">アン・アフェクト</span>
-            <span class="text-[10px] text-white/50 border border-white/15 px-2.5 py-1 font-mono">DP2面板</span>
-          </div>
-          <span class="text-[13px] font-medium text-white/80 group-hover:text-white inline-flex items-center gap-2 transition-colors">
-            詳しく見る
-            <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-          </span>
-        </div>
-      </a>
-
-      <!-- ウォータージェット -->
-      <a href="/waterjet/" class="group relative overflow-hidden block aspect-[4/3] md:aspect-auto">
-        <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&h=600&fit=crop&q=80" alt="ウォータージェット加工"
-             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-        <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10">
-          <p class="text-[10px] font-mono text-navy-300 tracking-[0.15em] uppercase mb-2">Water Jet</p>
-          <h3 class="text-2xl md:text-3xl font-bold mb-3">ウォータージェット</h3>
-          <p class="text-sm text-white/60 leading-relaxed mb-4 max-w-sm">
-            超高圧水流による精密切断。熱影響ゼロで金属・石材・ガラスなど幅広い素材に対応。
-          </p>
-          <div class="flex flex-wrap gap-2 mb-5">
-            <span class="text-[10px] text-white/50 border border-white/15 px-2.5 py-1 font-mono">金属</span>
-            <span class="text-[10px] text-white/50 border border-white/15 px-2.5 py-1 font-mono">石材・タイル</span>
-            <span class="text-[10px] text-white/50 border border-white/15 px-2.5 py-1 font-mono">ガラス</span>
-            <span class="text-[10px] text-white/50 border border-white/15 px-2.5 py-1 font-mono">樹脂・ゴム</span>
-          </div>
-          <span class="text-[13px] font-medium text-white/80 group-hover:text-white inline-flex items-center gap-2 transition-colors">
-            詳しく見る
-            <span class="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-          </span>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ========== 独自技術 ========== -->
-<section class="py-24 md:py-32">
-  <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-    <div class="grid md:grid-cols-4 gap-12 md:gap-8 fade-up">
-      <div>
-        <p class="text-[11px] font-semibold text-navy-400 tracking-[0.2em] uppercase mb-4 font-mono">Technology</p>
-        <h2 class="text-xl font-bold text-navy-900 leading-snug">
-          独自の<br>素材技術
+<!-- ===== TECHNOLOGY ===== -->
+<section id="technology" class="py-28 lg:py-36">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="grid lg:grid-cols-12 gap-16 lg:gap-20">
+      <div class="lg:col-span-4 reveal">
+        <p class="sec-label mb-5">Technology</p>
+        <h2 class="text-2xl lg:text-[1.85rem] font-black text-dark leading-snug mb-6">
+          独自の技術力で、<br>現場の課題を解決する。
         </h2>
-      </div>
-      <!-- CAブレード -->
-      <div class="fade-up">
-        <div class="w-8 h-[2px] bg-navy-900 mb-6"></div>
-        <h3 class="text-[15px] font-bold text-navy-900 mb-3">CAブレード</h3>
-        <p class="text-[13px] text-navy-500 leading-[1.9]">
-          背部のミシン目形状が抜き圧で潰れ、切れムラを自動吸収。ムラ取り作業をほぼゼロに。
+        <p class="text-[14px] text-sub leading-[2]">
+          抜き型のムラ取り工程を劇的に改善する独自技術。特許取得済みのアン・アフェクトシステムをはじめ、長年の現場知見から生まれたソリューションを提供しています。
         </p>
       </div>
-      <!-- アン・アフェクトシステム -->
-      <div class="fade-up delay-1">
-        <div class="w-8 h-[2px] bg-navy-900 mb-6"></div>
-        <h3 class="text-[15px] font-bold text-navy-900 mb-3">アン・アフェクトシステム</h3>
-        <p class="text-[13px] text-navy-500 leading-[1.9]">
-          高低紙の貼り付けを効率化し、ムラ取り時間を50%削減。高品質基準の製品に最適。
-        </p>
-      </div>
-      <!-- DP2 -->
-      <div class="fade-up delay-2">
-        <div class="w-8 h-[2px] bg-navy-900 mb-6"></div>
-        <h3 class="text-[15px] font-bold text-navy-900 mb-3">DP2ステンレス面板</h3>
-        <p class="text-[13px] text-navy-500 leading-[1.9]">
-          刃先との硬度バランスが最適な硬質面板。紙粉を抑え、刃も面板も長持ち。
-        </p>
+      <div class="lg:col-span-8">
+        <div class="grid sm:grid-cols-2 gap-x-12 gap-y-14">
+          <div class="tech-item reveal reveal-d1">
+            <h3 class="text-[15px] font-bold text-dark mb-3">CAブレード</h3>
+            <p class="text-[13px] text-sub leading-[1.9]">
+              背部のミシン目形状が抜き圧で潰れ、切れムラを自動的に吸収。ムラ取り作業をほぼゼロに抑えます。
+            </p>
+          </div>
+          <div class="tech-item reveal reveal-d2">
+            <h3 class="text-[15px] font-bold text-dark mb-3">アン・アフェクトシステム</h3>
+            <p class="text-[13px] text-sub leading-[1.9]">
+              木型裏面の溝が高低紙の影響を局所化。ムラ取り時間を50%削減する特許取得済み技術です。
+            </p>
+          </div>
+          <div class="tech-item reveal reveal-d3">
+            <h3 class="text-[15px] font-bold text-dark mb-3">DP2ステンレス面板</h3>
+            <p class="text-[13px] text-sub leading-[1.9]">
+              刃先との硬度バランスが最適な硬質面板。紙粉を抑えながら、刃も面板も長持ちします。
+            </p>
+          </div>
+          <div class="tech-item reveal reveal-d4">
+            <h3 class="text-[15px] font-bold text-dark mb-3">カウンタープレート</h3>
+            <p class="text-[13px] text-sub leading-[1.9]">
+              特許出願中のシンプル構造。専用工具と繰り返し使用可能なピンで、低コストかつ高効率を実現。
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ========== CTA ========== -->
-<section class="py-20 md:py-24 bg-navy-50 border-y border-navy-100">
-  <div class="max-w-3xl mx-auto px-6 md:px-10 text-center fade-up">
-    <h2 class="text-xl md:text-2xl font-bold text-navy-900 mb-4">お気軽にご相談ください</h2>
-    <p class="text-[14px] text-navy-500 mb-8 leading-relaxed">
-      抜き型のトラブル対応から、ウォータージェット加工のお見積りまで。
-    </p>
-    <div class="flex flex-col sm:flex-row gap-3 justify-center">
-      <a href="/contact/" class="inline-flex items-center justify-center gap-2 bg-navy-900 hover:bg-navy-800 text-white text-[13px] font-semibold px-8 py-3.5 tracking-wide transition-colors">
-        <span class="material-symbols-outlined text-[16px]">mail</span>
-        お問い合わせ
+<!-- ===== WATERJET FEATURE ===== -->
+<section class="wj-gradient py-28 lg:py-36 text-white">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <div class="order-2 lg:order-1 reveal">
+        <p class="sec-label sec-label-dark mb-5">Water Jet</p>
+        <h2 class="text-2xl lg:text-[1.85rem] font-black leading-snug mb-8">
+          熱影響ゼロの、<br>精密切断。
+        </h2>
+        <p class="text-[14.5px] text-white/55 leading-[2] mb-5">
+          超高圧のジェット水流で金属、ガラス、セラミック、石材、プラスチック、複合材などほぼ全ての素材を自由な形状に切断できます。
+        </p>
+        <p class="text-[14.5px] text-white/55 leading-[2] mb-10">
+          レーザー加工と異なり熱が発生しないため、被加工物に変質・変色が一切ありません。有毒ガスや切断屑の飛散もなく、クリーンな加工環境を実現します。
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="#contact" class="btn-pill btn-white">お見積り依頼</a>
+          <span class="btn-pill text-white/40 border border-white/15 text-[12px]">無償テストカット対応</span>
+        </div>
+      </div>
+      <div class="order-1 lg:order-2 reveal reveal-d2">
+        <div class="relative corner-marks">
+          <div class="aspect-[4/3] overflow-hidden bg-accent/20">
+            <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&h=600&fit=crop&q=80" alt="ウォータージェット加工"
+                 class="w-full h-full object-cover opacity-90">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT / COMPANY ===== -->
+<section id="about" class="py-28 lg:py-36 bg-warm">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="mb-20 reveal">
+      <p class="sec-label mb-5">Company</p>
+      <h2 class="text-2xl lg:text-3xl font-black text-dark leading-snug">会社概要</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-16 lg:gap-24">
+      <div class="reveal">
+        <table class="w-full text-[14px]">
+          <tbody>
+            <tr class="border-b border-line">
+              <td class="py-4 text-mute font-sora text-[12px] tracking-wide w-36 align-top">社名</td>
+              <td class="py-4 text-dark">株式会社ティーエスインダストリー</td>
+            </tr>
+            <tr class="border-b border-line">
+              <td class="py-4 text-mute font-sora text-[12px] tracking-wide align-top">設立</td>
+              <td class="py-4 text-dark">昭和44年（1969年）</td>
+            </tr>
+            <tr class="border-b border-line">
+              <td class="py-4 text-mute font-sora text-[12px] tracking-wide align-top">資本金</td>
+              <td class="py-4 text-dark">1,000万円</td>
+            </tr>
+            <tr class="border-b border-line">
+              <td class="py-4 text-mute font-sora text-[12px] tracking-wide align-top">本社</td>
+              <td class="py-4 text-dark leading-relaxed">〒463-0023<br>愛知県名古屋市守山区今尻町2015番</td>
+            </tr>
+            <tr class="border-b border-line">
+              <td class="py-4 text-mute font-sora text-[12px] tracking-wide align-top">営業所</td>
+              <td class="py-4 text-dark leading-relaxed">〒243-0022<br>神奈川県厚木市酒井2087-10 メゾン三田102</td>
+            </tr>
+            <tr class="border-b border-line">
+              <td class="py-4 text-mute font-sora text-[12px] tracking-wide align-top">TEL</td>
+              <td class="py-4 text-dark">052-768-1922</td>
+            </tr>
+            <tr class="border-b border-line">
+              <td class="py-4 text-mute font-sora text-[12px] tracking-wide align-top">FAX</td>
+              <td class="py-4 text-dark">052-799-2091</td>
+            </tr>
+            <tr>
+              <td class="py-4 text-mute font-sora text-[12px] tracking-wide align-top">MAIL</td>
+              <td class="py-4 text-dark">info@ts-i.com</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="reveal reveal-d1">
+        <h3 class="text-[15px] font-bold text-dark mb-5">事業内容</h3>
+        <ul class="space-y-4 text-[14px] text-sub leading-[1.9]">
+          <li class="flex gap-3">
+            <span class="shrink-0 w-1 bg-accent rounded-full mt-1.5 mb-0.5"></span>
+            <span>トムソン型（抜き型・木型）の設計・製造 ― 紙器、段ボール、クリアケース</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="shrink-0 w-1 bg-accent rounded-full mt-1.5 mb-0.5"></span>
+            <span>ウォータージェット加工 ― 金属・石材・ガラス・複合材等あらゆる素材に対応</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="shrink-0 w-1 bg-accent rounded-full mt-1.5 mb-0.5"></span>
+            <span>レーザー加工 ― ダイボード、金属、アクリル文字、看板</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="shrink-0 w-1 bg-accent rounded-full mt-1.5 mb-0.5"></span>
+            <span>機械加工（マシニングセンタ）、自動車関連治具の製作</span>
+          </li>
+        </ul>
+
+        <div class="mt-12 bg-white rounded-xl p-8 border border-line">
+          <h4 class="font-sora text-[11px] font-500 tracking-[0.2em] uppercase text-mute mb-4">Patent & Certification</h4>
+          <ul class="space-y-3 text-[13px] text-sub">
+            <li>アン・アフェクトシステム（特許取得済 2012年）</li>
+            <li>カウンタープレート専用工具（特許出願中）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEWS ===== -->
+<section id="news" class="py-28 lg:py-36">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="flex items-end justify-between mb-14 reveal">
+      <div>
+        <p class="sec-label mb-5">News</p>
+        <h2 class="text-2xl lg:text-3xl font-black text-dark">お知らせ</h2>
+      </div>
+    </div>
+
+    <div class="divide-y divide-line reveal reveal-d1">
+      <a href="#" class="news-item flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-8 py-6 px-4 -mx-4 rounded-lg">
+        <time class="font-sora text-[12px] text-mute tracking-wide shrink-0">2024.01</time>
+        <span class="text-[10px] font-bold text-accent bg-accent-light rounded-full px-3 py-0.5 shrink-0 w-fit">お知らせ</span>
+        <p class="text-[14px] text-dark">ウェブサイトをリニューアルしました</p>
       </a>
-      <a href="tel:0527681922" class="inline-flex items-center justify-center gap-2 border border-navy-200 hover:border-navy-300 text-navy-700 text-[13px] font-semibold px-8 py-3.5 tracking-wide transition-colors">
-        <span class="material-symbols-outlined text-[16px]">call</span>
-        052-768-1922
+      <a href="#" class="news-item flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-8 py-6 px-4 -mx-4 rounded-lg">
+        <time class="font-sora text-[12px] text-mute tracking-wide shrink-0">2016.03</time>
+        <span class="text-[10px] font-bold text-accent bg-accent-light rounded-full px-3 py-0.5 shrink-0 w-fit">メディア</span>
+        <p class="text-[14px] text-dark">テレビ愛知「土曜コロシアム」にて弊社ウォータージェットが紹介されました</p>
       </a>
-      <a href="/recruit/" class="inline-flex items-center justify-center gap-2 border border-navy-200 hover:border-navy-300 text-navy-700 text-[13px] font-semibold px-8 py-3.5 tracking-wide transition-colors">
-        採用情報
+      <a href="#" class="news-item flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-8 py-6 px-4 -mx-4 rounded-lg">
+        <time class="font-sora text-[12px] text-mute tracking-wide shrink-0">2012.11</time>
+        <span class="text-[10px] font-bold text-accent bg-accent-light rounded-full px-3 py-0.5 shrink-0 w-fit">技術</span>
+        <p class="text-[14px] text-dark">アン・アフェクトシステムの特許を取得しました</p>
+      </a>
+      <a href="#" class="news-item flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-8 py-6 px-4 -mx-4 rounded-lg">
+        <time class="font-sora text-[12px] text-mute tracking-wide shrink-0">2010.03</time>
+        <span class="text-[10px] font-bold text-accent bg-accent-light rounded-full px-3 py-0.5 shrink-0 w-fit">メディア</span>
+        <p class="text-[14px] text-dark">フジテレビ「仰天！力学アカデミー」にて水の力として紹介されました</p>
       </a>
     </div>
   </div>
 </section>
 
-<!-- ========== FOOTER ========== -->
-<footer class="bg-navy-950 text-navy-400 py-16">
-  <div class="max-w-[1400px] mx-auto px-6 md:px-10">
-    <div class="grid md:grid-cols-12 gap-10 mb-14">
+<!-- ===== CTA ===== -->
+<section id="contact" class="py-20 lg:py-28">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="grid md:grid-cols-2 gap-5 reveal">
+      <!-- お問い合わせ -->
+      <div class="cta-block bg-dark rounded-2xl p-10 lg:p-14 text-white">
+        <p class="font-sora text-[11px] font-500 tracking-[0.2em] uppercase text-white/30 mb-5">Contact</p>
+        <h3 class="text-xl lg:text-2xl font-bold mb-4">お問い合わせ</h3>
+        <p class="text-[13.5px] text-white/45 leading-[1.9] mb-8">
+          抜き型のトラブル対応から、ウォータージェット加工のお見積り、無償テストカットのご依頼まで、お気軽にご連絡ください。
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a href="mailto:info@ts-i.com" class="btn-pill btn-white text-[12px]">メールで問い合わせ</a>
+          <a href="tel:0527681922" class="btn-pill text-white/60 border border-white/15 text-[12px] hover:border-white/30 transition-colors">TEL 052-768-1922</a>
+        </div>
+      </div>
+      <!-- 採用 -->
+      <div class="cta-block wj-gradient rounded-2xl p-10 lg:p-14 text-white">
+        <p class="font-sora text-[11px] font-500 tracking-[0.2em] uppercase text-white/30 mb-5">Recruit</p>
+        <h3 class="text-xl lg:text-2xl font-bold mb-4">採用情報</h3>
+        <p class="text-[13.5px] text-white/45 leading-[1.9] mb-8">
+          ものづくりに真剣に向き合う仲間を募集しています。技術を磨きたい方、一緒に成長しませんか。
+        </p>
+        <a href="#" class="btn-pill btn-white text-[12px]">採用情報を見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="bg-dark text-white/40 pt-20 pb-8">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+    <div class="grid md:grid-cols-12 gap-12 mb-16">
       <div class="md:col-span-5">
-        <img src="assets/images/会社ロゴ 反転透過-450x100pix-300dpi.png" alt="TS Industry" class="h-7 mb-5 opacity-80">
-        <p class="text-[13px] leading-relaxed mb-4">株式会社ティーエスインダストリー</p>
-        <div class="text-[12px] space-y-3 text-navy-500">
+        <img src="assets/images/会社ロゴ 反転透過-450x100pix-300dpi.png" alt="TS Industry" class="h-6 mb-6 opacity-70">
+        <p class="text-[13px] mb-5 text-white/50">株式会社ティーエスインダストリー</p>
+        <div class="text-[12px] space-y-3 text-white/30 leading-relaxed">
           <p>
-            <span class="text-navy-600 text-[10px] tracking-wider uppercase font-mono">本社</span><br>
-            〒463-0023 愛知県名古屋市守山区今尻町2015
+            <span class="font-sora text-[9px] font-500 tracking-[0.2em] uppercase text-white/20 block mb-1">Head Office</span>
+            〒463-0023 愛知県名古屋市守山区今尻町2015番
           </p>
           <p>
-            <span class="text-navy-600 text-[10px] tracking-wider uppercase font-mono">神奈川営業所</span><br>
+            <span class="font-sora text-[9px] font-500 tracking-[0.2em] uppercase text-white/20 block mb-1">Kanagawa Office</span>
             〒243-0022 神奈川県厚木市酒井2087-10 メゾン三田102
           </p>
-          <p class="pt-1">TEL 052-768-1922 ／ MAIL data@ts-i.com</p>
+          <p class="pt-1">TEL 052-768-1922 / FAX 052-799-2091</p>
+          <p>info@ts-i.com</p>
         </div>
       </div>
       <div class="md:col-span-3 md:col-start-7">
-        <h4 class="text-[10px] font-semibold text-navy-500 tracking-[0.15em] uppercase mb-5 font-mono">サービス</h4>
+        <h4 class="font-sora text-[9px] font-500 tracking-[0.2em] uppercase text-white/20 mb-6">Services</h4>
         <ul class="space-y-3 text-[13px]">
-          <li><a href="/dieboard/" class="hover:text-white transition-colors">抜き型・木型</a></li>
-          <li><a href="/waterjet/" class="hover:text-white transition-colors">ウォータージェット</a></li>
-          <li><a href="/cablade/" class="hover:text-white transition-colors">CAブレード</a></li>
-          <li><a href="/dp2/" class="hover:text-white transition-colors">DP2面板</a></li>
+          <li><a href="#" class="hover:text-white/70 transition-colors">抜き型・木型</a></li>
+          <li><a href="#" class="hover:text-white/70 transition-colors">ウォータージェット</a></li>
+          <li><a href="#" class="hover:text-white/70 transition-colors">レーザー加工</a></li>
+          <li><a href="#" class="hover:text-white/70 transition-colors">CAブレード</a></li>
+          <li><a href="#" class="hover:text-white/70 transition-colors">DP2面板</a></li>
         </ul>
       </div>
       <div class="md:col-span-2">
-        <h4 class="text-[10px] font-semibold text-navy-500 tracking-[0.15em] uppercase mb-5 font-mono">企業情報</h4>
+        <h4 class="font-sora text-[9px] font-500 tracking-[0.2em] uppercase text-white/20 mb-6">Company</h4>
         <ul class="space-y-3 text-[13px]">
-          <li><a href="/about/" class="hover:text-white transition-colors">会社概要</a></li>
-          <li><a href="/recruit/" class="hover:text-white transition-colors">採用情報</a></li>
-          <li><a href="/news/" class="hover:text-white transition-colors">お知らせ</a></li>
-          <li><a href="/contact/" class="hover:text-white transition-colors">お問い合わせ</a></li>
+          <li><a href="#about" class="hover:text-white/70 transition-colors">会社概要</a></li>
+          <li><a href="#news" class="hover:text-white/70 transition-colors">お知らせ</a></li>
+          <li><a href="#" class="hover:text-white/70 transition-colors">採用情報</a></li>
+          <li><a href="#contact" class="hover:text-white/70 transition-colors">お問い合わせ</a></li>
         </ul>
       </div>
     </div>
-    <div class="border-t border-navy-800/50 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="text-[11px] text-navy-600 font-mono">&copy; 2025 TS Industry Co., Ltd.</p>
-      <a href="/privacy/" class="text-[11px] text-navy-600 hover:text-navy-400 transition-colors">プライバシーポリシー</a>
+    <div class="border-t border-white/[0.06] pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="font-sora text-[11px] text-white/20">&copy; 2025 TS Industry Co., Ltd.</p>
+      <div class="flex gap-6">
+        <a href="#" class="font-sora text-[11px] text-white/20 hover:text-white/40 transition-colors">Privacy Policy</a>
+        <a href="https://www.instagram.com/tsindustry_y" target="_blank" rel="noopener" class="font-sora text-[11px] text-white/20 hover:text-white/40 transition-colors">Instagram</a>
+      </div>
     </div>
   </div>
 </footer>
 
-<!-- ========== JS ========== -->
+<!-- ===== JS ===== -->
 <script>
-const header = document.getElementById('header');
+// Header scroll
+const hdr = document.getElementById('header');
 window.addEventListener('scroll', () => {
-  header.classList.toggle('header-scrolled', window.scrollY > 80);
+  hdr.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// Mobile menu
+document.getElementById('menuBtn').addEventListener('click', () => {
+  document.getElementById('mobMenu').classList.toggle('open');
 });
 
-document.getElementById('menu-toggle').addEventListener('click', () => {
-  document.getElementById('mobile-menu').classList.toggle('hidden');
+// Close mobile menu on link click
+document.querySelectorAll('#mobMenu a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('mobMenu').classList.remove('open');
+  });
 });
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+// Scroll reveal
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>

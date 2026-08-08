@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TS Industry — Design Explorations Index</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: #F4F2EC;
+    color: #111;
+    line-height: 1.7;
+    padding: 80px 40px 120px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1200px; margin: 0 auto; }
+  header { margin-bottom: 80px; max-width: 720px; }
+  header .pre {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: #777;
+    margin-bottom: 20px;
+  }
+  header h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 700;
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    margin-bottom: 16px;
+  }
+  header p { color: #555; font-size: 15px; max-width: 600px; line-height: 1.95; }
+
+  .meta-bar {
+    display: flex; gap: 24px;
+    padding: 16px 0;
+    border-top: 1px solid #D8D5CD;
+    border-bottom: 1px solid #D8D5CD;
+    margin-bottom: 64px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.16em;
+    color: #555; text-transform: uppercase;
+    flex-wrap: wrap;
+  }
+  .meta-bar b { color: #111; }
+
+  h2.group {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.24em;
+    text-transform: uppercase; color: #111;
+    margin: 48px 0 24px;
+    padding-bottom: 12px; border-bottom: 1px solid #111;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  @media (min-width: 880px) {
+    .grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid #D8D5CD;
+    overflow: hidden;
+    transition: border-color .25s, transform .25s;
+    text-decoration: none; color: inherit;
+    display: block;
+  }
+  .card:hover { border-color: #111; }
+  .card .swatch {
+    height: 200px;
+    display: flex;
+    align-items: end;
+    padding: 24px;
+    color: #fff;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .card .swatch.light { color: #111; }
+  .card .swatch.dark-navy { background: linear-gradient(135deg, #0B1224, #0F1A2E); }
+  .card .swatch.whitepaper { background: linear-gradient(135deg, #F8F7F2, #ECE9DF); }
+  .card .swatch.black { background: linear-gradient(135deg, #0A0A0A, #1A1A1A); }
+  .card .body {
+    padding: 28px;
+  }
+  .card .num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.22em;
+    color: #888; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .card h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 22px;
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+  .card .en {
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 16px;
+  }
+  .card p { color: #555; font-size: 14px; line-height: 1.85; }
+  .card .palette {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #E5E2D8;
+  }
+  .palette .chip {
+    width: 22px; height: 22px;
+    border: 1px solid #ddd;
+  }
+
+  .pending {
+    background: transparent;
+    border: 1px dashed #C0BBAB;
+    color: #888;
+  }
+  .pending .swatch {
+    background: repeating-linear-gradient(45deg, #ECE9DF, #ECE9DF 8px, #E5E2D8 8px, #E5E2D8 16px);
+    color: #888;
+  }
+  .pending .swatch span {
+    background: #fff; padding: 4px 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em;
+    color: #888; text-transform: uppercase;
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  footer.foot {
+    margin-top: 120px;
+    padding-top: 32px;
+    border-top: 1px solid #D8D5CD;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 0.18em;
+    color: #888; text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="pre">— TS Industry · Design Explorations Index</p>
+    <h1>10案探索の現状。</h1>
+    <p>ベーシックな白基調から見て、ダーク系を比較対象として並べる流れ。<br>下記から各案を開いて確認できます。AIデザインツール（Stitch / GPT image / Gemini）でも10案を順次生成中。</p>
+  </header>
+
+  <div class="meta-bar">
+    <span><b>04</b> implemented</span>
+    <span><b>06</b> pending</span>
+    <span><b>5</b> rule axes</span>
+    <span><b>20</b> point max</span>
+  </div>
+
+  <h2 class="group">— Light direction · 白基調から検討</h2>
+  <div class="grid">
+
+    <a class="card" href="04_technical_whitepaper/v1/claude_reference.html">
+      <div class="swatch whitepaper light">04. Technical Whitepaper</div>
+      <div class="body">
+        <p class="num">04 / Implemented · v1</p>
+        <h3>Technical Whitepaper</h3>
+        <p class="en">論文・技術白書スタイル。極めて静か、論文を読む感覚。</p>
+        <p>オフホワイト基調＋ヘアライン＋ナンバリング。アブストラクト風4項目、§01〜§05のセクションナンバリング、データシート風 Technology表。論文のような知性と落ち着き。</p>
+        <div class="palette">
+          <div class="chip" style="background:#F8F7F2;"></div>
+          <div class="chip" style="background:#111;"></div>
+          <div class="chip" style="background:#6B6B68;"></div>
+          <div class="chip" style="background:#D8D5CD;"></div>
+        </div>
+      </div>
+    </a>
+
+    <a class="card" href="10_quiet_showcase/v1/claude_reference.html">
+      <div class="swatch whitepaper light">10. Quiet Showcase</div>
+      <div class="body">
+        <p class="num">10 / Implemented · v1 · 写真入り</p>
+        <h3>Quiet Showcase</h3>
+        <p class="en">写真主役・白基調。フルブリードのヒーロー写真と大きな日本語タイポ。</p>
+        <p>各セクションに大きな写真と少しの文字だけ。読まずに「見て」分かるサイト。Picsumのダミー画像で実際に写真が入った姿を確認できる。木型・WJの実写真に差し替えれば一気に強くなる。</p>
+        <div class="palette">
+          <div class="chip" style="background:#FBFBFA;"></div>
+          <div class="chip" style="background:#0E0E0E;"></div>
+          <div class="chip" style="background:#6B6B68;"></div>
+          <div class="chip" style="background:#DCD8CE;"></div>
+        </div>
+      </div>
+    </a>
+
+    <div class="card pending">
+      <div class="swatch"><span>08 / pending</span></div>
+      <div class="body">
+        <p class="num">08 / Catalog Card</p>
+        <h3>Catalog Card（紙カタログのWeb版）</h3>
+        <p class="en">高級工業カタログ風。製品をオブジェとして扱う。</p>
+        <p>ウォームグレー紙＋ディープブルー。各製品をスペックシートのように配置。</p>
+      </div>
+    </div>
+
+    <div class="card pending">
+      <div class="swatch"><span>05 / pending</span></div>
+      <div class="body">
+        <p class="num">05 / Heritage Modern</p>
+        <h3>Heritage Modern（紙＋朱印アクセント）</h3>
+        <p class="en">紙のテクスチャと小さな朱印で和の精度感。</p>
+        <p>アイボリー紙＋朱印赤＋墨黒。明朝主役、かつ現代的なレイアウト。</p>
+      </div>
+    </div>
+
+    <div class="card pending">
+      <div class="swatch"><span>09 / pending</span></div>
+      <div class="body">
+        <p class="num">09 / Drafting Plan</p>
+        <h3>Drafting Plan（図面・断面表記）</h3>
+        <p class="en">エンジニアリング図面の引用。</p>
+        <p>紙白＋グラファイト＋寸法線アクセント。図面の読み心地をWebに。</p>
+      </div>
+    </div>
+
+  </div>
+
+  <h2 class="group">— Dark direction · ダーク系（対比として）</h2>
+  <div class="grid">
+
+    <a class="card" href="01_industrial_editorial/v1/claude_reference.html">
+      <div class="swatch dark-navy">01. Industrial Editorial</div>
+      <div class="body">
+        <p class="num">01 / Implemented · v1</p>
+        <h3>Industrial Editorial</h3>
+        <p class="en">編集記事の重量感。ダークネイビー＋オレンジ。</p>
+        <p>大きな日本語明朝＋編集レイアウト。ナンバリング・ヘアライン・キャプションでリズムを作り、技術力と落ち着きを両立。</p>
+        <div class="palette">
+          <div class="chip" style="background:#0B1224;"></div>
+          <div class="chip" style="background:#FF6B00;"></div>
+          <div class="chip" style="background:#E2E8F0;"></div>
+          <div class="chip" style="background:#1E293B;"></div>
+        </div>
+      </div>
+    </a>
+
+    <a class="card" href="02_precision_black/v1/claude_reference.html">
+      <div class="swatch black">02. Precision Black</div>
+      <div class="body">
+        <p class="num">02 / Implemented · v1</p>
+        <h3>Precision Black</h3>
+        <p class="en">黒一色×ギャラリー風。Awwwards的。</p>
+        <p>ピュアブラック＋白のみ。各セクション100vhの「写真と少しの文字」構成。Mincho B1の超巨大タイポで圧倒的存在感を出す。</p>
+        <div class="palette">
+          <div class="chip" style="background:#0A0A0A;"></div>
+          <div class="chip" style="background:#FFFFFF;"></div>
+          <div class="chip" style="background:#A8A8A8;"></div>
+          <div class="chip" style="background:#1F1F1F;"></div>
+        </div>
+      </div>
+    </a>
+
+    <div class="card pending">
+      <div class="swatch"><span>03 / pending</span></div>
+      <div class="body">
+        <p class="num">03 / Field Documentary</p>
+        <h3>Field Documentary（工場ドキュメンタリー誌）</h3>
+        <p class="en">Monocle的な編集設計。動画FV＋本文エッセイ。</p>
+        <p>チャコール＋朱赤。長文と人・現場の写真で「仕事を真摯にやっている会社」感を出す。</p>
+      </div>
+    </div>
+
+    <div class="card pending">
+      <div class="swatch"><span>06 / pending</span></div>
+      <div class="body">
+        <p class="num">06 / Steel & Concrete</p>
+        <h3>Steel & Concrete（鉄色フルブリード）</h3>
+        <p class="en">ブルータリスト的な重さ。素材で語る。</p>
+        <p>鉄色＋銀。素材の質感そのものを背景にして、超ヘビーな日本語ゴシックで圧す。</p>
+      </div>
+    </div>
+
+    <div class="card pending">
+      <div class="swatch"><span>07 / pending</span></div>
+      <div class="body">
+        <p class="num">07 / Spec Maximalism</p>
+        <h3>Spec Maximalism（数値主役）</h3>
+        <p class="en">「±0.01mm」のような数値が主役。</p>
+        <p>ダークネイビー＋サイアン。HRC・μm等のスペックを巨大タイポで前面に。</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="foot">
+    <p>TS Industry / Design Explorations · Updated 2026-04-27</p>
+  </footer>
+</div>
+</body>
+</html>
